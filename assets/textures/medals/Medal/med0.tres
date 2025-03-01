@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cnkvunohtp6kj"]
+
+[ext_resource type="Texture2D" uid="uid://b6ahocy6vs3g1" path="res://assets/textures/medals/Medal/medal8.png" id="1_piniq"]
+
+[resource]
+atlas = ExtResource("1_piniq")
+region = Rect2(375, 175, 130, 280)

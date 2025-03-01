@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://e2pu7qq2x8wn"]
+
+[ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="1_43vlw"]
+[ext_resource type="Script" path="res://scripts/instructions.gd" id="1_lash1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tnqs8"]
+font = ExtResource("1_43vlw")
+font_size = 40
+font_color = Color(0.301961, 0.396078, 1, 1)
+
+[node name="instructions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lash1")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 209.0
+offset_top = 123.0
+offset_right = 209.0
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.704518, 0.659495)
+
+[node name="Label" type="Label" parent="Panel"]
+z_index = 4096
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -190.0
+offset_top = 75.8156
+offset_right = 190.0
+offset_bottom = 135.816
+grow_horizontal = 2
+text = "INSTRUCTIONS:
+    w : up
+    a : left
+    s : down
+    d : right
+    space : shoot
+    bright light : EMP
+(EMP : weapon disabled)
+(NOT HEAVEN)"
+label_settings = SubResource("LabelSettings_tnqs8")
+
+[node name="close" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.5
+offset_right = 35.5
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "CLOSE"
+
+[node name="CheckButton" type="CheckButton" parent="Panel"]
+layout_mode = 0
+offset_left = 564.925
+offset_top = 42.4567
+offset_right = 746.925
+offset_bottom = 73.4567
+text = "Don't show again"
+
+[connection signal="pressed" from="Panel/close" to="." method="_on_close_pressed"]
+[connection signal="toggled" from="Panel/CheckButton" to="." method="_on_check_button_toggled"]

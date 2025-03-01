@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://o0rootanww70"]
+
+[ext_resource type="Texture2D" uid="uid://ds2t045gk58xm" path="res://assets/textures/medals/Medal/Medal1.png" id="1_6ulix"]
+
+[resource]
+atlas = ExtResource("1_6ulix")
+region = Rect2(365, 170, 150, 289)

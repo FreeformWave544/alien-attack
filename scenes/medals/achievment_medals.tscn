@@ -1,0 +1,60 @@
+[gd_scene load_steps=13 format=3 uid="uid://dmapbxqkr8nbo"]
+
+[ext_resource type="Texture2D" uid="uid://cnkvunohtp6kj" path="res://assets/textures/medals/Medal/med0.tres" id="1_0sfhk"]
+[ext_resource type="Texture2D" uid="uid://cum5chlmp6m1o" path="res://assets/textures/medals/Medal/med1.tres" id="1_md74u"]
+[ext_resource type="Texture2D" uid="uid://o0rootanww70" path="res://assets/textures/medals/Medal/med2.tres" id="2_xhrck"]
+[ext_resource type="Texture2D" uid="uid://bau5oygtfustu" path="res://assets/textures/medals/Medal/med3.tres" id="3_5h4ec"]
+[ext_resource type="Texture2D" uid="uid://dsk6r77k61ss" path="res://assets/textures/medals/Medal/med4.tres" id="4_xqnnm"]
+[ext_resource type="Texture2D" uid="uid://8ufiwvmwh24j" path="res://assets/textures/medals/Medal/med5.tres" id="5_7wleu"]
+[ext_resource type="Texture2D" uid="uid://clc8p3j0clabf" path="res://assets/textures/medals/Medal/med6.tres" id="6_afq5i"]
+[ext_resource type="Texture2D" uid="uid://cahx2oocfrfro" path="res://assets/textures/medals/Medal/med7.tres" id="7_x8paj"]
+[ext_resource type="Texture2D" uid="uid://dcaadv83imy18" path="res://assets/textures/medals/Medal/med8.tres" id="8_e3hg1"]
+[ext_resource type="Texture2D" uid="uid://y35m2wm54ib" path="res://assets/textures/medals/Medal/med9.tres" id="9_ypwp1"]
+[ext_resource type="Texture2D" uid="uid://b6ahocy6vs3g1" path="res://assets/textures/medals/Medal/medal8.png" id="11_j2a1t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oonvr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0sfhk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_md74u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5h4ec")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xqnnm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7wleu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_afq5i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_x8paj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_e3hg1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ypwp1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_xhrck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_j2a1t")
+}],
+"loop": false,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="achievmentMedals" type="AnimatedSprite2D"]
+scale = Vector2(0.518, 0.518)
+sprite_frames = SubResource("SpriteFrames_oonvr")
+frame = 4
+frame_progress = 0.385877

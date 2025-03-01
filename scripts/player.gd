@@ -1,0 +1,80 @@
+extends CharacterBody2D
+
+signal took_damage
+
+var rocket_scene = preload("res://scenes/rocket.tscn")
+
+@onready var laser = $Laser
+@export var speed = 300
+@onready var rocket_container = $RocketContainer
+@onready var timer = $TextureProgressBar/Timer
+@onready var easyview = $easyview
+var fade_speed = 1.5
+var fading_in = 0
+
+func _ready():
+	easyview.modulate.a = 0.0
+	$plo.visible = false
+	$plo.process_mode = Node.PROCESS_MODE_ALWAYS
+
+func _process(delta):
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
+	if Global.difficil == "easy":
+		if fading_in == 0:
+			start_fade_in()
+	if fading_in == 1:
+		easyview.modulate.a = min(easyview.modulate.a + (delta * fade_speed), 1.0)
+		if easyview.modulate.a >= 1.0:
+			start_fade_out()
+	elif fading_in == -1:
+		easyview.modulate.a = max(easyview.modulate.a - (delta * (fade_speed+(fade_speed * 0.5))), 0.0)
+		if easyview.modulate.a <= 0.0:
+			start_fade_in()
+	if Global.achieveSoundPlay == true:
+		$RocketContainer/achieve.play()
+		Global.achieveSoundPlay = false
+
+func start_fade_in():
+	fading_in = 1
+
+func start_fade_out():
+	fading_in = -1
+
+func _physics_process(delta):
+	velocity = Vector2(0,0)
+	if Input.is_action_pressed("move_right"):
+		velocity.x = speed
+	if Input.is_action_pressed("move_left"):
+		velocity.x = -speed
+	if Input.is_action_pressed("move_up"):
+		velocity.y = -speed
+	if Input.is_action_pressed("move_down"):
+		velocity.y = speed
+	move_and_slide()
+	var screen_size = get_viewport_rect().size
+	global_position = global_position.clamp(Vector2(0,0), screen_size)
+
+func shoot():
+	if timer.time_left == 0 and Global.canFire:
+		var rocket_instance = rocket_scene.instantiate()
+		rocket_container.add_child(rocket_instance)
+		rocket_instance.global_position = global_position
+		rocket_instance.global_position.x += 80
+		timer.wait_time = randf_range(0.001, 1.666)
+		timer.one_shot = true
+		timer.start()
+		laser.play()
+
+func take_damage():
+	Global.TakeLIVES += 1
+
+func die():
+	Global.died = true
+	$Sprite2D.visible = false
+	$Flame.visible = false
+	$TextureProgressBar.visible = false
+	$plo.visible = true
+	$plo.scale = Vector2(4,4)
+	$plo.play("default")
+	await get_tree().create_timer(1).timeout

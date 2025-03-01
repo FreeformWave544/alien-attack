@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://s537f77e2rtm"]
+
+[ext_resource type="Script" path="res://scripts/path_enemy.gd" id="1_cs5rq"]
+[ext_resource type="PackedScene" uid="uid://cr508ip5xp70n" path="res://scenes/enemy.tscn" id="2_6qokf"]
+[ext_resource type="Texture2D" uid="uid://c5fn40lr0b7a6" path="res://assets/textures/enemy_ship_2.png" id="3_un7k8"]
+
+[sub_resource type="Curve2D" id="Curve2D_ekocy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -365, 652, 67.8823, 162.635, -67.8823, -162.635, 319, 619, 161.22, 65.0538, -161.22, -65.0538, 731, 250, -255.973, -4.24264, 255.973, 4.24264, 900, 39, -72.1249, 1.41421, 72.1249, -1.41421, 1214, 120, 0, 0, 0, 0, 1414, 62)
+}
+point_count = 6
+
+[node name="PathEnemy" type="Path2D" groups=["enemies"]]
+position = Vector2(-187, -31)
+curve = SubResource("Curve2D_ekocy")
+script = ExtResource("1_cs5rq")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(1414, 62.0001)
+rotation = -0.282297
+progress = 2339.56
+loop = false
+
+[node name="Enemy" parent="PathFollow2D" groups=["path"] instance=ExtResource("2_6qokf")]
+position = Vector2(0.000244141, 0.000244141)
+speed = 0
+
+[node name="Sprite2D" parent="PathFollow2D/Enemy" index="0"]
+texture = ExtResource("3_un7k8")
+
+[node name="CollisionShape2D2" parent="PathFollow2D/Enemy" index="2"]
+position = Vector2(70.88, -0.266132)
+
+[node name="CollisionShape2D3" parent="PathFollow2D/Enemy" index="3"]
+position = Vector2(-74.4425, -1.80855)
+
+[node name="EnemyHitSound" parent="PathFollow2D/Enemy" index="4"]
+mix_target = 1
+max_polyphony = 100
+playback_type = 1
+
+[connection signal="body_entered" from="PathFollow2D/Enemy" to="." method="_on_pathenemy_body_entered"]
+
+[editable path="PathFollow2D/Enemy"]

@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://dawhatyahksno"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_3s0o3"]
+[ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="1_l86pj"]
+[ext_resource type="Texture2D" uid="uid://ceo1vurpjrr5c" path="res://assets/textures/orb.png" id="3_e24br"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ltp1u"]
+font = ExtResource("1_l86pj")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_f045y"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_kp53f"]
+font = ExtResource("1_l86pj")
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_n3we0"]
+font_size = 25
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3s0o3")
+
+[node name="Difficulty" type="Label" parent="."]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 83.0
+offset_right = 209.0
+offset_bottom = 113.0
+label_settings = SubResource("LabelSettings_ltp1u")
+
+[node name="Lives" type="Label" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 71.0
+offset_right = 130.0
+offset_bottom = 140.0
+text = "3"
+label_settings = SubResource("LabelSettings_f045y")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 375.0
+offset_bottom = 89.0
+text = "SCORE: 9999"
+label_settings = SubResource("LabelSettings_kp53f")
+
+[node name="X" type="Label" parent="."]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 89.0
+offset_right = 108.0
+offset_bottom = 124.0
+text = "X"
+label_settings = SubResource("LabelSettings_n3we0")
+
+[node name="Life" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 83.0
+offset_right = 141.0
+offset_bottom = 201.0
+scale = Vector2(0.441721, 0.441721)
+texture = ExtResource("3_e24br")

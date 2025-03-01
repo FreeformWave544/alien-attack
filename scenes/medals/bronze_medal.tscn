@@ -1,0 +1,67 @@
+[gd_scene load_steps=15 format=3 uid="uid://t32krpqnaimh"]
+
+[ext_resource type="Texture2D" uid="uid://i7vkn2dsmx7t" path="res://assets/textures/medals/Bronze01.png" id="1_k7v4o"]
+[ext_resource type="Texture2D" uid="uid://c84evgplcjhfi" path="res://assets/textures/medals/Bronze02.png" id="2_ddq26"]
+[ext_resource type="Texture2D" uid="uid://bat6ic18rb7ni" path="res://assets/textures/medals/Bronze03.png" id="3_7ndq8"]
+[ext_resource type="Texture2D" uid="uid://c00vjbryl3dt6" path="res://assets/textures/medals/Bronze04.png" id="4_flc1j"]
+[ext_resource type="Texture2D" uid="uid://do6km8copoqii" path="res://assets/textures/medals/Bronze05.png" id="5_gimo4"]
+[ext_resource type="Texture2D" uid="uid://chujsk0ds6la5" path="res://assets/textures/medals/Bronze06.png" id="6_52wot"]
+[ext_resource type="Texture2D" uid="uid://bysrh3pl74iop" path="res://assets/textures/medals/Bronze07.png" id="7_y1puc"]
+[ext_resource type="Texture2D" uid="uid://btp42hg4qgaxh" path="res://assets/textures/medals/Bronze08.png" id="8_shulw"]
+[ext_resource type="Texture2D" uid="uid://cpb3kebdaugsw" path="res://assets/textures/medals/Bronze09.png" id="9_onyuh"]
+[ext_resource type="Texture2D" uid="uid://ci8v3n7xc4vto" path="res://assets/textures/medals/Bronze10.png" id="10_ulihe"]
+[ext_resource type="Texture2D" uid="uid://dt8yg0ujt7ufj" path="res://assets/textures/medals/Bronze11.png" id="11_8dobl"]
+[ext_resource type="Texture2D" uid="uid://dwc0k8dvocmc3" path="res://assets/textures/medals/Bronze12.png" id="12_ohf0u"]
+[ext_resource type="Texture2D" uid="uid://cojas3ovnbm4r" path="res://assets/textures/medals/Bronze13.png" id="13_yyjdr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a17ks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_k7v4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ddq26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7ndq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_flc1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gimo4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_52wot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_y1puc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_shulw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_onyuh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ulihe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_8dobl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ohf0u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_yyjdr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="bronze_medal" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_a17ks")
+autoplay = "default"
+frame_progress = 0.771941

@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://cuavi5rtlsrod"]
+
+[ext_resource type="Script" path="res://scripts/boss.gd" id="1_5i3dt"]
+[ext_resource type="Texture2D" uid="uid://btvr5avr8e3kj" path="res://assets/textures/boss/boss2frame0-removebg-preview.png" id="2_5j6oc"]
+[ext_resource type="Texture2D" uid="uid://5psk488iwtuf" path="res://assets/textures/boss/boss2frame1-removebg-preview.png" id="3_kh7t4"]
+[ext_resource type="Texture2D" uid="uid://bmxnmyagwplh" path="res://assets/textures/boss/boss2frame2-removebg-preview.png" id="4_8oeqn"]
+[ext_resource type="Texture2D" uid="uid://ddcew85g22srv" path="res://assets/textures/boss/boss2frame3-removebg-preview.png" id="5_nu5km"]
+[ext_resource type="Texture2D" uid="uid://bwo1x648manws" path="res://assets/textures/boss/boss2Damage-removebg-preview.png" id="6_qdagj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w3tog"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5j6oc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kh7t4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8oeqn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nu5km")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qdagj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26xey"]
+radius = 57.0
+height = 526.0
+
+[node name="boss" type="Area2D" groups=["boss"]]
+scale = Vector2(1.34417, 1.34417)
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_5i3dt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_w3tog")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-10, 1)
+shape = SubResource("CapsuleShape2D_26xey")
+
+[node name="enemyContainer" type="Node" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 513.328
+offset_top = 276.007
+offset_right = 553.328
+offset_bottom = 316.007

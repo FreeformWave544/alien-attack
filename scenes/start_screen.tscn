@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://crp0e7iw2pqyb"]
+
+[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_w7hwu"]
+[ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="2_uhxfp"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="2_xxw77"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8082"]
+font = ExtResource("2_uhxfp")
+
+[node name="start_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+script = ExtResource("1_w7hwu")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1283.0
+offset_bottom = 721.0
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 120.0
+offset_right = 171.0
+offset_bottom = 128.0
+theme = ExtResource("2_xxw77")
+text = "Easy mode"
+
+[node name="Button2" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 223.0
+offset_right = 255.0
+offset_bottom = 254.0
+theme = ExtResource("2_xxw77")
+text = "Normal mode"
+
+[node name="Button3" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 335.0
+offset_right = 255.0
+offset_bottom = 366.0
+theme = ExtResource("2_xxw77")
+text = "Hard mode"
+
+[node name="HighScores" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 894.0
+offset_top = 82.0
+offset_right = 989.0
+offset_bottom = 105.0
+theme = ExtResource("2_xxw77")
+text = "High Scores:
+easy: 0
+normal: 0
+hard: 0"
+label_settings = SubResource("LabelSettings_l8082")
+
+[node name="achievements" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 859.0
+offset_top = 380.0
+offset_right = 1009.0
+offset_bottom = 420.0
+theme = ExtResource("2_xxw77")
+text = "ACHIEVEMENTS"
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Panel/Button3" to="." method="_hard_pressed"]
+[connection signal="pressed" from="Panel/achievements" to="." method="_on_achievements_pressed"]

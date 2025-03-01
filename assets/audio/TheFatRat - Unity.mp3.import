@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dks31byhxpa6n"
+path="res://.godot/imported/TheFatRat - Unity.mp3-b588b79d27064bc49ebfc755463895fb.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/TheFatRat - Unity.mp3"
+dest_files=["res://.godot/imported/TheFatRat - Unity.mp3-b588b79d27064bc49ebfc755463895fb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
