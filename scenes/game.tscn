@@ -62,7 +62,7 @@ theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/icon_pressed_color = Color(0.72, 0.0648, 0.0648, 1)
 theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
 action_mode = 0
-text = "helium"
+text = "W"
 
 [node name="down" type="Button" parent="mobile"]
 z_index = 4096
@@ -72,7 +72,7 @@ offset_right = 1069.0
 offset_bottom = 644.0
 scale = Vector2(3, 3)
 action_mode = 0
-text = "AAA"
+text = "S"
 
 [node name="left" type="Button" parent="mobile"]
 z_index = 4096
@@ -82,7 +82,7 @@ offset_right = 951.0
 offset_bottom = 642.0
 scale = Vector2(3, 3)
 action_mode = 0
-text = "CYA"
+text = "A"
 
 [node name="right" type="Button" parent="mobile"]
 z_index = 4096
@@ -92,7 +92,7 @@ offset_right = 1189.0
 offset_bottom = 645.0
 scale = Vector2(3, 3)
 action_mode = 0
-text = "run."
+text = "D"
 
 [node name="shoot" type="Button" parent="mobile"]
 z_index = 4096
@@ -102,7 +102,7 @@ offset_right = 913.0
 offset_bottom = 548.0
 scale = Vector2(3, 3)
 action_mode = 0
-text = "pew"
+text = "shoot"
 
 [node name="other pew" type="Button" parent="mobile"]
 z_index = 4096
@@ -112,7 +112,7 @@ offset_right = 120.0
 offset_bottom = 608.0
 scale = Vector2(2.1, 2.1)
 action_mode = 0
-text = "other pew"
+text = "other shoot"
 
 [node name="backgroudMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_ivqrr")

@@ -164,6 +164,7 @@ height = 92.0
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_j7rbi")
+speed = 460
 
 [node name="Flame" type="GPUParticles2D" parent="."]
 position = Vector2(-36, 0)

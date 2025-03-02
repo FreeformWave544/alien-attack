@@ -72,7 +72,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"explosion",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -104,13 +104,17 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_8i1n3"]
 radius = 86.0
 
-[node name="fireball" type="Area2D"]
+[node name="fireball" type="Area2D" groups=["fireball"]]
+collision_layer = 2
 script = ExtResource("1_rp7y2")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["fireball"]]
 sprite_frames = SubResource("SpriteFrames_80wbp")
 animation = &"explosion"
+frame_progress = 0.184718
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["fireball"]]
 position = Vector2(5, -8)
 shape = SubResource("CircleShape2D_8i1n3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

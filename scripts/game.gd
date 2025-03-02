@@ -25,7 +25,7 @@ func _ready():
 		apply_hard_mode()
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
 		$mobile.visible = true
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(123).timeout
 	var bossInstance = boss.instantiate()
 	add_child(bossInstance)
 	Global.isBoss = true
@@ -49,30 +49,32 @@ func _process(delta: float) -> void:
 func _physics_process(delta):
 	hud.set_score_label(score)
 	hud.set_lives(lives)
-	
 	if lives <= 0:
 		dead()
 	var direction = Vector2.ZERO
-	if Input.is_action_pressed("move_up"):
+	if move_up:
 		direction.y -= 1
-	if Input.is_action_pressed("move_down"):
+	if move_down:
 		direction.y += 1
-	if Input.is_action_pressed("move_left"):
+	if move_left:
 		direction.x -= 1
-	if Input.is_action_pressed("move_right"):
+	if move_right:
 		direction.x += 1
+
 	if direction.length() > 0:
 		direction = direction.normalized()
-	player.position += direction * 200 * delta 
+	player.position += direction * 200 * delta
 
 func _on_deathzone_area_entered(area):
-	if not area.is_in_group("dodge"):
+	if area.is_in_group("fireball"):
+		area.blow()
+	if not area.is_in_group("dodge") and not area.is_in_group("fireball"):
 		score -= 50
 		lives -= 1
 		if lives <= 0:
 			dead()
 			player.die()
-	if not area.is_in_group("path"):
+	if not area.is_in_group("path") and not area.is_in_group("fireball"):
 		area.queue_free()
 
 func _on_player_took_damage():

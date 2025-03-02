@@ -5,11 +5,15 @@ var achieveSoundPlay ; var died: bool = true ; var bossLives = 2 ; var instructi
 var high_scores = {
 	"easy": 0,
 	"norm": 0,
-	"hard": 0
+	"hard": 0,
+	"instructions": instructions,
+	"playername": player_name
 }
 
 func _ready() -> void:
 	load_achievements()
+	load_scores()
+	high_scores["instructions"] = instructions
 
 func save_scores():
 	var json_string = JSON.stringify(high_scores)
@@ -43,3 +47,21 @@ func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_PREDELETE:
 		save_scores()
 		save_achievements()
+
+func get_current_animation_length(animated_sprite: AnimatedSprite2D) -> float:
+	var current_animation_name = animated_sprite.animation
+	if current_animation_name == "":
+		print("No animation is currently playing.")
+		return -1.0
+		var sprite_frames = animated_sprite.sprite_frames
+		if sprite_frames and sprite_frames.has_animation(current_animation_name):
+			var num_frames = sprite_frames.get_frame_count(current_animation_name)
+			var anim_speed = animated_sprite.speed_scale * sprite_frames.get_animation_speed(current_animation_name)
+			if anim_speed > 0:
+				return num_frames / anim_speed
+		else:
+			print("Animation speed is zero or negative.")
+			return -1.0
+	else:
+		print("Animation not found: ", current_animation_name)
+		return -1.0

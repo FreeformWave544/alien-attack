@@ -43,7 +43,7 @@ func display_medal(score: int):
 		var bronze_instance = bronze.instantiate()
 		bronze_instance.global_position = medalPos
 		add_child(bronze_instance)
-	if score >= 12800:
+	if score >= 12800 and Global.difficil == "easy":
 		Global.achievements["HHigh"] = true
 
 func _on_retry_button_pressed() -> void:

@@ -7,12 +7,11 @@ func _ready() -> void:
 	HighScores.text = "High Scores:\n" + "   Easy: " + str(scores["easy"]) + "\n   Normal: " + str(scores["norm"]) + "\n   Hard: " + str(scores["hard"])
 	for key in scores:
 		if int(key) == 0:
-			if waffles:
-				if Global.instructions:
-					waffles = false
-					var instructions = load("res://scenes/instructions.tscn")
-					var instructionsInstance = instructions.instantiate()
-					$Panel.add_child(instructionsInstance)
+			if waffles and Global.instructions:
+				waffles = false
+				var instructions = load("res://scenes/instructions.tscn")
+				var instructionsInstance = instructions.instantiate()
+				$Panel.add_child(instructionsInstance)
 
 func _on_button_2_pressed() -> void:
 	Global.difficil = "norm"

@@ -10,13 +10,12 @@ func _ready():
 	attackLoop()
 	change_frame_loop()
 	start()
+	$"big boom".visible = false
 
 func start():
-	print(global_position)
 	while global_position.x != 1110:
 		global_position.x -= 10
-		await get_tree().create_timer(0.2).timeout
-		print(global_position)
+		await get_tree().create_timer(0.1).timeout
 
 func change_frame_loop():
 	while true:
@@ -64,12 +63,6 @@ func secondAttack():
 	add_child(fireball)
 	fireball.add_to_group("fireball")
 	fireball.animator.play("default")
-	fireballMove(fireball)
-
-func fireballMove(fireball):
-	while true:
-		fireball.global_position.x -= 40
-		await get_tree().create_timer(0.2).timeout
 
 func damaged():
 	sprite.frame = 5
@@ -98,12 +91,22 @@ func create_expanding_circle():
 	circle.queue_free()
 
 func died():
+	var smallBoomPos = Vector2(randi_range(-50,50),randi_range(-100,100))
+	var smallBoom = $"small boom"
 	for i in range(20):
 		sprite.frame = 5
+		smallBoomPos = Vector2(randi_range(-50,50),randi_range(-100,100))
+		smallBoom.position = smallBoomPos
+		smallBoom.play("default")
 		await get_tree().create_timer(0.3).timeout
+		smallBoom.position = Vector2(randi_range(-50,50),randi_range(-150,150))
+		smallBoom.play("default")
 		sprite.frame = 4
 	await get_tree().create_timer(1.8).timeout
-	create_expanding_circle()
+	$AnimatedSprite2D.visible = false
+	$"big boom".visible = true
+	$"big boom".play("default")
+	await get_tree().create_timer(1.6).timeout
 	queue_free()
 	Global.addScore += randi_range(7,20) * 100
 	Global.isBoss = false
