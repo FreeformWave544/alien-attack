@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgdsgxu8dqdg8"]
+
+[ext_resource type="Script" path="res://scripts/API.gd" id="1_ioxoe"]
+
+[node name="API_manager" type="Node"]
+script = ExtResource("1_ioxoe")
+
+[node name="scoresHTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="userHTTPRequest" type="HTTPRequest" parent="."]

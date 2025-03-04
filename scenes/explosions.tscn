@@ -1768,7 +1768,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fqca6")
 }],
-"loop": false,
+"loop": true,
 "name": &"new_animation_7",
 "speed": 5.0
 }, {
@@ -2318,8 +2318,8 @@ animations = [{
 
 [node name="explosions" type="AnimatedSprite2D"]
 texture_filter = 1
-position = Vector2(638, 362)
+position = Vector2(638, 363)
 scale = Vector2(9.00672, 9.1356)
 sprite_frames = SubResource("SpriteFrames_auis5")
-animation = &"new_animation_3"
-frame_progress = 0.25742
+animation = &"rainbow"
+frame_progress = 0.943191

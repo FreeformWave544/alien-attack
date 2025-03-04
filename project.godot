@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Alien Attack"
-run/main_scene="res://scenes/start_screen.tscn"
+run/main_scene="res://scenes/email_request.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.0350624, 0.139482, 0.269087, 1)
 boot_splash/image="res://assets/textures/player_ship.png"
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://scripts/global.gd"
+ApiManager="*res://scenes/api_manager.tscn"
 
 [display]
 
