@@ -1,6 +1,6 @@
-[gd_scene load_steps=45 format=3 uid="uid://cuavi5rtlsrod"]
+[gd_scene load_steps=47 format=3 uid="uid://cuavi5rtlsrod"]
 
-[ext_resource type="Script" path="res://scripts/boss.gd" id="1_5i3dt"]
+[ext_resource type="Script" uid="uid://bxm845enhpd1e" path="res://scripts/boss.gd" id="1_5i3dt"]
 [ext_resource type="Texture2D" uid="uid://btvr5avr8e3kj" path="res://assets/textures/boss/boss2frame0-removebg-preview.png" id="2_5j6oc"]
 [ext_resource type="Texture2D" uid="uid://5psk488iwtuf" path="res://assets/textures/boss/boss2frame1-removebg-preview.png" id="3_kh7t4"]
 [ext_resource type="Texture2D" uid="uid://bmxnmyagwplh" path="res://assets/textures/boss/boss2frame2-removebg-preview.png" id="4_8oeqn"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bwo1x648manws" path="res://assets/textures/boss/boss2Damage-removebg-preview.png" id="6_qdagj"]
 [ext_resource type="Texture2D" uid="uid://cxtvowby0fxxo" path="res://assets/textures/boss/Explosion Spriteanim Sheet Minipack/explosion (7).png" id="7_tu2g3"]
 [ext_resource type="Texture2D" uid="uid://dn0ku5dsyg6av" path="res://assets/textures/boss/Explosion Spriteanim Sheet Minipack/explosion (6).png" id="8_bbum7"]
+[ext_resource type="Shader" uid="uid://cigpwog1dmkwi" path="res://scripts/tractor.gdshader" id="9_shgo4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w3tog"]
 animations = [{
@@ -276,6 +277,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qilo5"]
+shader = ExtResource("9_shgo4")
+
 [node name="boss" type="Area2D" groups=["boss"]]
 scale = Vector2(1.34417, 1.34417)
 collision_layer = 16
@@ -306,3 +310,8 @@ sprite_frames = SubResource("SpriteFrames_8bcas")
 position = Vector2(541.598, 1.48791)
 scale = Vector2(1.39514, 1.39514)
 sprite_frames = SubResource("SpriteFrames_bd1n3")
+
+[node name="TractorBeam" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_qilo5")
+offset_right = 40.0
+offset_bottom = 40.0

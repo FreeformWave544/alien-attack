@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj7v0s6851uei"]
+
+[ext_resource type="Texture2D" uid="uid://difkq0ycx2iba" path="res://assets/textures/bg.png" id="1_uysaa"]
+[ext_resource type="Script" uid="uid://jci2b574lwoh" path="res://scripts/session_scores.gd" id="1_ybg0s"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="3_ughip"]
+
+[node name="sessionScores" type="Node2D"]
+script = ExtResource("1_ybg0s")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1291.0
+offset_bottom = 729.0
+texture = ExtResource("1_uysaa")
+stretch_mode = 1
+
+[node name="sessionScores" type="Label" parent="."]
+offset_left = 569.0
+offset_top = 98.0
+offset_right = 609.0
+offset_bottom = 121.0
+
+[node name="back" type="Button" parent="."]
+offset_left = 53.0
+offset_top = 21.0
+offset_right = 149.0
+offset_bottom = 74.0
+scale = Vector2(1.6295, 1.6295)
+theme = ExtResource("3_ughip")
+theme_override_colors/font_hover_pressed_color = Color(0.352941, 0.917647, 0.352941, 1)
+theme_override_colors/icon_hover_color = Color(0.310617, 0.310617, 0.310617, 1)
+theme_override_colors/icon_pressed_color = Color(0.937255, 0.937255, 0.937255, 0.639216)
+theme_override_colors/icon_normal_color = Color(0.461862, 1.05888e-06, 2.64719e-07, 1)
+theme_override_colors/font_color = Color(0, 0, 0.858824, 1)
+theme_override_colors/font_pressed_color = Color(0.313726, 0, 0, 1)
+text = "BACK"
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

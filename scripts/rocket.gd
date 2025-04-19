@@ -8,6 +8,7 @@ extends Area2D
 
 func _ready():
 	visible_notifier.connect("screen_exited", _on_screen_exited)
+	$EnemyHitSound.volume_db = Global.volume - 30
 
 func _physics_process(delta):
 	global_position.x += speed*delta
@@ -23,7 +24,7 @@ func _on_area_entered(area):
 				Global.pathKills += 1
 			if !Global.pathGot:
 				if Global.pathKills == 10:
-					Global.achievements["path"] = true
+					Global.achievements["pathKills"] = true
 					Global.achieveSoundPlay = true
 					Global.pathGot = true
 			else:

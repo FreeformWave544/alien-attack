@@ -16,6 +16,7 @@ var move_right = false
 var is_shooting = false
 
 func _ready():
+	print(Global.jwt_token , " HERE")
 	$mobile.visible = false
 	hud.set_score_label(score)
 	hud.set_lives(lives)
@@ -25,7 +26,7 @@ func _ready():
 		apply_hard_mode()
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
 		$mobile.visible = true
-	await get_tree().create_timer(123).timeout
+	await get_tree().create_timer(1).timeout
 	var bossInstance = boss.instantiate()
 	add_child(bossInstance)
 	Global.isBoss = true
@@ -36,15 +37,16 @@ var time_elapsed := 0.0
 func _process(delta: float) -> void:
 	time_elapsed += delta
 	Global.finalTime = float(time_elapsed)
-
 	if Global.addScore != 0:
 		score += Global.addScore
 		Global.addScore = 0
 		enemy_hit_sound.play()
-
 	if Global.TakeLIVES:
 		lives -= Global.TakeLIVES
 		Global.TakeLIVES = 0
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused = !get_tree().paused
+		$UI/paused.visible = !$UI/paused.visible
 
 func _physics_process(delta):
 	hud.set_score_label(score)

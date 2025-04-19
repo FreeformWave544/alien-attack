@@ -16,6 +16,7 @@ func _ready():
 	easyview.modulate.a = 0.0
 	$plo.visible = false
 	$plo.process_mode = Node.PROCESS_MODE_ALWAYS
+	$Laser.volume_db = Global.volume - 30
 
 func _process(delta):
 	if Input.is_action_just_pressed("shoot"):

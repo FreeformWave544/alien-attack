@@ -5,7 +5,7 @@ func _ready() -> void:
 	var waffles = true
 	var scores = await Global.load_scores()
 	while not Global.WaitForMe:
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.1).timeout
 		HighScores.text = "High Scores:\n" + "   Easy: " + str(scores["easy"]) + "\n   Normal: " + str(scores["norm"]) + "\n   Hard: " + str(scores["hard"])
 		for key in scores:
 			if int(key) == 0:
@@ -29,3 +29,10 @@ func _hard_pressed() -> void:
 
 func _on_achievements_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/achievements.tscn")
+
+
+func _on_session_scores_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/session_scores.tscn")
+
+func _on_volume_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/volumeMeter.tscn")

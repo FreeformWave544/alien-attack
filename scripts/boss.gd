@@ -3,14 +3,37 @@ extends Area2D
 @onready var fb = preload("res://scenes/fireball.tscn")
 @onready var enemy = preload("res://scenes/enemy.tscn")
 @onready var sprite = $AnimatedSprite2D
+@onready var tractor_beam = $TractorBeam
+@onready var player = get_tree().get_first_node_in_group("player")
 @onready var count = 0
 var attacking = false
+var tractor_beam_active = false
+var score_drain_timer = 0
+var tractor = 0
 
 func _ready():
 	attackLoop()
 	change_frame_loop()
 	start()
 	$"big boom".visible = false
+	tractor_beam.visible = false
+	tractor_beam.pivot_offset = Vector2(0, 100)
+
+func _process(delta):
+	if tractor_beam_active and player:
+		var start_pos = global_position - Vector2(0,-125)
+		var end_pos = player.global_position - Vector2(0,-125)
+		var dir = end_pos - start_pos
+		tractor_beam.global_position = start_pos
+		tractor_beam.size = Vector2(dir.length(), 200)
+		tractor_beam.rotation = dir.angle()
+		score_drain_timer += delta
+		if score_drain_timer == 5.0:
+			score_drain_timer = 0
+			tractor += 1
+			Global.addScore += 2
+			if tractor == 20:
+				tractor_beam_active = false
 
 func start():
 	while global_position.x != 1110:
@@ -31,30 +54,36 @@ func attackLoop():
 		await get_tree().create_timer(1).timeout
 		while not attacking:
 			await get_tree().create_timer(3).timeout
-			attack = randi_range(1,4)
+			attack = randi_range(1, 4)
 			if attack == 1:
 				print(attack)
 				firstAttack()
-			elif attack >= 2:
+			elif attack == 2:
 				print(attack)
 				secondAttack()
+			elif attack == 3:
+				print(attack)
+				activate_tractor_beam()
+			elif attack == 4:
+				print(attack)
+				thirdAttack()
 
 func firstAttack():
 	if Global.died:
 		attacking = true
 		create_expanding_circle()
 		for e in range(5):
-			var gap = randi_range(1,9)
+			var gap = randi_range(1, 9)
 			var otherGap = gap + 1
 			await get_tree().create_timer(4).timeout
-			var pos = Vector2(1000,50)
+			var pos = Vector2(1000, 50)
 			for i in range(13):
 				if i != gap and i != otherGap:
 					var enemyInstance = enemy.instantiate()
 					$enemyContainer.add_child(enemyInstance)
 					enemyInstance.global_position = pos
 					enemyInstance.add_to_group("dodge")
-				pos += Vector2(0,65)
+				pos += Vector2(0, 70)
 		attacking = false
 		Global.canFire = true
 
@@ -63,6 +92,36 @@ func secondAttack():
 	add_child(fireball)
 	fireball.add_to_group("fireball")
 	fireball.animator.play("default")
+	fireball.global_position = global_position
+	var viewport_height = get_viewport_rect().size.y
+	var top_bound = -20
+	var bottom_bound = viewport_height - 20
+	fireball.global_position.y = randi_range(top_bound, bottom_bound)
+
+func thirdAttack():
+	var fireball = fb.instantiate()
+	add_child(fireball)
+	fireball.add_to_group("fireball")
+	fireball.animator.play("default")
+	fireball.global_position = global_position
+	fireball.global_position.y = player.global_position.y
+
+func activate_tractor_beam():
+	if not player:
+		print("Error: Player node not found!")
+		return
+	tractor_beam.visible = true
+	tractor_beam_active = true
+	attacking = true
+	while tractor_beam_active:
+		tractor_beam.global_position = player.global_position
+		Global.addScore -= 50
+		await get_tree().create_timer(1).timeout
+
+func deactivate_tractor_beam():
+	tractor_beam.visible = false
+	tractor_beam_active = false
+	attacking = false
 
 func damaged():
 	sprite.frame = 5
@@ -91,15 +150,15 @@ func create_expanding_circle():
 	circle.queue_free()
 
 func died():
-	var smallBoomPos = Vector2(randi_range(-50,50),randi_range(-100,100))
+	var smallBoomPos = Vector2(randi_range(-50, 50), randi_range(-100, 100))
 	var smallBoom = $"small boom"
 	for i in range(20):
 		sprite.frame = 5
-		smallBoomPos = Vector2(randi_range(-50,50),randi_range(-100,100))
+		smallBoomPos = Vector2(randi_range(-50, 50), randi_range(-100, 100))
 		smallBoom.position = smallBoomPos
 		smallBoom.play("default")
 		await get_tree().create_timer(0.3).timeout
-		smallBoom.position = Vector2(randi_range(-50,50),randi_range(-150,150))
+		smallBoom.position = Vector2(randi_range(-50, 50), randi_range(-150, 150))
 		smallBoom.play("default")
 		sprite.frame = 4
 	await get_tree().create_timer(1.8).timeout
@@ -108,6 +167,6 @@ func died():
 	$"big boom".play("default")
 	await get_tree().create_timer(1.6).timeout
 	queue_free()
-	Global.addScore += randi_range(7,20) * 100
+	Global.addScore += randi_range(7, 20) * 100
 	Global.isBoss = false
 	Global.canFire = true

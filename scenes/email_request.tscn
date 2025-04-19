@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://de2br5ur4s6yj"]
 
-[ext_resource type="Script" path="res://scripts/email_request.gd" id="1_wbmop"]
+[ext_resource type="Script" uid="uid://bc5fgxntji2hm" path="res://scripts/email_request.gd" id="1_wbmop"]
 [ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="2_2jvnk"]
 
 [node name="EmailRequest" type="Control"]

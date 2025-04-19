@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cl44oadxbfooc"]
 
 [ext_resource type="Texture2D" uid="uid://do2b11by7k0ct" path="res://assets/textures/rocket.png" id="1_j2k63"]
-[ext_resource type="Script" path="res://scripts/rocket.gd" id="1_x0o42"]
+[ext_resource type="Script" uid="uid://bvsyvqttv20yv" path="res://scripts/rocket.gd" id="1_x0o42"]
 [ext_resource type="AudioStream" uid="uid://crx5syp1f34be" path="res://assets/audio/hit.wav" id="3_edp8f"]
 [ext_resource type="AudioStream" uid="uid://krq7lg23r6fg" path="res://assets/audio/portal_achievement.wav" id="4_il06e"]
 
@@ -55,8 +55,8 @@ position = Vector2(-23, 0)
 [node name="Flame" type="GPUParticles2D" parent="."]
 position = Vector2(-36, 0)
 amount = 50
-process_material = SubResource("ParticleProcessMaterial_iklx4")
 lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_iklx4")
 
 [node name="EnemyHitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_edp8f")

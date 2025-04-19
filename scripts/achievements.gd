@@ -3,16 +3,19 @@ extends Control
 var medals = preload("res://scenes/medals/achievment_medals.tscn")
 var achievements = Global.achievements
 
+	
+
 func _ready():
 	if Global.achievements:
 		for key in Global.achievements:
 			if Global.achievements[key]:
-				if key == "path":
+				if key == Constants.PATHKILLS:
 					achieve(1)
-				elif key == "EHigh":
+				elif key == Constants.EHIGH:
 					achieve(2)
-				elif key == "HHigh":
+				elif key == Constants.HHigh:
 					achieve(3)
+				
 	else:
 		$CanvasLayer/none.text = "No achievements :("
 
@@ -62,6 +65,6 @@ func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/start_screen.tscn")
 
 func _on_button_pressed() -> void:
-	Global.achievements["path"] = true
-	Global.achievements["HHigh"] = true
-	Global.achievements["EHigh"] = true
+	Global.achievements[Constants.PATHKILLS] = true
+	Global.achievements[Constants.HHIGH] = true
+	Global.achievements[Constants.EHIGH] = true

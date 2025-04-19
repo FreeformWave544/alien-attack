@@ -1,12 +1,12 @@
 [gd_scene load_steps=32 format=3 uid="uid://3j3rsm7d301i"]
 
 [ext_resource type="Texture2D" uid="uid://bv33a83ppemxc" path="res://assets/textures/player_ship.png" id="1_fc56a"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_j7rbi"]
+[ext_resource type="Script" uid="uid://iid5oew0vws6" path="res://scripts/player.gd" id="1_j7rbi"]
 [ext_resource type="Texture2D" uid="uid://xl1napo8ddw4" path="res://assets/textures/exp2_0.png" id="3_5w2wy"]
 [ext_resource type="AudioStream" uid="uid://krq7lg23r6fg" path="res://assets/audio/portal_achievement.wav" id="3_41682"]
 [ext_resource type="Texture2D" uid="uid://do2b11by7k0ct" path="res://assets/textures/rocket.png" id="3_dytrb"]
 [ext_resource type="AudioStream" uid="uid://cw1m4pf6n64tt" path="res://assets/audio/sfx_laser2.wav" id="3_xt5sl"]
-[ext_resource type="Script" path="res://scripts/texture_progress_bar.gd" id="4_x1wda"]
+[ext_resource type="Script" uid="uid://d200xkwd6o7lc" path="res://scripts/texture_progress_bar.gd" id="4_x1wda"]
 
 [sub_resource type="Gradient" id="Gradient_5bjal"]
 offsets = PackedFloat32Array(0, 0.221311, 0.713115, 0.959016)
@@ -160,7 +160,7 @@ height = 92.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lyayy"]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_j7rbi")
@@ -169,8 +169,8 @@ speed = 460
 [node name="Flame" type="GPUParticles2D" parent="."]
 position = Vector2(-36, 0)
 amount = 50
-process_material = SubResource("ParticleProcessMaterial_4sl7g")
 lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_4sl7g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708

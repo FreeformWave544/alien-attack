@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://crp0e7iw2pqyb"]
 
-[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_w7hwu"]
+[ext_resource type="Script" uid="uid://6duswwenvd4" path="res://scripts/start_screen.gd" id="1_w7hwu"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="2_uhxfp"]
 [ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="2_xxw77"]
 
@@ -71,7 +71,27 @@ offset_bottom = 420.0
 theme = ExtResource("2_xxw77")
 text = "ACHIEVEMENTS"
 
+[node name="sessionScores" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1095.0
+offset_top = 45.0
+offset_right = 1214.0
+offset_bottom = 76.0
+theme = ExtResource("2_xxw77")
+text = "session scores"
+
+[node name="volume" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 576.0
+offset_right = 641.0
+offset_bottom = 629.0
+theme = ExtResource("2_xxw77")
+text = "Volume Control"
+
 [connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Panel/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Panel/Button3" to="." method="_hard_pressed"]
 [connection signal="pressed" from="Panel/achievements" to="." method="_on_achievements_pressed"]
+[connection signal="pressed" from="Panel/sessionScores" to="." method="_on_session_scores_pressed"]
+[connection signal="pressed" from="Panel/volume" to="." method="_on_volume_pressed"]

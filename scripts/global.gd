@@ -2,14 +2,45 @@ extends Node
 
 var achievements: Dictionary = {} ;var isBoss: bool;var canFire: bool = true;var pathGot: bool ;var pathKills: int ;var score: int ;var TakeLIVES: int ;var addScore: int ;var player_name;var finalTime: float ;var difficil = "norm";var achieveSoundPlay;var died: bool = true ;var bossLives = 2 ;var instructions = true ;var WaitForMe: bool = false ;var url = "http://localhost:3000";var json_parser = JSON.new()
 var high_scores = {"easy": 0, "norm": 0, "hard": 0}
+var jwt_token: String = "" ; var sessionRuns: int = 0 ; var recentScores = {} ; var volume: int = 20
 
 func _ready() -> void:
-	load_achievements()
-	load_scores()
+	load_achievements();load_scores()
 	high_scores["instructions"] = instructions
+	await get_tree().create_timer(0.5).timeout
+	save_stuff("norm")
+	print(load_stuff("norm") , " < < < < < < < < <^_^><-_-><,_,><*_*><._.>loaded stuff... I think?")
+
+func save_stuff(difficil):
+	var config = ConfigFile.new()
+	config.set_value("player", "highscore", high_scores[difficil])
+	config.set_value("settings", "volume", volume)
+	config.save("user://settings.cfg")
+
+func load_stuff(difficil):
+	var config = ConfigFile.new()
+	var err = config.load("user://settings.cfg")
+	if err == OK:
+		var highscore = config.get_value("player", "highscore", 0)
+		var vol = config.get_value("settings", "volume", 1.0)
+		high_scores[difficil] = highscore
+		volume = vol
+		return str(highscore) + " " + str(vol)
+	else:
+		return "Failed to load config."
+
+func percent_change(new_value, old_value):
+	if old_value == 0:
+		return "N/A"
+	var change = (new_value - old_value) / old_value * 100
+	if change > 0:
+		return "+" + str(change) + "%"
+	elif change < 0:
+		return str(change) + "%"
+	else:
+		return "0%"
 
 func set_scores(scores_dict: Dictionary):
-	# Assuming the high_scores is a dictionary already initialized.
 	high_scores["easy"] = scores_dict["easy"]
 	high_scores["norm"] = scores_dict["norm"]
 	high_scores["hard"] = scores_dict["hard"]
@@ -19,6 +50,9 @@ func save_scores():
 
 func save_achievements():
 	JavaScriptBridge.eval("localStorage.setItem('achievements', '" + JSON.stringify(achievements) + "');")
+
+func save_JWT():
+	JavaScriptBridge.eval("localStorage.setItem('JWT', '" + JSON.stringify(jwt_token) + "');")
 
 func load_scores() -> Dictionary:
 	var json_string = JavaScriptBridge.eval("localStorage.getItem('high_scores');")

@@ -1,13 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://i6fgpb7bsg2s"]
+[gd_scene load_steps=12 format=3 uid="uid://i6fgpb7bsg2s"]
 
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_oynfb"]
+[ext_resource type="Script" uid="uid://c1cxi3mupblui" path="res://scripts/game.gd" id="1_oynfb"]
 [ext_resource type="Texture2D" uid="uid://difkq0ycx2iba" path="res://assets/textures/bg.png" id="1_r0ud3"]
 [ext_resource type="PackedScene" uid="uid://dawhatyahksno" path="res://scenes/hud.tscn" id="2_llffo"]
 [ext_resource type="PackedScene" uid="uid://3j3rsm7d301i" path="res://scenes/player.tscn" id="2_nevbj"]
+[ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="3_dp2ur"]
 [ext_resource type="PackedScene" uid="uid://dxfnwtsu6sbeb" path="res://scenes/enemy_spawner.tscn" id="4_e38v0"]
 [ext_resource type="AudioStream" uid="uid://crx5syp1f34be" path="res://assets/audio/hit.wav" id="6_qgucp"]
 [ext_resource type="AudioStream" uid="uid://cy414otvdtroq" path="res://assets/audio/explode.wav" id="7_1dl8s"]
 [ext_resource type="AudioStream" uid="uid://dks31byhxpa6n" path="res://assets/audio/TheFatRat - Unity.mp3" id="8_ivqrr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u604d"]
+font = ExtResource("3_dp2ur")
+font_size = 100
+font_color = Color(0.63, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3bnsa"]
 size = Vector2(102, 977)
@@ -18,6 +24,15 @@ script = ExtResource("1_oynfb")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UI" instance=ExtResource("2_llffo")]
+
+[node name="paused" type="Label" parent="UI"]
+visible = false
+offset_left = 386.0
+offset_top = 280.0
+offset_right = 836.0
+offset_bottom = 430.0
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_u604d")
 
 [node name="Background" type="TextureRect" parent="."]
 offset_right = 1291.0
@@ -58,9 +73,9 @@ offset_right = 1057.0
 offset_bottom = 551.0
 scale = Vector2(3, 3)
 theme_override_colors/font_hover_pressed_color = Color(0.86, 0.86, 0.86, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/icon_pressed_color = Color(0.72, 0.0648, 0.0648, 1)
 theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.72, 0.0648, 0.0648, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 action_mode = 0
 text = "W"
 
@@ -117,7 +132,6 @@ text = "other shoot"
 [node name="backgroudMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_ivqrr")
 volume_db = -30.0
-autoplay = true
 mix_target = 1
 
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]

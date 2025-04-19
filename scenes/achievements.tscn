@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cn7er3i3qdm1f"]
 
 [ext_resource type="Texture2D" uid="uid://difkq0ycx2iba" path="res://assets/textures/bg.png" id="1_th1eq"]
-[ext_resource type="Script" path="res://scripts/achievements.gd" id="1_wxmfe"]
+[ext_resource type="Script" uid="uid://brlujy8a7r4ae" path="res://scripts/achievements.gd" id="1_wxmfe"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="3_3gf36"]
 [ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="4_8m26q"]
 
@@ -43,11 +43,11 @@ offset_bottom = 74.0
 scale = Vector2(1.6295, 1.6295)
 theme = ExtResource("4_8m26q")
 theme_override_colors/font_hover_pressed_color = Color(0.352941, 0.917647, 0.352941, 1)
-theme_override_colors/font_pressed_color = Color(0.313726, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0.858824, 1)
-theme_override_colors/icon_normal_color = Color(0.461862, 1.05888e-06, 2.64719e-07, 1)
-theme_override_colors/icon_pressed_color = Color(0.937255, 0.937255, 0.937255, 0.639216)
 theme_override_colors/icon_hover_color = Color(0.310617, 0.310617, 0.310617, 1)
+theme_override_colors/icon_pressed_color = Color(0.937255, 0.937255, 0.937255, 0.639216)
+theme_override_colors/icon_normal_color = Color(0.461862, 1.05888e-06, 2.64719e-07, 1)
+theme_override_colors/font_color = Color(0, 0, 0.858824, 1)
+theme_override_colors/font_pressed_color = Color(0.313726, 0, 0, 1)
 text = "BACK"
 
 [node name="Button" type="Button" parent="CanvasLayer"]
@@ -57,15 +57,15 @@ offset_left = 947.0
 offset_top = 559.0
 offset_right = 955.0
 offset_bottom = 567.0
-theme_override_colors/font_focus_color = Color(0, 0, 0, 0)
-theme_override_colors/font_color = Color(0, 0, 0, 0)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0)
 theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 0)
 
 [node name="ach1" type="Label" parent="CanvasLayer"]
 offset_left = -204.0

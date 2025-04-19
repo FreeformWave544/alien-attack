@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://dldl1ojt4x82a"]
+
+[ext_resource type="Script" uid="uid://bpsr42jgtkp2n" path="res://scripts/volume_meter.gd" id="1_0ysv8"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="1_hvq7n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_id8xs"]
+bg_color = Color(0.74, 0, 0, 0.501961)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_2xit6"]
+font_size = 60
+
+[node name="GameOver" type="Control"]
+z_index = 4096
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0ysv8")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -297.0
+offset_top = -172.0
+offset_right = 297.0
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_id8xs")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = -172.0
+offset_right = 296.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hvq7n")
+text = "Volume
+Enter digits of PI"
+label_settings = SubResource("LabelSettings_2xit6")
+
+[node name="back" type="Button" parent="Panel"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+scale = Vector2(2.43036, 2.43036)
+text = "BACK"
+
+[node name="TextEdit" type="TextEdit" parent="Panel"]
+layout_mode = 0
+offset_left = -614.0
+offset_top = -280.0
+offset_right = -606.0
+offset_bottom = -272.0
+placeholder_text = "Enter PI"
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+scroll_smooth = true
+
+[connection signal="pressed" from="Panel/back" to="." method="_back"]

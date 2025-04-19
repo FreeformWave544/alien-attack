@@ -9,70 +9,52 @@ func _ready():
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	
-	# Connect signal for when the request is complete
-	http_request.connect("request_completed", Callable(self, "_on_request_completed"))
-	
-	# Example POST data
+	if not http_request.is_connected("request_completed", Callable(self, "_on_request_completed")):
+		http_request.connect("request_completed", Callable(self, "_on_request_completed"))
 	var post_data = {
 		"diff": "easy",
 		"score": 1916
 	}
-	
-	# Example: Send a POST request
 	send_request("POST", "/scores", post_data)
-	
-	# Example: Send a GET request
-	#send_request("GET", "/scores")
 
-var good = true
-
-# Function to send both GET and POST requests
 func send_request(method: String, endpoint: String, data: Dictionary = {}):
 	var request_url = Global.url + endpoint
 	if method.to_upper() == "POST":
-		# Convert the dictionary to a JSON string using JSON.stringify()
 		var json_data = JSON.stringify(data)
-		
-		# Prepare headers for POST request
 		var headers = ["Content-Type: application/json"]
-		
-		# Send POST request
-		var post_error = http_request.request(request_url, headers, HTTPClient.METHOD_POST, json_data)
-		if post_error != OK:
-			print("POST request failed with error: ", post_error)
-			good = false
+		var post_status = http_request.request(request_url, headers, HTTPClient.METHOD_POST, json_data)
+		print(post_status, " <- <- <- POST ERROR HERE, RIGHT THERE, YES THERE")
+		if post_status != OK:
+			print("POST request failed with error: ", post_status)
 	elif method == "GET":
-		# Send GET request
-		var get_error = http_request.request(request_url)
-		if get_error != OK:
-			print("GET request failed with error: ", get_error)
+		var get_status = http_request.request(request_url)
+		if get_status != OK:
+			print("GET request failed with error: ", get_status)
 
 func _on_request_completed(result, response_code, headers, body):
+	print("Response Code:", response_code)
+	var body_string = body.get_string_from_utf8()
+	print("Full Response Body:", body_string)
+	var data = JSON.parse_string(body_string)
 	if response_code == 200:
-		# Convert the body (PackedByteArray) to a String
-		var body_string = body.get_string_from_utf8()
-
-		# Decode the JSON response
-		var parse_result = json_parser.parse(body_string)
-		if parse_result == OK:
-			var data = json_parser.get_data()  # Get the array
-			print("Decoded JSON: ", data)
-			if typeof(data) == TYPE_ARRAY:
-				var scores_dict = {"easy": 0, "norm": 0, "hard": 0}
-				for item in data:
-					if item.has("diff") and item.has("score"):
-						var diff = item["diff"]
-						var score = item["score"]
-						if diff == "easy":
-							scores_dict["easy"] = score
-						elif diff == "medium":
-							scores_dict["norm"] = score
-						elif diff == "hard":
-							scores_dict["hard"] = score
-				Global.set_scores(scores_dict)
-			else:
-				print("Error: Expected an array, but got: ", typeof(data))
+		if data is Array:
+			print("Processing Scores Data...")
+			var scores_dict = {"easy": 0, "norm": 0, "hard": 0}
+			for item in data:
+				if item is Dictionary and item.has("diff") and item.has("score"):
+					var diff = item["diff"]
+					var score = item["score"]
+					if diff == "easy":
+						scores_dict["easy"] = score
+					elif diff == "medium":
+						scores_dict["norm"] = score
+					elif diff == "hard":
+						scores_dict["hard"] = score
+			Global.set_scores(scores_dict)
+		elif data is Dictionary and data.has("token"):
+			Global.jwt_token = data["token"]
+			print("JWT Token:", Global.jwt_token)
 		else:
-			print("Failed to parse JSON: ", json_parser.get_error_message())
+			print("Unexpected response format:", typeof(data))
 	else:
-		print("Request failed. Response code: ", response_code)
+		print("Request failed. Response code:", response_code)

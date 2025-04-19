@@ -1,5 +1,6 @@
 extends Control
 
+var recentScores = {}
 @onready var score: int = 0
 @onready var highScore: int = 0
 @onready var bronze = preload("res://scenes/medals/bronze_medal.tscn")
@@ -22,9 +23,13 @@ func fetch_best_score():
 	score = Global.score
 	if score > Global.high_scores[Global.difficil]:
 		Global.high_scores[Global.difficil] = score
+		await ApiManager.send_request("POST", "/scores", Global.high_scores)
 	$Panel/Score.text = "SCORE: " + str(score) + "\nBEST SCORE: " + str(Global.high_scores[Global.difficil])
 	$Panel/FinalTime.text = "Final Time: " + str(Global.finalTime)
 	display_medal(score)
+	Global.sessionRuns += 1
+	recentScores[Global.sessionRuns] = score
+	Global.recentScores = recentScores
 
 func display_medal(score: int):
 	if score >= 10000:

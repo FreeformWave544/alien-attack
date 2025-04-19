@@ -9,6 +9,7 @@ var is_dead = false
 
 func _ready() -> void:
 	aniSprite.visible = false
+	$EnemyHitSound.volume_db = Global.volume - 30
 
 func _physics_process(delta):
 	if not is_dead:
