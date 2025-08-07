@@ -1,15 +1,16 @@
 extends Node
 
-var achievements: Dictionary = {} ;var isBoss: bool;var canFire: bool = true;var pathGot: bool ;var pathKills: int ;var score: int ;var TakeLIVES: int ;var addScore: int ;var player_name;var finalTime: float ;var difficil = "norm";var achieveSoundPlay;var died: bool = true ;var bossLives = 2 ;var instructions = true ;var WaitForMe: bool = false ;var url = "http://localhost:3000";var json_parser = JSON.new()
+var achievements: Dictionary = {} ;var isBoss: bool;var canFire: bool = true;var pathGot: bool ;var pathKills: int ;var score: int ;var TakeLIVES: int ;var addScore: int ;var player_name;var finalTime: float ;var difficil = "norm";
+var died: bool = true ;var bossLives = 20 ;var instructions = true ;var WaitForMe: bool = false ;var url = "http://localhost:3000";var json_parser = JSON.new()
 var high_scores = {"easy": 0, "norm": 0, "hard": 0}
-var jwt_token: String = "" ; var sessionRuns: int = 0 ; var recentScores = {} ; var volume: int = 20
+var jwt_token: String = "" ; var sessionRuns: int = 0 ; var recentScores = [] ; var volume: int = 20
+var run := false
 
 func _ready() -> void:
 	load_achievements();load_scores()
 	high_scores["instructions"] = instructions
 	await get_tree().create_timer(0.5).timeout
 	save_stuff("norm")
-	print(load_stuff("norm") , " < < < < < < < < <^_^><-_-><,_,><*_*><._.>loaded stuff... I think?")
 
 func save_stuff(difficil):
 	var config = ConfigFile.new()

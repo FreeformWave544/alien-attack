@@ -32,9 +32,6 @@ func _process(delta):
 		easyview.modulate.a = max(easyview.modulate.a - (delta * (fade_speed+(fade_speed * 0.5))), 0.0)
 		if easyview.modulate.a <= 0.0:
 			start_fade_in()
-	if Global.achieveSoundPlay == true:
-		$RocketContainer/achieve.play()
-		Global.achieveSoundPlay = false
 
 func start_fade_in():
 	fading_in = 1
@@ -62,7 +59,6 @@ func shoot():
 		rocket_container.add_child(rocket_instance)
 		rocket_instance.global_position = global_position
 		rocket_instance.global_position.x += 80
-		timer.wait_time = randf_range(0.001, 1.666)
 		timer.one_shot = true
 		timer.start()
 		laser.play()
@@ -71,6 +67,10 @@ func take_damage():
 	Global.TakeLIVES += 1
 
 func die():
+	print("BYE")
+	if Global.died:
+		return
+	print("HI")
 	Global.died = true
 	$Sprite2D.visible = false
 	$Flame.visible = false
@@ -78,4 +78,4 @@ func die():
 	$plo.visible = true
 	$plo.scale = Vector2(4,4)
 	$plo.play("default")
-	await get_tree().create_timer(1).timeout
+	await $plo.animation_finished

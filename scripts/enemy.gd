@@ -4,9 +4,10 @@ signal died
 
 @onready var aniSprite = $AnimatedSprite2D
 @onready var hitSound = $EnemyHitSound
-@export var speed = 300
+@export var speed := 300.0
+@export var health := 1.0
 var is_dead = false 
-
+ 
 func _ready() -> void:
 	aniSprite.visible = false
 	$EnemyHitSound.volume_db = Global.volume - 30
@@ -14,6 +15,11 @@ func _ready() -> void:
 func _physics_process(delta):
 	if not is_dead:
 		global_position.x += -speed * delta
+
+func damage(dmg: float = 1):
+	health -= dmg
+	if health <= 0:
+		die()
 
 func die():
 	if is_dead:

@@ -57,9 +57,9 @@ offset_right = 989.0
 offset_bottom = 105.0
 theme = ExtResource("2_xxw77")
 text = "High Scores:
-easy: 0
-normal: 0
-hard: 0"
+    easy: 0
+    normal: 0
+    hard: 0"
 label_settings = SubResource("LabelSettings_l8082")
 
 [node name="achievements" type="Button" parent="Panel"]
@@ -73,25 +73,15 @@ text = "ACHIEVEMENTS"
 
 [node name="sessionScores" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 1095.0
-offset_top = 45.0
-offset_right = 1214.0
-offset_bottom = 76.0
+offset_left = 1067.0
+offset_top = 76.0
+offset_right = 1217.0
+offset_bottom = 129.0
 theme = ExtResource("2_xxw77")
-text = "session scores"
-
-[node name="volume" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 490.0
-offset_top = 576.0
-offset_right = 641.0
-offset_bottom = 629.0
-theme = ExtResource("2_xxw77")
-text = "Volume Control"
+text = "Session Scores"
 
 [connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Panel/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Panel/Button3" to="." method="_hard_pressed"]
 [connection signal="pressed" from="Panel/achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="Panel/sessionScores" to="." method="_on_session_scores_pressed"]
-[connection signal="pressed" from="Panel/volume" to="." method="_on_volume_pressed"]

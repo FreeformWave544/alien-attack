@@ -56,16 +56,12 @@ func attackLoop():
 			await get_tree().create_timer(3).timeout
 			attack = randi_range(1, 4)
 			if attack == 1:
-				print(attack)
 				firstAttack()
 			elif attack == 2:
-				print(attack)
 				secondAttack()
 			elif attack == 3:
-				print(attack)
 				activate_tractor_beam()
 			elif attack == 4:
-				print(attack)
 				thirdAttack()
 
 func firstAttack():
@@ -113,10 +109,14 @@ func activate_tractor_beam():
 	tractor_beam.visible = true
 	tractor_beam_active = true
 	attacking = true
+	var stolenTimes: int = 0
 	while tractor_beam_active:
 		tractor_beam.global_position = player.global_position
 		Global.addScore -= 50
 		await get_tree().create_timer(1).timeout
+		stolenTimes += 1
+		if stolenTimes > 5:
+			deactivate_tractor_beam()
 
 func deactivate_tractor_beam():
 	tractor_beam.visible = false

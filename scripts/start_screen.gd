@@ -30,7 +30,6 @@ func _hard_pressed() -> void:
 func _on_achievements_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/achievements.tscn")
 
-
 func _on_session_scores_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/session_scores.tscn")
 

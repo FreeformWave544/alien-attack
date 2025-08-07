@@ -310,6 +310,8 @@ sprite_frames = SubResource("SpriteFrames_8bcas")
 position = Vector2(541.598, 1.48791)
 scale = Vector2(1.39514, 1.39514)
 sprite_frames = SubResource("SpriteFrames_bd1n3")
+frame = 10
+frame_progress = 0.828133
 
 [node name="TractorBeam" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_qilo5")

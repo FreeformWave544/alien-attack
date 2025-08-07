@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Alien Attack"
-run/main_scene="res://scenes/email_request.tscn"
+run/main_scene="uid://crp0e7iw2pqyb"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0.0350624, 0.139482, 0.269087, 1)
 boot_splash/image="res://assets/textures/player_ship.png"
@@ -25,7 +25,11 @@ Constants="*res://scripts/constants.gd"
 
 [debug]
 
-settings/stdout/verbose_stdout=true
+gdscript/warnings/unused_variable=0
+gdscript/warnings/unused_local_constant=0
+gdscript/warnings/unused_private_class_variable=0
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
 
 [display]
 

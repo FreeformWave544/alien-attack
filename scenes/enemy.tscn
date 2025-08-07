@@ -1,7 +1,7 @@
 [gd_scene load_steps=41 format=3 uid="uid://cr508ip5xp70n"]
 
 [ext_resource type="Texture2D" uid="uid://pn3fnhqqdto0" path="res://assets/textures/enemy_ship.png" id="1_clicv"]
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_di8qx"]
+[ext_resource type="Script" uid="uid://cntvmhnhb0phf" path="res://scripts/enemy.gd" id="1_di8qx"]
 [ext_resource type="AudioStream" uid="uid://crx5syp1f34be" path="res://assets/audio/hit.wav" id="3_gtkc0"]
 [ext_resource type="Texture2D" uid="uid://behjlgiawpsk1" path="res://assets/textures/boss/Explosion Spriteanim Sheet Minipack/explosion (4).png" id="4_342tn"]
 [ext_resource type="Texture2D" uid="uid://xl1napo8ddw4" path="res://assets/textures/exp2_0.png" id="4_qbhsx"]
@@ -254,7 +254,6 @@ animations = [{
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_di8qx")
-speed = 200
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["enemies"]]
 rotation = 4.71239

@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxfnwtsu6sbeb"]
+[gd_scene load_steps=4 format=3 uid="uid://dxfnwtsu6sbeb"]
 
-[ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="1_jvsgi"]
+[ext_resource type="Script" uid="uid://bh0bdju251dws" path="res://scripts/enemy_spawner.gd" id="1_jvsgi"]
+[ext_resource type="Script" uid="uid://vbv4vp7as4g3" path="res://scripts/difficulty_curve.gd" id="2_devoi"]
+
+[sub_resource type="Curve" id="Curve_devoi"]
+_limits = [1.0, 20.0, 0.0, 200.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(40.5, 4.03371), 0.234181, 0.234181, 0, 0, Vector2(70, 4.53933), 0.364045, 0.0, 0, 0, Vector2(100, 10), 0.260964, 0.0, 0, 0, Vector2(121, 11.6742), 0.389293, 0.0, 0, 0, Vector2(137, 11.6742), -0.64045, 0.0, 0, 0, Vector2(156, 15.0899), 0.442215, 0.0, 0, 0, Vector2(175, 15.9438), -0.213483, 0.0, 0, 0, Vector2(200, 20), 0.0, 0.0, 0, 0]
+point_count = 9
 
 [node name="EnemySpawner" type="Node2D"]
 script = ExtResource("1_jvsgi")
@@ -10,5 +16,9 @@ script = ExtResource("1_jvsgi")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="DifficultyCurve" type="Node2D" parent="."]
+script = ExtResource("2_devoi")
+difficulty_curve = SubResource("Curve_devoi")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

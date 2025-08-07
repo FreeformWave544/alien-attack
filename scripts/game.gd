@@ -16,7 +16,6 @@ var move_right = false
 var is_shooting = false
 
 func _ready():
-	print(Global.jwt_token , " HERE")
 	$mobile.visible = false
 	hud.set_score_label(score)
 	hud.set_lives(lives)
@@ -26,7 +25,7 @@ func _ready():
 		apply_hard_mode()
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
 		$mobile.visible = true
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(200).timeout
 	var bossInstance = boss.instantiate()
 	add_child(bossInstance)
 	Global.isBoss = true
@@ -86,16 +85,33 @@ func _on_player_took_damage():
 	hud.set_lives(lives)
 	if lives <= 0:
 		dead()
-		player.die()
+		print("DEAD")
 
 func dead():
+	Global.run = false
+	print("Player is dying")
 	death()
 	player.die()
 	await get_tree().create_timer(1).timeout
-	var end_instance = end_scene.instantiate()
-	end_instance.score = score
-	Global.score = score
-	hud.add_child(end_instance)
+	if !Global.run:
+		var end_instance = end_scene.instantiate()
+		print("Global.difficil value: ", Global.difficil)
+		match Global.difficil:
+			"norm":
+				score *= 1.5
+				print("Score after 1.5x multiplier: ", score)
+			"hard":
+				score *= 2.0
+				print("Score after 2.0x multiplier (hard mode): ", score)
+			_:
+				print("No multiplier applied. Score: ", score)
+		print("Final Score before assigning to end_instance: ", score)
+		end_instance.score = score
+		Global.score = score
+		if hud:
+			hud.add_child(end_instance)
+		else:
+			print("HUD is null!")
 
 func _on_enemy_spawner_enemy_spawned(enemy_instance):
 	enemy_instance.connect("died", _on_enemy_died)
@@ -107,8 +123,7 @@ func _on_enemy_died():
 	enemy_hit_sound.play()
 
 func death():
-	player.die()
-	for i in 7:
+	for i in 3:
 		player_dmg.play()
 
 func apply_easy_mode():

@@ -13,7 +13,7 @@ func _ready():
 					achieve(1)
 				elif key == Constants.EHIGH:
 					achieve(2)
-				elif key == Constants.HHigh:
+				elif key == Constants.HHIGH:
 					achieve(3)
 				
 	else:

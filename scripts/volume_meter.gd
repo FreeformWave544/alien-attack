@@ -20,8 +20,6 @@ func _on_timer_timeout():
 	time_left -= 1
 	if time_left <= 0:
 		check_answer()
-	else:
-		print("Time left: ", time_left)
 
 func check_answer():
 	var input_text = text_edit.text.strip_edges()
@@ -30,7 +28,6 @@ func check_answer():
 		if input_text[i] == pi_digits[i]:
 			volume_increase += 1
 	Global.volume = volume_increase
-	print("Volume: ", Global.volume)
 	_back()
 
 func _back():

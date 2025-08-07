@@ -180,6 +180,8 @@ texture = ExtResource("1_fc56a")
 [node name="plo" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2.4375, 2.4375)
 sprite_frames = SubResource("SpriteFrames_achot")
+frame = 15
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(7, 0)
@@ -203,6 +205,7 @@ texture_progress = ExtResource("3_dytrb")
 script = ExtResource("4_x1wda")
 
 [node name="Timer" type="Timer" parent="TextureProgressBar"]
+process_callback = 0
 wait_time = 0.525
 one_shot = true
 autostart = true
