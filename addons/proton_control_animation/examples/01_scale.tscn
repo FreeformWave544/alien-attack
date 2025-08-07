@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://v17fjjrttwj2"]
 
-[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="1_odwah"]
-[ext_resource type="Script" path="res://addons/proton_control_animation/src/proton_control_animation.gd" id="2_4x0ee"]
-[ext_resource type="Script" path="res://addons/proton_control_animation/src/animations/scale.gd" id="3_wxfa1"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/pca_theme.tres" id="1_odwah"]
+[ext_resource type="Script" uid="uid://b4hvmk8t0qkgu" path="res://addons/proton_control_animation/src/proton_control_animation.gd" id="2_4x0ee"]
+[ext_resource type="Script" uid="uid://bi4omyv2xson" path="res://addons/proton_control_animation/src/animations/scale.gd" id="3_wxfa1"]
 
 [sub_resource type="Resource" id="Resource_irfdr"]
 script = ExtResource("3_wxfa1")

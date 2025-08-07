@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dldl1ojt4x82a"]
 
 [ext_resource type="Script" uid="uid://bpsr42jgtkp2n" path="res://scripts/volume_meter.gd" id="1_0ysv8"]
-[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="1_hvq7n"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/pca_theme.tres" id="1_hvq7n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_id8xs"]
 bg_color = Color(0.74, 0, 0, 0.501961)

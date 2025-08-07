@@ -1,15 +1,18 @@
-[gd_scene load_steps=227 format=3 uid="uid://crp0e7iw2pqyb"]
+[gd_scene load_steps=230 format=3 uid="uid://crp0e7iw2pqyb"]
 
 [ext_resource type="Script" uid="uid://6duswwenvd4" path="res://scripts/start_screen.gd" id="1_w7hwu"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="2_uhxfp"]
-[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="2_xxw77"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/pca_theme.tres" id="2_xxw77"]
 [ext_resource type="Texture2D" uid="uid://b61u1kxvjcf12" path="res://assets/textures/space/Large 1024x1024/Blue Nebula/Blue Nebula 6 - 1024x1024.png" id="4_4fnoo"]
 [ext_resource type="Script" uid="uid://ul6wrp0epxor" path="res://scripts/parallax_background.gd" id="4_438qq"]
 [ext_resource type="Texture2D" uid="uid://cw56flh4bakmg" path="res://assets/textures/space/Moon/1.png" id="5_4fnoo"]
 [ext_resource type="Texture2D" uid="uid://gqi3tojjjeia" path="res://assets/textures/space/Moon/2.png" id="6_j47vw"]
+[ext_resource type="Texture2D" uid="uid://j7fb8cucfapf" path="res://assets/textures/space/nebula2.png" id="7_c7ysj"]
 [ext_resource type="Texture2D" uid="uid://06ya1qrrgjqy" path="res://assets/textures/space/Moon/3.png" id="7_mf4ve"]
 [ext_resource type="Texture2D" uid="uid://drqaiw3buhpcs" path="res://assets/textures/space/Moon/4.png" id="8_ns81b"]
+[ext_resource type="Texture2D" uid="uid://b4m3pb38aqmo8" path="res://assets/textures/space/nebuladrystars.png" id="8_ouqm2"]
 [ext_resource type="Texture2D" uid="uid://cj0hu8hci4fw6" path="res://assets/textures/space/Moon/5.png" id="9_438qq"]
+[ext_resource type="Texture2D" uid="uid://blxpiilb3a21" path="res://assets/textures/space/nebulawetstars.png" id="9_mvonj"]
 [ext_resource type="Texture2D" uid="uid://my74eu0qe8x5" path="res://assets/textures/space/Moon/6.png" id="10_31t1r"]
 [ext_resource type="Texture2D" uid="uid://bwc87v006pmgp" path="res://assets/textures/space/Moon/7.png" id="11_gcr1c"]
 [ext_resource type="Texture2D" uid="uid://texp78ur8hq6" path="res://assets/textures/space/Moon/8.png" id="12_0ppho"]
@@ -68,9 +71,6 @@
 [ext_resource type="Texture2D" uid="uid://d3mknakv775uy" path="res://assets/textures/space/Foozle_2DS0015_Void_EnvironmentPack/Effects/PNGs/Asteroid - Flame.png" id="66_ns81b"]
 [ext_resource type="Texture2D" uid="uid://c3lyqyab5u2th" path="res://assets/textures/space/Foozle_2DS0015_Void_EnvironmentPack/Planets/PNGs/Earth-Like planet.png" id="67_438qq"]
 [ext_resource type="Texture2D" uid="uid://nv42to3yls2q" path="res://assets/textures/space/Foozle_2DS0015_Void_EnvironmentPack/Planets/PNGs/Earth-Like planet - Without back glow.png" id="68_31t1r"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_l8082"]
-font = ExtResource("2_uhxfp")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mn64g"]
 animations = [{
@@ -1351,6 +1351,9 @@ animations = [{
 "speed": 60.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_l8082"]
+font = ExtResource("2_uhxfp")
+
 [sub_resource type="Environment" id="Environment_ns81b"]
 glow_enabled = true
 glow_blend_mode = 1
@@ -1364,69 +1367,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 script = ExtResource("1_w7hwu")
-
-[node name="Panel" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 1283.0
-offset_bottom = 721.0
-
-[node name="Button" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 163.0
-offset_top = 120.0
-offset_right = 171.0
-offset_bottom = 128.0
-theme = ExtResource("2_xxw77")
-text = "Easy mode"
-
-[node name="Button2" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 163.0
-offset_top = 223.0
-offset_right = 255.0
-offset_bottom = 254.0
-theme = ExtResource("2_xxw77")
-text = "Normal mode"
-
-[node name="Button3" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 163.0
-offset_top = 335.0
-offset_right = 255.0
-offset_bottom = 366.0
-theme = ExtResource("2_xxw77")
-text = "Hard mode"
-
-[node name="HighScores" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 894.0
-offset_top = 82.0
-offset_right = 989.0
-offset_bottom = 105.0
-theme = ExtResource("2_xxw77")
-text = "High Scores:
-    easy: 0
-    normal: 0
-    hard: 0"
-label_settings = SubResource("LabelSettings_l8082")
-
-[node name="achievements" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 860.0
-offset_top = 380.0
-offset_right = 1010.0
-offset_bottom = 440.0
-theme = ExtResource("2_xxw77")
-text = "ACHIEVEMENTS"
-
-[node name="sessionScores" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 1067.0
-offset_top = 76.0
-offset_right = 1217.0
-offset_bottom = 129.0
-theme = ExtResource("2_xxw77")
-text = "Session Scores"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("4_438qq")
@@ -1451,6 +1391,27 @@ texture = ExtResource("4_4fnoo")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(4096, 4096)
+
+[node name="Nebulawetstars" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
+modulate = Color(2.762, 3.314, 4.419, 0.624)
+texture = ExtResource("9_mvonj")
+centered = false
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.9, 0.95)
+motion_mirroring = Vector2(4096, 4096)
+
+[node name="Nebula2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+texture = ExtResource("7_c7ysj")
+centered = false
+
+[node name="Nebuladrystars" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+modulate = Color(0.5, 2, 1, 1)
+texture = ExtResource("8_ouqm2")
+centered = false
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.55, 0.55)
@@ -1542,6 +1503,85 @@ animation = &"glow"
 autoplay = "glow"
 frame_progress = 0.118092
 
+[node name="Panel" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1283.0
+offset_bottom = 721.0
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 120.0
+offset_right = 171.0
+offset_bottom = 128.0
+theme = ExtResource("2_xxw77")
+text = "Easy mode"
+
+[node name="Button2" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 223.0
+offset_right = 255.0
+offset_bottom = 254.0
+theme = ExtResource("2_xxw77")
+text = "Normal mode"
+
+[node name="Button3" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 335.0
+offset_right = 255.0
+offset_bottom = 366.0
+theme = ExtResource("2_xxw77")
+text = "Hard mode"
+
+[node name="HighScores" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 894.0
+offset_top = 82.0
+offset_right = 989.0
+offset_bottom = 105.0
+theme = ExtResource("2_xxw77")
+text = "High Scores:
+    easy: 0
+    normal: 0
+    hard: 0"
+label_settings = SubResource("LabelSettings_l8082")
+
+[node name="achievements" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 860.0
+offset_top = 380.0
+offset_right = 1010.0
+offset_bottom = 440.0
+theme = ExtResource("2_xxw77")
+text = "ACHIEVEMENTS"
+
+[node name="sessionScores" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1067.0
+offset_top = 76.0
+offset_right = 1217.0
+offset_bottom = 129.0
+theme = ExtResource("2_xxw77")
+text = "Session Scores"
+
+[node name="options" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -621.5
+offset_top = -74.0
+offset_right = -529.5
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_xxw77")
+text = "Options"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ns81b")
 
@@ -1550,3 +1590,4 @@ environment = SubResource("Environment_ns81b")
 [connection signal="pressed" from="Panel/Button3" to="." method="_hard_pressed"]
 [connection signal="pressed" from="Panel/achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="Panel/sessionScores" to="." method="_on_session_scores_pressed"]
+[connection signal="pressed" from="Panel/options" to="." method="_on_options_pressed"]

@@ -1,12 +1,15 @@
-[gd_scene load_steps=164 format=3 uid="uid://cn7er3i3qdm1f"]
+[gd_scene load_steps=167 format=3 uid="uid://cn7er3i3qdm1f"]
 
 [ext_resource type="Script" uid="uid://brlujy8a7r4ae" path="res://scripts/achievements.gd" id="1_wxmfe"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="3_3gf36"]
-[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="4_8m26q"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/pca_theme.tres" id="4_8m26q"]
 [ext_resource type="Script" uid="uid://ul6wrp0epxor" path="res://scripts/parallax_background.gd" id="4_gq3ih"]
 [ext_resource type="Texture2D" uid="uid://b61u1kxvjcf12" path="res://assets/textures/space/Large 1024x1024/Blue Nebula/Blue Nebula 6 - 1024x1024.png" id="4_wf1mw"]
 [ext_resource type="Texture2D" uid="uid://c3lyqyab5u2th" path="res://assets/textures/space/Foozle_2DS0015_Void_EnvironmentPack/Planets/PNGs/Earth-Like planet.png" id="5_gq3ih"]
 [ext_resource type="Texture2D" uid="uid://nv42to3yls2q" path="res://assets/textures/space/Foozle_2DS0015_Void_EnvironmentPack/Planets/PNGs/Earth-Like planet - Without back glow.png" id="6_jnbt2"]
+[ext_resource type="Texture2D" uid="uid://blxpiilb3a21" path="res://assets/textures/space/nebulawetstars.png" id="8_u6gvo"]
+[ext_resource type="Texture2D" uid="uid://j7fb8cucfapf" path="res://assets/textures/space/nebula2.png" id="9_axenr"]
+[ext_resource type="Texture2D" uid="uid://b4m3pb38aqmo8" path="res://assets/textures/space/nebuladrystars.png" id="10_x7wsk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gxufk"]
 font = ExtResource("3_3gf36")
@@ -1218,6 +1221,28 @@ position = Vector2(3503, 740)
 sprite_frames = SubResource("SpriteFrames_svwer")
 animation = &"glow"
 autoplay = "glow"
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1, -1)
+motion_mirroring = Vector2(4096, 4096)
+
+[node name="Nebulawetstars" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
+modulate = Color(2.762, 3.314, 4.419, 0.624)
+texture = ExtResource("8_u6gvo")
+centered = false
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.9, 0.95)
+motion_mirroring = Vector2(4096, 4096)
+
+[node name="Nebula2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+texture = ExtResource("9_axenr")
+centered = false
+
+[node name="Nebuladrystars" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+modulate = Color(0.5, 2, 1, 1)
+texture = ExtResource("10_x7wsk")
+centered = false
 
 [connection signal="pressed" from="CanvasLayer/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

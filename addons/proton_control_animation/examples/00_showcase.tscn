@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=3 uid="uid://brjjat6j8gvna"]
 
-[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/proton_control_animation/examples/theme/pca_theme.tres" id="1_6mq3g"]
-[ext_resource type="Script" path="res://addons/proton_control_animation/examples/scripts/showcase.gd" id="2_xvnk3"]
-[ext_resource type="Script" path="res://addons/proton_control_animation/src/proton_control_animation.gd" id="3_mdnh0"]
-[ext_resource type="Script" path="res://addons/proton_control_animation/src/animations/scale.gd" id="4_s0040"]
-[ext_resource type="Script" path="res://addons/proton_control_animation/src/animations/slide.gd" id="5_c05e6"]
-[ext_resource type="Script" path="res://addons/proton_control_animation/src/proton_control_copy_animation.gd" id="6_01ri3"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/pca_theme.tres" id="1_6mq3g"]
+[ext_resource type="Script" uid="uid://dhoqx8lfhmiro" path="res://addons/proton_control_animation/examples/scripts/showcase.gd" id="2_xvnk3"]
+[ext_resource type="Script" uid="uid://b4hvmk8t0qkgu" path="res://addons/proton_control_animation/src/proton_control_animation.gd" id="3_mdnh0"]
+[ext_resource type="Script" uid="uid://bi4omyv2xson" path="res://addons/proton_control_animation/src/animations/scale.gd" id="4_s0040"]
+[ext_resource type="Script" uid="uid://bsufjcw4lsn2a" path="res://addons/proton_control_animation/src/animations/slide.gd" id="5_c05e6"]
+[ext_resource type="Script" uid="uid://p8liavl4kvv8" path="res://addons/proton_control_animation/src/proton_control_copy_animation.gd" id="6_01ri3"]
 [ext_resource type="Texture2D" uid="uid://dc42tvb8iytlu" path="res://addons/proton_control_animation/examples/theme/assets/panel-000.png" id="7_amg16"]
 
 [sub_resource type="Resource" id="Resource_dkxil"]

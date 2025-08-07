@@ -37,3 +37,6 @@ func _on_session_scores_pressed() -> void:
 
 func _on_volume_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/volumeMeter.tscn")
+
+func _on_options_pressed() -> void:
+	add_child(load("res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn").instantiate())
