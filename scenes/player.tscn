@@ -215,6 +215,6 @@ stream = ExtResource("3_xt5sl")
 
 [node name="easyview" type="TextureRect" parent="."]
 offset_left = 42.0
-offset_right = 1165.0
+offset_right = 2042.0
 offset_bottom = 1.0
 texture = SubResource("CanvasTexture_lyayy")

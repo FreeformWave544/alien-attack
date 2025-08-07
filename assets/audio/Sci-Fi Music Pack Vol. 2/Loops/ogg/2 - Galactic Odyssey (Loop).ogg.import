@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://chd11p30mfdc2"
+path="res://.godot/imported/2 - Galactic Odyssey (Loop).ogg-f5dfc6cab3987d25df2881d3c68d1ff4.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi Music Pack Vol. 2/Loops/ogg/2 - Galactic Odyssey (Loop).ogg"
+dest_files=["res://.godot/imported/2 - Galactic Odyssey (Loop).ogg-f5dfc6cab3987d25df2881d3c68d1ff4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

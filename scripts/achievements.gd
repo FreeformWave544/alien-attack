@@ -3,8 +3,6 @@ extends Control
 var medals = preload("res://scenes/medals/achievment_medals.tscn")
 var achievements = Global.achievements
 
-	
-
 func _ready():
 	if Global.achievements:
 		for key in Global.achievements:
@@ -15,7 +13,6 @@ func _ready():
 					achieve(2)
 				elif key == Constants.HHIGH:
 					achieve(3)
-				
 	else:
 		$CanvasLayer/none.text = "No achievements :("
 

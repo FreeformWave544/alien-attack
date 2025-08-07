@@ -1,6 +1,8 @@
 extends Control
 
 @onready var HighScores = $Panel/HighScores
+@export var scrollSpeed := 40.0
+
 func _ready() -> void:
 	var waffles = true
 	var scores = await Global.load_scores()

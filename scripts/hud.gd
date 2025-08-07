@@ -11,3 +11,9 @@ func set_score_label(new_score):
 
 func set_lives(amount):
 	livesLeft.text = str(amount)
+
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("pause"):
+		process_mode = Node.PROCESS_MODE_ALWAYS
+		get_tree().paused = !get_tree().paused
+		$"../paused".visible = !$"../paused".visible

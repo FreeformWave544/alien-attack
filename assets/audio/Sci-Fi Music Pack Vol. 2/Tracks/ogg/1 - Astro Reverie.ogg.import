@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://30euulkcsr3u"
+path="res://.godot/imported/1 - Astro Reverie.ogg-6c4228239b25cd78913a925fc286203e.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/ogg/1 - Astro Reverie.ogg"
+dest_files=["res://.godot/imported/1 - Astro Reverie.ogg-6c4228239b25cd78913a925fc286203e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://da5cg4utxyeng"
+path="res://.godot/imported/1 - Astro Reverie (Loop).mp3-c73469506c260fcf8b6445c7d295af9e.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi Music Pack Vol. 2/Loops/mp3/1 - Astro Reverie (Loop).mp3"
+dest_files=["res://.godot/imported/1 - Astro Reverie (Loop).mp3-c73469506c260fcf8b6445c7d295af9e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

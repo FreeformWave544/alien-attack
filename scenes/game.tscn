@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://i6fgpb7bsg2s"]
+[gd_scene load_steps=13 format=3 uid="uid://i6fgpb7bsg2s"]
 
 [ext_resource type="Script" uid="uid://c1cxi3mupblui" path="res://scripts/game.gd" id="1_oynfb"]
-[ext_resource type="Texture2D" uid="uid://difkq0ycx2iba" path="res://assets/textures/bg.png" id="1_r0ud3"]
 [ext_resource type="PackedScene" uid="uid://dawhatyahksno" path="res://scenes/hud.tscn" id="2_llffo"]
 [ext_resource type="PackedScene" uid="uid://3j3rsm7d301i" path="res://scenes/player.tscn" id="2_nevbj"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="3_dp2ur"]
@@ -9,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://crx5syp1f34be" path="res://assets/audio/hit.wav" id="6_qgucp"]
 [ext_resource type="AudioStream" uid="uid://cy414otvdtroq" path="res://assets/audio/explode.wav" id="7_1dl8s"]
 [ext_resource type="AudioStream" uid="uid://dks31byhxpa6n" path="res://assets/audio/TheFatRat - Unity.mp3" id="8_ivqrr"]
+[ext_resource type="Texture2D" uid="uid://b61u1kxvjcf12" path="res://assets/textures/space/Large 1024x1024/Blue Nebula/Blue Nebula 6 - 1024x1024.png" id="9_0tnpc"]
+[ext_resource type="Script" uid="uid://ul6wrp0epxor" path="res://scripts/parallax_background.gd" id="9_vtaks"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_u604d"]
 font = ExtResource("3_dp2ur")
@@ -34,12 +35,6 @@ offset_bottom = 430.0
 text = "PAUSED"
 label_settings = SubResource("LabelSettings_u604d")
 
-[node name="Background" type="TextureRect" parent="."]
-offset_right = 1291.0
-offset_bottom = 729.0
-texture = ExtResource("1_r0ud3")
-stretch_mode = 1
-
 [node name="Player" parent="." instance=ExtResource("2_nevbj")]
 position = Vector2(109, 374)
 
@@ -64,6 +59,7 @@ stream = ExtResource("7_1dl8s")
 max_polyphony = 50
 
 [node name="mobile" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="up" type="Button" parent="mobile"]
 z_index = 4096
@@ -133,6 +129,30 @@ text = "other shoot"
 stream = ExtResource("8_ivqrr")
 volume_db = -30.0
 mix_target = 1
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("9_vtaks")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(2048, 1024)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color(1, 2, 1.2, 1)
+texture_repeat = 2
+texture = ExtResource("9_0tnpc")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color(1, 2, 1.2, 1)
+texture_repeat = 2
+position = Vector2(1024, 0)
+texture = ExtResource("9_0tnpc")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1024, 1024)
 
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="area_entered" from="Deathzone" to="." method="_on_deathzone_area_entered"]

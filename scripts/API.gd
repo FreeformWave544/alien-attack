@@ -23,7 +23,6 @@ func send_request(method: String, endpoint: String, data: Dictionary = {}):
 		var json_data = JSON.stringify(data)
 		var headers = ["Content-Type: application/json"]
 		var post_status = http_request.request(request_url, headers, HTTPClient.METHOD_POST, json_data)
-		print(post_status, " <- <- <- POST ERROR HERE, RIGHT THERE, YES THERE")
 		if post_status != OK:
 			print("POST request failed with error: ", post_status)
 	elif method == "GET":

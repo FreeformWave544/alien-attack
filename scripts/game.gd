@@ -43,9 +43,6 @@ func _process(delta: float) -> void:
 	if Global.TakeLIVES:
 		lives -= Global.TakeLIVES
 		Global.TakeLIVES = 0
-	if Input.is_action_just_pressed("pause"):
-		get_tree().paused = !get_tree().paused
-		$UI/paused.visible = !$UI/paused.visible
 
 func _physics_process(delta):
 	hud.set_score_label(score)
@@ -85,27 +82,21 @@ func _on_player_took_damage():
 	hud.set_lives(lives)
 	if lives <= 0:
 		dead()
-		print("DEAD")
 
 func dead():
 	Global.run = false
-	print("Player is dying")
 	death()
 	player.die()
 	await get_tree().create_timer(1).timeout
 	if !Global.run:
 		var end_instance = end_scene.instantiate()
-		print("Global.difficil value: ", Global.difficil)
 		match Global.difficil:
 			"norm":
-				score *= 1.5
-				print("Score after 1.5x multiplier: ", score)
+				score *= 1.
 			"hard":
 				score *= 2.0
-				print("Score after 2.0x multiplier (hard mode): ", score)
 			_:
 				print("No multiplier applied. Score: ", score)
-		print("Final Score before assigning to end_instance: ", score)
 		end_instance.score = score
 		Global.score = score
 		if hud:

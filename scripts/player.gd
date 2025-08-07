@@ -67,10 +67,8 @@ func take_damage():
 	Global.TakeLIVES += 1
 
 func die():
-	print("BYE")
 	if Global.died:
 		return
-	print("HI")
 	Global.died = true
 	$Sprite2D.visible = false
 	$Flame.visible = false

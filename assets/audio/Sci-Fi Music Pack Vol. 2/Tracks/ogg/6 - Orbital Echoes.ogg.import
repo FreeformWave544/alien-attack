@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://4o7yskh2bsa"
+path="res://.godot/imported/6 - Orbital Echoes.ogg-1bd445e165a756916ee878d20a485b71.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/ogg/6 - Orbital Echoes.ogg"
+dest_files=["res://.godot/imported/6 - Orbital Echoes.ogg-1bd445e165a756916ee878d20a485b71.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
