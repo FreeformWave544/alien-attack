@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://cwttlfd56qbpc"]
+
+[ext_resource type="Script" uid="uid://c681ajhaqskuv" path="res://scripts/asteroids.gd" id="1_46dfx"]
+[ext_resource type="Texture2D" uid="uid://buuhu5i4uaujh" path="res://assets/textures/space/Foozle_2DS0015_Void_EnvironmentPack/Asteroids/PNGs/Asteroid 01 - Explode.png" id="1_hms1a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46dfx"]
+atlas = ExtResource("1_hms1a")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72i4m"]
+atlas = ExtResource("1_hms1a")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_405t2"]
+atlas = ExtResource("1_hms1a")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnxac"]
+atlas = ExtResource("1_hms1a")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1tuw"]
+atlas = ExtResource("1_hms1a")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buvfj"]
+atlas = ExtResource("1_hms1a")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbylb"]
+atlas = ExtResource("1_hms1a")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyfqn"]
+atlas = ExtResource("1_hms1a")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8bkch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46dfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72i4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_405t2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnxac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1tuw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buvfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbylb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyfqn")
+}],
+"loop": false,
+"name": &"Explosion",
+"speed": 5.0
+}]
+
+[node name="asteroids" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 32
+collision_mask = 63
+script = ExtResource("1_46dfx")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-53, 165, 58, 165, 102.5, 147.5, 155.5, 97, 187.5, 14, 160, -44.5, 124, -77.5, 70.5, -101, 31.5, -142.5, -8.5, -145.5, -13, -157.5, -88.5, -158.5, -158.5, -106.5, -186.5, -46, -188.5, 53, -176, 84.5, -127, 133, -83.5, 156.5)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_8bkch")
+animation = &"Explosion"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,5 +1,5 @@
 extends Area2D
-
+class_name Enemy
 signal died
 
 @onready var aniSprite = $AnimatedSprite2D

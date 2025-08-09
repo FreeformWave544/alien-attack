@@ -20,7 +20,7 @@ font_size = 100
 font_color = Color(0.63, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3bnsa"]
-size = Vector2(102, 977)
+size = Vector2(1222, 3892)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_oynfb")
@@ -47,8 +47,8 @@ position = Vector2(109, 374)
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Deathzone"]
-position = Vector2(-378, 348)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deathzone" groups=["asteroid"]]
+position = Vector2(-938, 348)
 shape = SubResource("RectangleShape2D_3bnsa")
 
 [node name="EnemyHitSound" type="AudioStreamPlayer" parent="."]

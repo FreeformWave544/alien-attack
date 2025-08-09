@@ -1,37 +1,58 @@
-[gd_scene load_steps=5 format=3 uid="uid://s537f77e2rtm"]
+[gd_scene load_steps=8 format=3 uid="uid://s537f77e2rtm"]
 
-[ext_resource type="Script" path="res://scripts/path_enemy.gd" id="1_cs5rq"]
+[ext_resource type="Script" uid="uid://cb57v2jdn82jg" path="res://scripts/path_enemy.gd" id="1_cs5rq"]
 [ext_resource type="PackedScene" uid="uid://cr508ip5xp70n" path="res://scenes/enemy.tscn" id="2_6qokf"]
 [ext_resource type="Texture2D" uid="uid://c5fn40lr0b7a6" path="res://assets/textures/enemy_ship_2.png" id="3_un7k8"]
 
-[sub_resource type="Curve2D" id="Curve2D_ekocy"]
+[sub_resource type="Curve2D" id="Curve2D_2wht8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -365, 652, 67.8823, 162.635, -67.8823, -162.635, 319, 619, 161.22, 65.0538, -161.22, -65.0538, 731, 250, -255.973, -4.24264, 255.973, 4.24264, 900, 39, -72.1249, 1.41421, 72.1249, -1.41421, 1214, 120, 0, 0, 0, 0, 1414, 62)
+"points": PackedVector2Array(0, 0, 0, 0, 1036, 752, 0, 0, 0, 0, 910, 669, 0, 0, 0, 0, 902, 562, 0, 0, 0, 0, 1237, 567, 0, 0, 0, 0, 1244, 153, 0, 0, 0, 0, 551, 160, 0, 0, 0, 0, 525, 546, 0, 0, 0, 0, 752, 551, 0, 0, 0, 0, 751, 664, 0, 0, 0, 0, 643, 754, 0, 0, 0, 0, 194, 656, 0, 0, 0, 0, -59, 603)
 }
-point_count = 6
+point_count = 12
+
+[sub_resource type="Curve2D" id="Curve2D_k87c6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1475, 46, 60.5, -72.6, -60.5, 72.6, 1346, 191, 59.4, -4.4, -59.4, 4.4, 979, 462, 33, 59.4, -33, -59.4, 603, 324, -147.4, 29.7, 147.4, -29.7, 717, 124, -38.5, -38.5, 38.5, 38.5, 1071, 228, 8.8, -60.5, -8.8, 60.5, 1146, 508, 234.3, 7.7, -234.3, -7.7, 914, 618, 58.3, 75.9, -58.3, -75.9, 315, 540, 35.2, 38.5, -35.2, -38.5, 363, 152, 0, 0, 0, 0, -61, 381)
+}
+point_count = 11
+
+[sub_resource type="Curve2D" id="Curve2D_1byh0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1511, 452, -38.0165, -12.3967, 38.0165, 12.3967, 1170, 343, 69.4215, 2.47934, -69.4215, -2.47934, 720, 201, 25.6198, -32.2314, -25.6198, 32.2314, 502, 291, -33.0578, -25.6198, 33.0578, 25.6198, 391, 558, -52.0661, 21.4876, 52.0661, -21.4876, 956, 624, 29.7521, 66.9421, -29.7521, -66.9421, 1002, 456, 53.719, -4.13223, -53.719, 4.13223, 681, 343, -8.26446, -40.4959, 8.26446, 40.4959, 556, 476, -46.281, -19.0083, 46.281, 19.0083, 806, 501, 18.1818, -16.5289, -18.1818, 16.5289, 1014, 708, 0, 0, 0, 0, -153, 645)
+}
+point_count = 12
+
+[sub_resource type="Curve2D" id="Curve2D_3m0v3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1292, 783, 29.7521, -2.47934, -29.7521, 2.47934, 1260, 670, 29.7521, 12.3967, -29.7521, -12.3967, 1215, 667, 0, 0, 0, 0, 1192, 508, 6.31995, 6.84661, -6.31995, -6.84661, 1107, 498, -26.8598, 4.73996, 26.8598, -4.73996, 1097, 406, 20.2765, 7.10994, -20.2765, -7.10994, 1181, 413, 11.5866, -7.89994, -11.5866, 7.89994, 1141, 451, -1.31666, -7.6366, 1.31666, 7.6366, 1195, 425, 0, 0, 0, 0, 1184, 413, 0, 0, 0, 0, 1187, 504, 0, 0, 0, 0, 1182, 414, 0, 0, 0, 0, 1099, 403, 9.91735, 52.8926, -9.91735, -52.8926, 561, 388, -7.43802, 57.8512, 7.43802, -57.8512, 559, 297, -12.3967, 41.3223, 12.3967, -41.3223, 1260, 306, 0, 0, 0, 0, 1308, 264, 0, 0, 0, 0, 1273, 316, 0, 0, 0, 0, 1261, 667, 0, 0, 0, 0, 1266, 791, 0, 0, 0, 0, 576, 694, 0, 0, 0, 0, -2, 677, 0, 0, 0, 0, -336, 541)
+}
+point_count = 23
 
 [node name="PathEnemy" type="Path2D" groups=["enemies"]]
 position = Vector2(-187, -31)
-curve = SubResource("Curve2D_ekocy")
+curve = SubResource("Curve2D_2wht8")
 script = ExtResource("1_cs5rq")
+paths = Array[Curve2D]([SubResource("Curve2D_k87c6"), SubResource("Curve2D_1byh0"), SubResource("Curve2D_2wht8"), SubResource("Curve2D_3m0v3")])
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2(1414, 62.0001)
-rotation = -0.282297
-progress = 2339.56
+position = Vector2(1036, 752)
+rotation = -2.5591
 loop = false
 
 [node name="Enemy" parent="PathFollow2D" groups=["path"] instance=ExtResource("2_6qokf")]
 position = Vector2(0.000244141, 0.000244141)
+rotation = 3.14159
 speed = 0
 
 [node name="Sprite2D" parent="PathFollow2D/Enemy" index="0"]
 texture = ExtResource("3_un7k8")
 
-[node name="CollisionShape2D2" parent="PathFollow2D/Enemy" index="2"]
+[node name="CollisionShape2D" parent="PathFollow2D/Enemy" index="1" groups=["enemies", "path"]]
+
+[node name="CollisionShape2D2" parent="PathFollow2D/Enemy" index="2" groups=["enemies", "path"]]
 position = Vector2(70.88, -0.266132)
 
-[node name="CollisionShape2D3" parent="PathFollow2D/Enemy" index="3"]
+[node name="CollisionShape2D3" parent="PathFollow2D/Enemy" index="3" groups=["enemies", "path"]]
 position = Vector2(-74.4425, -1.80855)
 
 [node name="EnemyHitSound" parent="PathFollow2D/Enemy" index="4"]

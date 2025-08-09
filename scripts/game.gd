@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var lives = 3
+@export var lives = 3
 @onready var score: int = 0
 @onready var player = $Player
 @onready var hud = $UI/HUD
@@ -8,7 +8,6 @@ extends Node2D
 @onready var enemy_hit_sound = $EnemyHitSound
 @onready var player_dmg = $PlayerDmg
 @onready var boss = preload("res://scenes/boss.tscn")
-
 var move_up = false
 var move_down = false
 var move_left = false
@@ -58,7 +57,6 @@ func _physics_process(delta):
 		direction.x -= 1
 	if move_right:
 		direction.x += 1
-
 	if direction.length() > 0:
 		direction = direction.normalized()
 	player.position += direction * 200 * delta
@@ -66,13 +64,13 @@ func _physics_process(delta):
 func _on_deathzone_area_entered(area):
 	if area.is_in_group("fireball"):
 		area.blow()
-	if not area.is_in_group("dodge") and not area.is_in_group("fireball"):
+	elif not area.is_in_group("dodge") and not area.is_in_group("fireball"):
 		score -= 50
 		lives -= 1
 		if lives <= 0:
 			dead()
 			player.die()
-	if not area.is_in_group("path") and not area.is_in_group("fireball"):
+	elif not area.is_in_group("path") and not area.is_in_group("fireball"):
 		area.queue_free()
 
 func _on_player_took_damage():
@@ -92,11 +90,11 @@ func dead():
 		var end_instance = end_scene.instantiate()
 		match Global.difficil:
 			"norm":
-				score *= 1.
+				score *= 1.5
 			"hard":
 				score *= 2.0
 			_:
-				print("No multiplier applied. Score: ", score)
+				pass
 		end_instance.score = score
 		Global.score = score
 		if hud:

@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name Player
 signal took_damage
 
 var rocket_scene = preload("res://scenes/rocket.tscn")
@@ -63,8 +63,8 @@ func shoot():
 		timer.start()
 		laser.play()
 
-func take_damage():
-	Global.TakeLIVES += 1
+func take_damage(v := 1):
+	Global.TakeLIVES += v
 
 func die():
 	if Global.died:
