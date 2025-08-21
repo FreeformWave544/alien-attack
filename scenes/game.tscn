@@ -190,6 +190,4 @@ centered = false
 [connection signal="button_down" from="mobile/right" to="." method="_on_right_button_down"]
 [connection signal="button_up" from="mobile/right" to="." method="_on_right_button_up"]
 [connection signal="button_down" from="mobile/shoot" to="." method="_on_shoot_button_down"]
-[connection signal="button_up" from="mobile/shoot" to="." method="_on_shoot_button_up"]
 [connection signal="button_down" from="mobile/other pew" to="." method="_on_shoot_button_down"]
-[connection signal="button_up" from="mobile/other pew" to="." method="_on_shoot_button_up"]

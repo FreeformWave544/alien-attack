@@ -77,3 +77,27 @@ func die():
 	$plo.scale = Vector2(4,4)
 	$plo.play("default")
 	await $plo.animation_finished
+
+func move_up(v := true):
+	while v == true: 
+		Input.action_press("move_up")
+		await get_tree().process_frame
+	Input.action_release("move_up")
+
+func move_down(v := true):
+	while v == true: 
+		Input.action_press("move_down")
+		await get_tree().process_frame
+	Input.action_release("move_down")
+
+func move_left(v := true):
+	while v == true: 
+		Input.action_press("move_left")
+		await get_tree().process_frame
+	Input.action_release("move_left")
+
+func move_right(v := true):
+	while v == true: 
+		Input.action_press("move_right")
+		await get_tree().process_frame
+	Input.action_release("move_right")

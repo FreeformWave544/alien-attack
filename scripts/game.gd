@@ -8,11 +8,6 @@ extends Node2D
 @onready var enemy_hit_sound = $EnemyHitSound
 @onready var player_dmg = $PlayerDmg
 @onready var boss = preload("res://scenes/boss.tscn")
-var move_up = false
-var move_down = false
-var move_left = false
-var move_right = false
-var is_shooting = false
 
 func _ready():
 	$mobile.visible = false
@@ -49,14 +44,6 @@ func _physics_process(delta):
 	if lives <= 0:
 		dead()
 	var direction = Vector2.ZERO
-	if move_up:
-		direction.y -= 1
-	if move_down:
-		direction.y += 1
-	if move_left:
-		direction.x -= 1
-	if move_right:
-		direction.x += 1
 	if direction.length() > 0:
 		direction = direction.normalized()
 	player.position += direction * 200 * delta
@@ -124,17 +111,12 @@ func apply_hard_mode():
 	lives = 1
 	hud.set_lives(lives)
 
-func _on_up_button_down(): move_up = true
-func _on_up_button_up(): move_up = false
-func _on_down_button_down(): move_down = true
-func _on_down_button_up(): move_down = false
-func _on_left_button_down(): move_left = true
-func _on_left_button_up(): move_left = false
-func _on_right_button_down(): move_right = true
-func _on_right_button_up(): move_right = false
-
-func _on_shoot_button_down():
-	is_shooting = true
-
-func _on_shoot_button_up():
-	is_shooting = false
+func _on_up_button_down(): player.move_up()
+func _on_up_button_up(): player.move_up(false)
+func _on_down_button_down(): player.move_down()
+func _on_down_button_up(): player.move_down(false)
+func _on_left_button_down(): player.move_left()
+func _on_left_button_up(): player.move_left(false)
+func _on_right_button_down(): player.move_right()
+func _on_right_button_up(): player.move_right(false)
+func _on_shoot_button_down(): player.shoot()
