@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://ba7asrce161ma"]
+
+[ext_resource type="Script" uid="uid://ul6wrp0epxor" path="res://scripts/parallax_background.gd" id="1_bpahb"]
+[ext_resource type="Texture2D" uid="uid://b61u1kxvjcf12" path="res://assets/textures/space/Large 1024x1024/Blue Nebula/Blue Nebula 6 - 1024x1024.png" id="2_qs7dk"]
+[ext_resource type="Texture2D" uid="uid://blxpiilb3a21" path="res://assets/textures/space/nebulawetstars.png" id="3_2oy3k"]
+[ext_resource type="Texture2D" uid="uid://j7fb8cucfapf" path="res://assets/textures/space/nebula2.png" id="4_jy56r"]
+[ext_resource type="Texture2D" uid="uid://b4m3pb38aqmo8" path="res://assets/textures/space/nebuladrystars.png" id="5_11q5a"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+script = ExtResource("1_bpahb")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(2048, 1024)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+modulate = Color(1, 2, 1.2, 1)
+texture_repeat = 2
+texture = ExtResource("2_qs7dk")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxLayer"]
+modulate = Color(1, 2, 1.2, 1)
+texture_repeat = 2
+position = Vector2(1024, 0)
+texture = ExtResource("2_qs7dk")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(4096, 4096)
+
+[node name="Nebulawetstars" type="Sprite2D" parent="ParallaxLayer7"]
+modulate = Color(2.762, 3.314, 4.419, 0.624)
+texture = ExtResource("3_2oy3k")
+centered = false
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.9, 0.95)
+motion_mirroring = Vector2(4096, 4096)
+
+[node name="Nebula2" type="Sprite2D" parent="ParallaxLayer6"]
+texture = ExtResource("4_jy56r")
+centered = false
+
+[node name="Nebuladrystars" type="Sprite2D" parent="ParallaxLayer6"]
+modulate = Color(0.5, 2, 1, 1)
+texture = ExtResource("5_11q5a")
+centered = false

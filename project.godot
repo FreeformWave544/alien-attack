@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Alien Attack"
 run/main_scene="uid://crp0e7iw2pqyb"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0.0350624, 0.139482, 0.269087, 1)
 boot_splash/image="res://assets/textures/player_ship.png"
 config/icon="uid://bv33a83ppemxc"
