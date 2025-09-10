@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dawhatyahksno"]
+[gd_scene load_steps=9 format=3 uid="uid://dawhatyahksno"]
 
-[ext_resource type="Script" path="res://scripts/hud.gd" id="1_3s0o3"]
+[ext_resource type="Script" uid="uid://gv5okr0yswsr" path="res://scripts/hud.gd" id="1_3s0o3"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="1_l86pj"]
 [ext_resource type="Texture2D" uid="uid://ceo1vurpjrr5c" path="res://assets/textures/orb.png" id="3_e24br"]
 
@@ -14,6 +14,11 @@ font_size = 50
 [sub_resource type="LabelSettings" id="LabelSettings_kp53f"]
 font = ExtResource("1_l86pj")
 font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_5ysmq"]
+font = ExtResource("1_l86pj")
+font_size = 32
+font_color = Color(0.7564044, 0.7564044, 0.7564044, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_n3we0"]
 font_size = 25
@@ -52,6 +57,19 @@ offset_right = 375.0
 offset_bottom = 89.0
 text = "SCORE: 9999"
 label_settings = SubResource("LabelSettings_kp53f")
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -180.0
+offset_right = 180.0
+offset_bottom = 75.0
+grow_horizontal = 2
+text = "Time: 999"
+label_settings = SubResource("LabelSettings_5ysmq")
+horizontal_alignment = 1
 
 [node name="X" type="Label" parent="."]
 layout_mode = 0

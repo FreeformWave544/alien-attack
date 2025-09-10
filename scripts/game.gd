@@ -19,17 +19,18 @@ func _ready():
 		apply_hard_mode()
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
 		$mobile.visible = true
-	await get_tree().create_timer(200).timeout
-	var bossInstance = boss.instantiate()
-	add_child(bossInstance)
-	Global.isBoss = true
-	bossInstance.global_position = Vector2(1400, 360)
+	#await get_tree().create_timer(200).timeout
+	#var bossInstance = boss.instantiate()
+	#add_child(bossInstance)
+	#Global.isBoss = true
+	#bossInstance.global_position = Vector2(1400, 360)
 
 var time_elapsed := 0.0
 
 func _process(delta: float) -> void:
 	time_elapsed += delta
 	Global.finalTime = float(time_elapsed)
+	hud.time.text = "Time: %.2f" % time_elapsed
 	if Global.addScore != 0:
 		score += Global.addScore
 		Global.addScore = 0

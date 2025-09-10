@@ -2,6 +2,7 @@ extends Control
 
 @onready var score = $Score
 @onready var livesLeft = $Lives
+@onready var time: Label = $Time
 
 func _ready() -> void:
 	$Difficulty.text = str(Global.difficil) + " MODE"
