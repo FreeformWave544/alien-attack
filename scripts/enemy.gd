@@ -17,6 +17,7 @@ func _physics_process(delta):
 		global_position.x += -speed * delta
 
 func damage(dmg: float = 1):
+	print(dmg, "      Enemy Damage")
 	health -= dmg
 	if health <= 0:
 		die()
@@ -29,6 +30,7 @@ func die():
 	aniSprite.visible = true
 	$Sprite2D.visible = false
 	aniSprite.play("default")
+	disconnect("body_entered", _on_body_entered)
 	remove_child($CollisionShape2D) ; remove_child($CollisionShape2D2) ; remove_child($CollisionShape2D3)
 	await get_tree().create_timer(1.5).timeout
 	if not is_in_group("path"):
