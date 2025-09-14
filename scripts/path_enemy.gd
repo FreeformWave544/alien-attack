@@ -15,8 +15,6 @@ func _process(delta: float) -> void:
 		return
 	if not enemy.is_dead:
 		pathfollow.progress_ratio += 0.15 * delta
-		#if pathfollow.progress >= 1:
-			#queue_free() 
 	else:
 		await get_tree().create_timer(1).timeout
 		queue_free()

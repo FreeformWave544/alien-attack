@@ -1,13 +1,21 @@
 extends Node2D
 
 @export var lives = 3
-@onready var score: int = 0
+@export var fastRocketDuration: float = 2.0
+@onready var score: int = 0:
+	set(v):
+		fastRocketCharge += randf_range(0.01, 0.10)
+		_abilityChargeHandler()
+		print(v, fastRocketCharge, " v charge ", v)
 @onready var player = $Player
 @onready var hud = $UI/HUD
 @onready var end_scene = preload("res://scenes/game_over.tscn")
 @onready var enemy_hit_sound = $EnemyHitSound
 @onready var player_dmg = $PlayerDmg
 @onready var boss = preload("res://scenes/boss.tscn")
+@onready var plexusParticles = preload("res://PlexusParticles.gdshader")
+@onready var plexusBackground = find_child("ColorRect")
+var fastRocketCharge := 0.0
 
 func _ready():
 	$mobile.visible = false
@@ -49,6 +57,9 @@ func _physics_process(delta):
 		direction = direction.normalized()
 	player.position += direction * 200 * delta
 
+func _unhandled_input(event: InputEvent) -> void:
+	if !Global.fastRocketActive and fastRocketCharge > 1.0 and event.is_action("ability1"): fastRocket()
+
 func _on_deathzone_area_entered(area):
 	if area.is_in_group("fireball"):
 		area.blow()
@@ -78,8 +89,10 @@ func dead():
 		var end_instance = end_scene.instantiate()
 		match Global.difficil:
 			"norm":
+				@warning_ignore("narrowing_conversion")
 				score *= 1.5
 			"hard":
+				@warning_ignore("narrowing_conversion")
 				score *= 2.0
 			_:
 				pass
@@ -96,6 +109,7 @@ func _on_enemy_spawner_enemy_spawned(enemy_instance):
 
 func _on_enemy_died():
 	score += 100
+	print(fastRocketCharge, "hi")
 	hud.set_score_label(score)
 	enemy_hit_sound.play()
 
@@ -112,6 +126,15 @@ func apply_hard_mode():
 	lives = 1
 	hud.set_lives(lives)
 
+func fastRocket():
+	var shader_material = ShaderMaterial.new()
+	shader_material.shader = plexusParticles
+	plexusBackground.material = shader_material
+	Global.fastRocketActive = true
+	await get_tree().create_timer(fastRocketDuration).timeout
+	plexusBackground.material = ShaderMaterial.new()
+	Global.fastRocketActive = false
+
 func _on_up_button_down(): player.move_up()
 func _on_up_button_up(): player.move_up(false)
 func _on_down_button_down(): player.move_down()
@@ -121,3 +144,13 @@ func _on_left_button_up(): player.move_left(false)
 func _on_right_button_down(): player.move_right()
 func _on_right_button_up(): player.move_right(false)
 func _on_shoot_button_down(): player.shoot()
+
+func _abilityChargeHandler():
+	print(fastRocketCharge, " UIBDAUB ")
+	$UI/HUD/AbilityChargeProgress.material.set_shader_parameter("lerp_value", fastRocketCharge)
+	await get_tree().create_timer(0.1).timeout
+	var current_v = $UI/HUD/AbilityChargeProgress.material.get_shader_parameter("current_value")
+	while $UI/HUD/AbilityChargeProgress.material.get_shader_parameter("current_value") < fastRocketCharge:
+		$UI/HUD/AbilityChargeProgress.material.set_shader_parameter("current_value", lerp(current_v, fastRocketCharge, 0.1))
+		if get_tree(): await get_tree().process_frame
+		print($UI/HUD/AbilityChargeProgress.material.get_shader_parameter("current_value"))

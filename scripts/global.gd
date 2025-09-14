@@ -4,7 +4,7 @@ var achievements: Dictionary = {} ;var isBoss: bool;var canFire: bool = true;var
 var died: bool = true ;var bossLives = 200 ;var instructions = true ;var WaitForMe: bool = false ;var url = "http://localhost:3000";var json_parser = JSON.new()
 var high_scores = {"easy": 0, "norm": 0, "hard": 0}
 var jwt_token: String = "" ; var sessionRuns: int = 0 ; var recentScores = [] ; var volume: int = 20
-var run := false
+var run := false ; var fastRocketActive := false
 
 func _ready() -> void:
 	load_achievements();load_scores()

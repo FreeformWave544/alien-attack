@@ -88,3 +88,13 @@ offset_right = 141.0
 offset_bottom = 201.0
 scale = Vector2(0.441721, 0.441721)
 texture = ExtResource("3_e24br")
+
+[node name="AbilityChargeProgress" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 88.0
+offset_right = 375.0
+offset_bottom = 135.0
+max_value = 1.0
+step = 0.1
+value = 0.5
