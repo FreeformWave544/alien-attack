@@ -4,9 +4,10 @@ extends Node2D
 @export var fastRocketDuration: float = 2.0
 @onready var score: int = 0:
 	set(v):
-		fastRocketCharge += randf_range(0.01, 0.10)
+		if fastRocketCharge < 100: fastRocketCharge += randf_range(0.01, 0.05)
+		else: fastRocketCharge += randf_range(0.01, 0.5) / (fastRocketCharge / 100)
 		_abilityChargeHandler()
-		print(v, fastRocketCharge, " v charge ", v)
+
 @onready var player = $Player
 @onready var hud = $UI/HUD
 @onready var end_scene = preload("res://scenes/game_over.tscn")
@@ -109,7 +110,6 @@ func _on_enemy_spawner_enemy_spawned(enemy_instance):
 
 func _on_enemy_died():
 	score += 100
-	print(fastRocketCharge, "hi")
 	hud.set_score_label(score)
 	enemy_hit_sound.play()
 
@@ -127,6 +127,8 @@ func apply_hard_mode():
 	hud.set_lives(lives)
 
 func fastRocket():
+	fastRocketCharge -= 1.0
+	Engine.time_scale = 0.5
 	var shader_material = ShaderMaterial.new()
 	shader_material.shader = plexusParticles
 	plexusBackground.material = shader_material
@@ -134,6 +136,7 @@ func fastRocket():
 	await get_tree().create_timer(fastRocketDuration).timeout
 	plexusBackground.material = ShaderMaterial.new()
 	Global.fastRocketActive = false
+	Engine.time_scale = 1.0
 
 func _on_up_button_down(): player.move_up()
 func _on_up_button_up(): player.move_up(false)
@@ -146,11 +149,4 @@ func _on_right_button_up(): player.move_right(false)
 func _on_shoot_button_down(): player.shoot()
 
 func _abilityChargeHandler():
-	print(fastRocketCharge, " UIBDAUB ")
-	$UI/HUD/AbilityChargeProgress.material.set_shader_parameter("lerp_value", fastRocketCharge)
-	await get_tree().create_timer(0.1).timeout
-	var current_v = $UI/HUD/AbilityChargeProgress.material.get_shader_parameter("current_value")
-	while $UI/HUD/AbilityChargeProgress.material.get_shader_parameter("current_value") < fastRocketCharge:
-		$UI/HUD/AbilityChargeProgress.material.set_shader_parameter("current_value", lerp(current_v, fastRocketCharge, 0.1))
-		if get_tree(): await get_tree().process_frame
-		print($UI/HUD/AbilityChargeProgress.material.get_shader_parameter("current_value"))
+	$UI/HUD/AbilityChargeProgress.value = fastRocketCharge

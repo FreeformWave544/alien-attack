@@ -29,7 +29,7 @@ func die():
 	aniSprite.visible = true
 	$Sprite2D.visible = false
 	aniSprite.play("default")
-	remove_child($CollisionShape2D) ; remove_child($CollisionShape2D2) ; remove_child($CollisionShape2D3)
+	remove_child($CollisionShape2D) ; remove_child($CollisionShape2D2)
 	await get_tree().create_timer(1.5).timeout
 	if not is_in_group("path"):
 		queue_free()

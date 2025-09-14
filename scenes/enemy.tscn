@@ -7,11 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://xl1napo8ddw4" path="res://assets/textures/exp2_0.png" id="4_qbhsx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wu7fc"]
-radius = 22.3682
-height = 130.0
+radius = 27.999996
+height = 182.51465
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wfv7g"]
-radius = 14.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c4w8v"]
+radius = 17.0
+height = 110.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w30vc"]
 atlas = ExtResource("4_342tn")
@@ -266,12 +267,8 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wu7fc")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(11, -30)
-shape = SubResource("CircleShape2D_wfv7g")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2(11, 28)
-shape = SubResource("CircleShape2D_wfv7g")
+position = Vector2(14, 0)
+shape = SubResource("CapsuleShape2D_c4w8v")
 
 [node name="EnemyHitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_gtkc0")
