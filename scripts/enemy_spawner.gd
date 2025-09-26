@@ -16,9 +16,8 @@ var value = 0.0
 func _on_timer_timeout() -> void:
 	if Global.isBoss:
 		return
-	# Scale spawn rate with value (lower value = slower spawn)
 	var spawn_rate = randf_range(0.2, 6.6) * (1.0 - value * 0.1)
-	timer.wait_time = clamp(spawn_rate, 0.4, 6.6)  # Ensure reasonable spawn time
+	timer.wait_time = clamp(spawn_rate, 0.4, 6.6)
 	timer.one_shot = true
 	timer.start()
 	match Global.difficil:

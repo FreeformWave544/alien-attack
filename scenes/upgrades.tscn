@@ -1,0 +1,146 @@
+[gd_scene load_steps=15 format=3 uid="uid://rbggnhsjlfho"]
+
+[ext_resource type="Script" uid="uid://dphatuq4lnsf3" path="res://scripts/upgrades.gd" id="1_h5bgf"]
+[ext_resource type="Script" uid="uid://fm06r82v8uh8" path="res://scripts/upgradeSlotData.gd" id="2_5wf0v"]
+[ext_resource type="Texture2D" uid="uid://c0nsu5uta1ppt" path="res://assets/Any/WarlockIcons/28.png" id="3_yoata"]
+[ext_resource type="Texture2D" uid="uid://bfc4mqcgqufdm" path="res://assets/Any/WarlockIcons/34.png" id="4_mp7ln"]
+[ext_resource type="Texture2D" uid="uid://b0cue11pynyff" path="res://assets/Any/WarlockIcons/15.png" id="5_keijs"]
+[ext_resource type="Texture2D" uid="uid://cje0yuhj6l75j" path="res://assets/Any/WarlockIcons/46.png" id="6_hxux0"]
+[ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="7_mp7ln"]
+
+[sub_resource type="Resource" id="Resource_yoata"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Life Exchange"
+type = "Offence"
+ID = "lifeExchange"
+rarity = "Rare"
+icon = ExtResource("3_yoata")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
+[sub_resource type="Resource" id="Resource_hxux0"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Invincibility"
+type = "Defence"
+ID = "invincibility"
+rarity = "Epic"
+icon = ExtResource("4_mp7ln")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
+[sub_resource type="Resource" id="Resource_ldw3g"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Ghostly Phoenix"
+type = "Offence"
+ID = "ghostPhoenix"
+rarity = "Legendary"
+icon = ExtResource("5_keijs")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
+[sub_resource type="Resource" id="Resource_5pnuu"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Snow Enemies"
+type = "Defence"
+ID = "Slow"
+rarity = "Uncommon"
+icon = ExtResource("6_hxux0")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
+[sub_resource type="LabelSettings" id="LabelSettings_keijs"]
+font = ExtResource("7_mp7ln")
+font_size = 24
+font_color = Color(0, 0.90588236, 0.92156863, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hxux0"]
+font = ExtResource("7_mp7ln")
+font_size = 32
+font_color = Color(1, 0.3254902, 0.10980392, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ldw3g"]
+font_size = 24
+font_color = Color(0.70980394, 0, 0, 1)
+
+[node name="Upgrades" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.00235, 1.0105)
+script = ExtResource("1_h5bgf")
+upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu")])
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Upgrade" type="Panel" parent="CanvasLayer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HBoxContainer/Upgrade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.016059376, 0.20966567, 0.20966567, 0.22352941)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Upgrade"]
+position = Vector2(150, 150)
+scale = Vector2(0.2, 0.2)
+
+[node name="Name" type="Label" parent="CanvasLayer/HBoxContainer/Upgrade"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 43.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_keijs")
+horizontal_alignment = 1
+
+[node name="Type" type="Label" parent="CanvasLayer/HBoxContainer/Upgrade"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 236.0
+offset_right = 24.0
+offset_bottom = 284.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_hxux0")
+horizontal_alignment = 1
+
+[node name="Rarity" type="Label" parent="CanvasLayer/HBoxContainer/Upgrade"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 1.5707964
+label_settings = SubResource("LabelSettings_ldw3g")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/HBoxContainer/Upgrade"]
+modulate = Color(1, 1, 1, 0.3882353)
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 300.0

@@ -2,12 +2,18 @@ extends Node2D
 
 @export var lives = 3
 @export var fastRocketDuration: float = 2.0
-@onready var score: int = 0:
+var score: int = 0:
 	set(v):
-		if fastRocketCharge < 100: fastRocketCharge += randf_range(0.01, 0.05)
-		else: fastRocketCharge += randf_range(0.01, 0.5) / (fastRocketCharge / 100)
+		score = v
+		if fastRocketCharge < 100:
+			fastRocketCharge += randf_range(0.01, 0.05)
+		else:
+			fastRocketCharge += randf_range(0.01, 0.5) / (fastRocketCharge / 100)
 		_abilityChargeHandler()
-
+		hud.set_score_label()
+	get:
+		return score
+@onready var upgrader = preload("res://scenes/upgrades.tscn")
 @onready var player = $Player
 @onready var hud = $UI/HUD
 @onready var end_scene = preload("res://scenes/game_over.tscn")
@@ -19,8 +25,10 @@ extends Node2D
 var fastRocketCharge := 0.0
 
 func _ready():
+	Global.score = 0
+	UpgradeManager.equippedUpgrades = []
 	$mobile.visible = false
-	hud.set_score_label(score)
+	hud.set_score_label()
 	hud.set_lives(lives)
 	if Global.difficil == "easy":
 		apply_easy_mode()
@@ -28,15 +36,14 @@ func _ready():
 		apply_hard_mode()
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
 		$mobile.visible = true
-	#await get_tree().create_timer(200).timeout
-	#var bossInstance = boss.instantiate()
-	#add_child(bossInstance)
-	#Global.isBoss = true
-	#bossInstance.global_position = Vector2(1400, 360)
+	await get_tree().create_timer(10).timeout
+	var upgrade = upgrader.instantiate()
+	add_child(upgrade)
+	upgrade.toggle()
 
 var time_elapsed := 0.0
-
 func _process(delta: float) -> void:
+	hud.set_upgrades()
 	time_elapsed += delta
 	Global.finalTime = float(time_elapsed)
 	hud.time.text = "Time: %.2f" % time_elapsed
@@ -49,7 +56,7 @@ func _process(delta: float) -> void:
 		Global.TakeLIVES = 0
 
 func _physics_process(delta):
-	hud.set_score_label(score)
+	hud.set_score_label()
 	hud.set_lives(lives)
 	if lives <= 0:
 		dead()
@@ -88,29 +95,17 @@ func dead():
 	await get_tree().create_timer(1).timeout
 	if !Global.run:
 		var end_instance = end_scene.instantiate()
-		match Global.difficil:
-			"norm":
-				@warning_ignore("narrowing_conversion")
-				score *= 1.5
-			"hard":
-				@warning_ignore("narrowing_conversion")
-				score *= 2.0
-			_:
-				pass
-		end_instance.score = score
-		Global.score = score
-		if hud:
-			hud.add_child(end_instance)
-		else:
-			print("HUD is null!")
+		if hud: hud.add_child(end_instance)
+		else: print("HUD is null!")
 
 func _on_enemy_spawner_enemy_spawned(enemy_instance):
 	enemy_instance.connect("died", _on_enemy_died)
 	add_child(enemy_instance)
 
 func _on_enemy_died():
+	print(score)
 	score += 100
-	hud.set_score_label(score)
+	hud.set_score_label()
 	enemy_hit_sound.play()
 
 func death():

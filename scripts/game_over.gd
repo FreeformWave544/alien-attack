@@ -1,7 +1,6 @@
 extends Control
 
 var recentScores = {}
-@onready var score: int = 0
 @onready var highScore: int = 0
 @onready var bronze = preload("res://scenes/medals/bronze_medal.tscn")
 @onready var silver = preload("res://scenes/medals/silver_medal.tscn")
@@ -17,8 +16,12 @@ func _ready():
 		match Global.difficil:
 			"norm":
 				diffMulti.text = "Difficulty Multiplier: \n1.5x"
+				@warning_ignore("narrowing_conversion")
+				Global.score *= 1.5
 			"hard":
 				diffMulti.text = "Difficulty Multiplier: \n2.0x"
+				@warning_ignore("narrowing_conversion")
+				Global.score *= 2.0
 			_:
 				diffMulti.text = "No Difficulty Multiplier"
 		Global.run = true
@@ -28,32 +31,28 @@ func _ready():
 
 func fetch_best_score():
 	Global.save_scores()
-	
 	if Global.pathKills > 10:
 		Global.achievements["path10"] = true
-		
-	score = Global.score
-	if score > Global.high_scores[Global.difficil]:
-		Global.high_scores[Global.difficil] = score
+	if Global.score > Global.high_scores[Global.difficil]:
+		Global.high_scores[Global.difficil] = Global.score
 		await ApiManager.send_request("POST", "/scores", Global.high_scores)
-	
-	$Panel/Score.text = "SCORE: " + str(score) + "\nBEST SCORE: " + str(Global.high_scores[Global.difficil])
+	print(Global.score, " -=-=-")
+	$Panel/Score.text = "SCORE: " + str(Global.score) + "\nBEST SCORE: " + str(Global.high_scores[Global.difficil])
 	$Panel/FinalTime.text = "Final Time: %.2f" % Global.finalTime
-	display_medal(score)
+	display_medal(Global.score)
 
 func display_medal(score: int):
 	Global.sessionRuns += 1
 	Global.recentScores.append(score)
-	
-	if score >= 10000:
+	if Global.score >= 10000:
 		var platinum_instance = platinum.instantiate()
 		platinum_instance.global_position = medalPos
 		add_child(platinum_instance)
-	elif score >= 3000:
+	elif Global.score >= 3000:
 		var gold_instance = gold.instantiate()
 		gold_instance.global_position = medalPos
 		add_child(gold_instance)
-	elif score >= 750:
+	elif Global.score >= 750:
 		var silver_instance = silver.instantiate()
 		silver_instance.global_position = medalPos
 		add_child(silver_instance)
@@ -62,7 +61,7 @@ func display_medal(score: int):
 		bronze_instance.global_position = medalPos
 		add_child(bronze_instance)
 		
-	if score >= 12800 and Global.difficil == "easy":
+	if Global.score >= 12800 and Global.difficil == "easy":
 		Global.achievements["HHigh"] = true
 
 func _on_retry_button_pressed() -> void:

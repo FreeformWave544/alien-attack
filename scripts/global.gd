@@ -1,6 +1,11 @@
 extends Node
 
-var achievements: Dictionary = {} ;var isBoss: bool;var canFire: bool = true;var pathGot: bool ;var pathKills: int ;var score: int ;var TakeLIVES: int ;var addScore: int ;var player_name;var finalTime: float ;var difficil = "norm";
+var achievements: Dictionary = {} ;var isBoss: bool;var canFire: bool = true;var pathGot: bool ;var pathKills: int ;var score: int ;var TakeLIVES: int ;
+var addScore: int:
+	set(v): 
+		score += v
+		print(v, " -=-=- ", score)
+var player_name;var finalTime: float ;var difficil = "norm";
 var died: bool = true ;var bossLives = 200 ;var instructions = true ;var WaitForMe: bool = false ;var url = "http://localhost:3000";var json_parser = JSON.new()
 var high_scores = {"easy": 0, "norm": 0, "hard": 0}
 var jwt_token: String = "" ; var sessionRuns: int = 0 ; var recentScores = [] ; var volume: int = 20

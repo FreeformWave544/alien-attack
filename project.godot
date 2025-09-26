@@ -22,6 +22,8 @@ config/icon="uid://bv33a83ppemxc"
 Global="*res://scripts/global.gd"
 ApiManager="*res://scenes/api_manager.tscn"
 Constants="*res://scripts/constants.gd"
+UpgradeManager="*res://scripts/upgrade_manager.gd"
+AppConfig="*res://addons/maaacks_options_menus/base/scenes/autoloads/app_config.tscn"
 
 [debug]
 
@@ -39,7 +41,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/proton_control_animation/plugin.cfg")
+enabled=PackedStringArray("res://addons/maaacks_options_menus/plugin.cfg", "res://addons/proton_control_animation/plugin.cfg")
 
 [global_group]
 
@@ -99,6 +101,10 @@ ability1={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://addons/maaacks_options_menus/base/translations/menus_translations.en.translation", "res://addons/maaacks_options_menus/base/translations/menus_translations.fr.translation")
+
 [layer_names]
 
 2d_physics/layer_1="player"
@@ -107,6 +113,11 @@ ability1={
 2d_physics/layer_4="deathzone"
 2d_physics/layer_5="boss"
 2d_physics/layer_6="THE asteroid"
+
+[maaacks_options_menus]
+
+disable_update_check=false
+disable_install_wizard=true
 
 [rendering]
 

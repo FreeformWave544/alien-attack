@@ -1582,6 +1582,23 @@ grow_vertical = 0
 theme = ExtResource("2_xxw77")
 text = "Options"
 
+[node name="Upgrades" type="Button" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -478.5
+offset_top = -281.0
+offset_right = -374.5
+offset_bottom = -228.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_xxw77")
+text = "Upgrades"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ns81b")
 
@@ -1591,3 +1608,4 @@ environment = SubResource("Environment_ns81b")
 [connection signal="pressed" from="Panel/achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="Panel/sessionScores" to="." method="_on_session_scores_pressed"]
 [connection signal="pressed" from="Panel/options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Panel/Upgrades" to="." method="_on_upgrades_pressed"]

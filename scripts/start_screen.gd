@@ -16,6 +16,7 @@ func _ready() -> void:
 					var instructions = load("res://scenes/instructions.tscn")
 					var instructionsInstance = instructions.instantiate()
 					$Panel.add_child(instructionsInstance)
+					instructionsInstance.visible = false
 
 func _on_button_2_pressed() -> void:
 	Global.difficil = "norm"
@@ -40,3 +41,7 @@ func _on_volume_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	add_child(load("res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn").instantiate())
+
+
+func _on_upgrades_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/upgrades.tscn")
