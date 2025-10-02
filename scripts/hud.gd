@@ -9,7 +9,6 @@ func _ready() -> void:
 	set_upgrades()
 
 func set_score_label():
-	print(Global.score)
 	score.text = "SCORE: " + str(Global.score)
 
 func set_lives(amount):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://rbggnhsjlfho"]
+[gd_scene load_steps=17 format=3 uid="uid://rbggnhsjlfho"]
 
 [ext_resource type="Script" uid="uid://dphatuq4lnsf3" path="res://scripts/upgrades.gd" id="1_h5bgf"]
 [ext_resource type="Script" uid="uid://fm06r82v8uh8" path="res://scripts/upgradeSlotData.gd" id="2_5wf0v"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b0cue11pynyff" path="res://assets/Any/WarlockIcons/15.png" id="5_keijs"]
 [ext_resource type="Texture2D" uid="uid://cje0yuhj6l75j" path="res://assets/Any/WarlockIcons/46.png" id="6_hxux0"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="7_mp7ln"]
+[ext_resource type="Texture2D" uid="uid://df2rox462opqd" path="res://assets/Any/WarlockIcons/38.png" id="7_vi17a"]
 
 [sub_resource type="Resource" id="Resource_yoata"]
 script = ExtResource("2_5wf0v")
@@ -37,11 +38,20 @@ metadata/_custom_type_script = "uid://fm06r82v8uh8"
 
 [sub_resource type="Resource" id="Resource_5pnuu"]
 script = ExtResource("2_5wf0v")
-upgrade_name = "Snow Enemies"
+upgrade_name = "Slow Enemies"
 type = "Defence"
 ID = "Slow"
 rarity = "Uncommon"
 icon = ExtResource("6_hxux0")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
+[sub_resource type="Resource" id="Resource_h5bgf"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Eye Of 𒇫𒄆ก็𒀱𒄆"
+type = "??"
+ID = "Eye"
+rarity = "Legendary"
+icon = ExtResource("7_vi17a")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 
 [sub_resource type="LabelSettings" id="LabelSettings_keijs"]
@@ -67,24 +77,18 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.00235, 1.0105)
 script = ExtResource("1_h5bgf")
-upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu")])
+upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu"), SubResource("Resource_h5bgf")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Upgrade" type="Panel" parent="CanvasLayer/HBoxContainer"]
+[node name="Upgrade" type="Panel" parent="CanvasLayer"]
 custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
+offset_left = 490.0
+offset_top = 210.0
+offset_right = 790.0
+offset_bottom = 510.0
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HBoxContainer/Upgrade"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Upgrade"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,11 +97,11 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.016059376, 0.20966567, 0.20966567, 0.22352941)
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HBoxContainer/Upgrade"]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Upgrade"]
 position = Vector2(150, 150)
 scale = Vector2(0.2, 0.2)
 
-[node name="Name" type="Label" parent="CanvasLayer/HBoxContainer/Upgrade"]
+[node name="Name" type="Label" parent="CanvasLayer/Upgrade"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -110,7 +114,7 @@ grow_horizontal = 2
 label_settings = SubResource("LabelSettings_keijs")
 horizontal_alignment = 1
 
-[node name="Type" type="Label" parent="CanvasLayer/HBoxContainer/Upgrade"]
+[node name="Type" type="Label" parent="CanvasLayer/Upgrade"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -123,7 +127,7 @@ grow_horizontal = 2
 label_settings = SubResource("LabelSettings_hxux0")
 horizontal_alignment = 1
 
-[node name="Rarity" type="Label" parent="CanvasLayer/HBoxContainer/Upgrade"]
+[node name="Rarity" type="Label" parent="CanvasLayer/Upgrade"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -139,8 +143,17 @@ label_settings = SubResource("LabelSettings_ldw3g")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/HBoxContainer/Upgrade"]
+[node name="Button" type="Button" parent="CanvasLayer/Upgrade"]
 modulate = Color(1, 1, 1, 0.3882353)
 layout_mode = 0
 offset_right = 300.0
 offset_bottom = 300.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1

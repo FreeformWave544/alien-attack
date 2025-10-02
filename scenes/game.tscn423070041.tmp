@@ -139,16 +139,6 @@ offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(1, 1, 1, 0)
 
-[node name="ABCDs" type="Node" parent="."]
-
-[node name="Ability1" type="Timer" parent="ABCDs"]
-
-[node name="Ability2" type="Timer" parent="ABCDs"]
-
-[node name="Ability3" type="Timer" parent="ABCDs"]
-
-[node name="Ability4" type="Timer" parent="ABCDs"]
-
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="area_entered" from="Deathzone" to="." method="_on_deathzone_area_entered"]
 [connection signal="button_down" from="mobile/up" to="." method="_on_up_button_down"]

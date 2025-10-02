@@ -6,7 +6,8 @@ signal died
 @onready var hitSound = $EnemyHitSound
 @export var speed := 300.0
 @export var health := 1.0
-var is_dead = false 
+var constantSpeed := speed
+var is_dead := false 
  
 func _ready() -> void:
 	aniSprite.visible = false
@@ -38,3 +39,7 @@ func _on_body_entered(body):
 	if body.has_method("take_damage"):
 		body.take_damage()
 	die()
+
+func set_speed_multiplier(mult):
+	if mult is bool and mult == false: speed = constantSpeed ; return
+	elif mult is int or mult is float: speed = constantSpeed * mult
