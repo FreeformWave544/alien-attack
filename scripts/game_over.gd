@@ -6,7 +6,7 @@ var recentScores = {}
 @onready var silver = preload("res://scenes/medals/silver_medal.tscn")
 @onready var gold = preload("res://scenes/medals/gold_medal.tscn")
 @onready var platinum = preload("res://scenes/medals/platinum_medal.tscn")
-@onready var diffMulti: Label = $Panel/DiffMulti
+@onready var diffMulti: Label = $CanvasLayer/Panel/DiffMulti
 var medalPos = Vector2(400, 252)
 var run: bool = false
 
@@ -36,8 +36,8 @@ func fetch_best_score():
 	if Global.score > Global.high_scores[Global.difficil]:
 		Global.high_scores[Global.difficil] = Global.score
 		await ApiManager.send_request("POST", "/scores", Global.high_scores)
-	$Panel/Score.text = "SCORE: " + str(Global.score) + "\nBEST SCORE: " + str(Global.high_scores[Global.difficil])
-	$Panel/FinalTime.text = "Final Time: %.2f" % Global.finalTime
+	$CanvasLayer/Panel/Score.text = "SCORE: " + str(Global.score) + "\nBEST SCORE: " + str(Global.high_scores[Global.difficil])
+	$CanvasLayer/Panel/FinalTime.text = "Final Time: %.2f" % Global.finalTime
 	display_medal(Global.score)
 
 func display_medal(score: int):

@@ -66,9 +66,11 @@ func _process(delta: float) -> void:
 		hud.set_score_label()
 		enemy_hit_sound.play()
 	if Global.TakeLIVES:
-		# Check for Ghostly Phoenix protection
 		if ghostly_phoenix_available and Global.TakeLIVES > 0:
 			_trigger_ghostly_phoenix()
+			ghostly_phoenix_available = false
+			Global.TakeLIVES = 0
+		elif invincibility_active and Global.TakeLIVES > 0:
 			Global.TakeLIVES = 0
 		else:
 			lives -= Global.TakeLIVES
@@ -119,18 +121,16 @@ func _on_deathzone_area_entered(area):
 		area.queue_free()
 
 func _on_player_took_damage():
-	if invincibility_active:
-		return  # Ignore damage when invincible
-	
-	# Check for Ghostly Phoenix before taking damage
-	if ghostly_phoenix_available and lives <= 1:
-		_trigger_ghostly_phoenix()
-		return
-	
-	player_dmg.play()
-	lives -= 1
-	score -= 100
-	hud.set_lives(lives)
+	#if invincibility_active:
+		#return
+	#if ghostly_phoenix_available and lives <= 1:
+		#_trigger_ghostly_phoenix()
+		#return
+	#
+	#player_dmg.play()
+	#lives -= 1
+	#score -= 100
+	#hud.set_lives(lives)
 	if lives <= 0:
 		if ghostly_phoenix_available:
 			_trigger_ghostly_phoenix()
@@ -248,19 +248,14 @@ func use_ability(ability: String, slot: int = 0) -> void:
 func _activate_invincibility(timer: Timer) -> void:
 	if invincibility_active:
 		return
-	
 	invincibility_active = true
 	$Player/Sprite2D.modulate = Color(4.0, 4.0, 4.0)
-	
-	# Visual feedback
 	var tween = create_tween()
 	tween.set_loops(6)
 	tween.tween_property($Player/Sprite2D, "modulate:a", 0.5, 0.25)
 	tween.tween_property($Player/Sprite2D, "modulate:a", 1.0, 0.25)
-	
 	timer.start()
 	await get_tree().create_timer(3.0).timeout
-	
 	invincibility_active = false
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	print("Invincibility ended")
@@ -365,7 +360,7 @@ func _activate_eye_of_chaos(timer: Timer) -> void:
 		)
 		shake_timer += get_process_delta_time()
 		await get_tree().process_frame
-	
+	fastRocket()
 	player.position = original_pos
 	
 	timer.start()

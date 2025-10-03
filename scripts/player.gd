@@ -61,6 +61,7 @@ func shoot():
 
 func take_damage(v := 1):
 	Global.TakeLIVES += v
+	emit_signal("took_damage")
 
 func die():
 	if Global.died:
