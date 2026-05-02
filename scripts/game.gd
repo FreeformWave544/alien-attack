@@ -41,8 +41,10 @@ func _ready():
 		apply_hard_mode()
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
 		$mobile.visible = true
-	while true:
-		await get_tree().create_timer(10).timeout
+	for i in range(4):
+		for tim in range(10 * len(UpgradeManager.equippedUpgrades) + 10):
+			$UI/HUD/Upgrades.value = (100.0 / (10.0 * len(UpgradeManager.equippedUpgrades) + 10)) * tim
+			await get_tree().create_timer(1.0).timeout
 		var upgrade = upgrader.instantiate()
 		add_child(upgrade)
 		upgrade.toggle()
@@ -87,22 +89,11 @@ func _physics_process(delta):
 	player.position += direction * 200 * delta
 
 func _unhandled_input(event: InputEvent) -> void:
-	if !Global.fastRocketActive and fastRocketCharge > 1.0 and event.is_action("ultimate"): 
-		fastRocket()
-	
-	# Ability inputs
-	if Input.is_action_just_pressed("ability_1"):
-		if UpgradeManager.equippedUpgrades.size() > 0:
-			use_ability(UpgradeManager.equippedUpgrades[0].ID, 0)
-	if Input.is_action_just_pressed("ability_2"):
-		if UpgradeManager.equippedUpgrades.size() > 1:
-			use_ability(UpgradeManager.equippedUpgrades[1].ID, 1)
-	if Input.is_action_just_pressed("ability_3"):
-		if UpgradeManager.equippedUpgrades.size() > 2:
-			use_ability(UpgradeManager.equippedUpgrades[2].ID, 2)
-	if Input.is_action_just_pressed("ability_4"):
-		if UpgradeManager.equippedUpgrades.size() > 3:
-			use_ability(UpgradeManager.equippedUpgrades[3].ID, 3)
+	if !Global.fastRocketActive and fastRocketCharge > 1.0 and event.is_action("ultimate"): fastRocket()
+	if Input.is_action_just_pressed("ability_1") and UpgradeManager.equippedUpgrades.size() > 0: use_ability(UpgradeManager.equippedUpgrades[0].ID, 0)
+	if Input.is_action_just_pressed("ability_2") and UpgradeManager.equippedUpgrades.size() > 1: use_ability(UpgradeManager.equippedUpgrades[1].ID, 1)
+	if Input.is_action_just_pressed("ability_3") and UpgradeManager.equippedUpgrades.size() > 2: use_ability(UpgradeManager.equippedUpgrades[2].ID, 2)
+	if Input.is_action_just_pressed("ability_4") and UpgradeManager.equippedUpgrades.size() > 3: use_ability(UpgradeManager.equippedUpgrades[3].ID, 3)
 
 func _on_deathzone_area_entered(area):
 	if area.is_in_group("fireball"):
@@ -289,94 +280,56 @@ func _activate_ghostly_phoenix(timer: Timer) -> void:
 func _trigger_ghostly_phoenix() -> void:
 	if not ghostly_phoenix_available:
 		return
-	
 	ghostly_phoenix_available = false
-	lives = 3  # Revive with 3 lives
-	invincibility_active = true  # Brief invincibility after revive
-	
-	# Visual effect
+	lives = 2
+	invincibility_active = true
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	var tween = create_tween()
 	tween.tween_property($Player, "scale", Vector2(0.5, 0.5), 0.1)
 	tween.tween_property($Player, "scale", Vector2(1.5, 1.5), 0.3)
 	tween.tween_property($Player, "scale", Vector2(1.0, 1.0), 0.2)
-	
 	hud.set_lives(lives)
-	print("Ghostly Phoenix triggered! Revived with 3 lives")
-	
-	# Remove invincibility after 2 seconds
 	await get_tree().create_timer(2.0).timeout
 	invincibility_active = false
 
 func _activate_slow_enemies(timer: Timer) -> void:
-	if slow_enemies_active:
-		return
+	if slow_enemies_active: return
 	slow_enemies_active = true
 	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if enemy.has_method("set_speed_multiplier"):
-			enemy.set_speed_multiplier(0.5)
+		if enemy.has_method("set_speed_multiplier"): enemy.set_speed_multiplier(0.5)
 	timer.start()
 	await get_tree().create_timer(5.0).timeout
 	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if enemy.has_method("set_speed_multiplier"):
-			enemy.set_speed_multiplier(false)
-	
+		if enemy.has_method("set_speed_multiplier"): enemy.set_speed_multiplier(false)
 	slow_enemies_active = false
-	print("Slow Enemies ended")
 
 func _activate_eye_of_chaos(timer: Timer) -> void:
-	if eye_active:
-		return
-	
+	if eye_active: return
 	eye_active = true
-	
-	# Create a visual distortion effect
 	var shader_material = ShaderMaterial.new()
 	if plexusParticles:
 		shader_material.shader = plexusParticles
 		plexusBackground.material = shader_material
-	
-	# Increase damage and score multiplier
 	var original_time_scale = Engine.time_scale
-	
-	# Kill all enemies on screen
-	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if enemy.has_method("die"):
-			enemy.die()
-		else:
-			enemy.queue_free()
-		score += 50  # Bonus score for each enemy destroyed
-	
-	# Screen shake effect
 	var shake_amount = 10.0
 	var shake_duration = 1.0
 	var shake_timer = 0.0
 	var original_pos = player.position
-	
 	while shake_timer < shake_duration:
-		player.position = original_pos + Vector2(
-			randf_range(-shake_amount, shake_amount),
-			randf_range(-shake_amount, shake_amount)
-		)
+		player.position = original_pos + Vector2(randf_range(-shake_amount, shake_amount), randf_range(-shake_amount, shake_amount))
 		shake_timer += get_process_delta_time()
 		await get_tree().process_frame
 	fastRocket()
 	player.position = original_pos
-	
 	timer.start()
 	await get_tree().create_timer(8.0).timeout
-	
 	plexusBackground.material = ShaderMaterial.new()
 	eye_active = false
-	print("Eye of Chaos ended")
 
 func _setup_ability_timers() -> void:
-	# Ensure timer nodes exist
 	for key in ABCDTimers.keys():
 		var timer_path = ABCDTimers[key]
 		var timer = get_node_or_null(timer_path)
 		if timer:
 			timer.wait_time = ABCDs[key]
 			timer.one_shot = true
-		else:
-			print("Warning: Timer not found at path: ", timer_path)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://6agu3e1nc3yu"]
+[gd_scene format=3 uid="uid://6agu3e1nc3yu"]
 
 [ext_resource type="Texture2D" uid="uid://udhsbtqgswt2" path="res://assets/textures/medals/Gold01.png" id="1_1eucp"]
 [ext_resource type="Texture2D" uid="uid://s2o2x0s0wj55" path="res://assets/textures/medals/Gold02.png" id="2_wy78j"]
@@ -61,6 +61,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="gold_medal" type="AnimatedSprite2D"]
+[node name="gold_medal" type="AnimatedSprite2D" unique_id=91758424]
+z_index = 5
 sprite_frames = SubResource("SpriteFrames_je4c4")
 autoplay = "default"

@@ -30,13 +30,11 @@ func _on_timer_timeout() -> void:
 		_:
 			path_chance = 8
 			asteroid_chance = clamp(200 - int(value * 3), 40, 200)
-
 	if randi_range(1, asteroid_chance) == 1:
 		ASTEROID()
 		return
 	var norm_path = randi_range(1, path_chance)
 	var enemy_instance: Node2D
-
 	if norm_path == 2:
 		enemy_instance = path_enemy_scene.instantiate()
 		enemy_instance.add_to_group("path")
@@ -45,11 +43,9 @@ func _on_timer_timeout() -> void:
 		enemy_instance.global_position = Vector2(1400, randi_range(15, 720))
 	var enemy_health = 100 + value * 10 
 	var enemy_speed = 100 + value * 10
-
 	enemy_instance.set("health", enemy_health)
 	enemy_instance.set("speed", enemy_speed)
-	enemy_instance.connect("died", Callable(game_script, "_on_enemy_died"))
-	
+	if is_inside_tree(): enemy_instance.connect("died", Callable(game_script, "_on_enemy_died"))
 	enemy_container.add_child(enemy_instance)
 	emit_signal("enemy_spawned", enemy_instance)
 

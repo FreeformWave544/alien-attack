@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dawhatyahksno"]
+[gd_scene format=3 uid="uid://dawhatyahksno"]
 
 [ext_resource type="Script" uid="uid://gv5okr0yswsr" path="res://scripts/hud.gd" id="1_3s0o3"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="1_l86pj"]
@@ -23,29 +23,18 @@ font_color = Color(0.7564044, 0.7564044, 0.7564044, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_n3we0"]
 font_size = 25
 
-[sub_resource type="Gradient" id="Gradient_uo2fv"]
-offsets = PackedFloat32Array(0, 0.45652175, 0.5362319, 0.5507246)
+[sub_resource type="Gradient" id="Gradient_5ysmq"]
+offsets = PackedFloat32Array(0, 0.45652175, 0.5362319, 0.5779221)
 colors = PackedColorArray(0, 0, 0, 1, 0.18039216, 0.8509804, 0.8509804, 0.2627451, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_047uy"]
-gradient = SubResource("Gradient_uo2fv")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6fi6k"]
+gradient = SubResource("Gradient_5ysmq")
 width = 119
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1.05, 1.05)
 
-[sub_resource type="Gradient" id="Gradient_5pdws"]
-offsets = PackedFloat32Array(0, 0.45652175, 0.5362319, 0.5507246)
-colors = PackedColorArray(0, 0, 0, 1, 0.6975133, 0.569311, 0.5706601, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hd3ao"]
-gradient = SubResource("Gradient_5pdws")
-width = 119
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 1)
-
-[node name="HUD" type="Control"]
+[node name="HUD" type="Control" unique_id=804532619]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3s0o3")
 
-[node name="Difficulty" type="Label" parent="."]
+[node name="Difficulty" type="Label" parent="." unique_id=2068806868]
 layout_mode = 0
 offset_left = 169.0
 offset_top = 83.0
@@ -62,7 +51,7 @@ offset_right = 209.0
 offset_bottom = 113.0
 label_settings = SubResource("LabelSettings_ltp1u")
 
-[node name="Lives" type="Label" parent="."]
+[node name="Lives" type="Label" parent="." unique_id=1005393351]
 layout_mode = 0
 offset_left = 90.0
 offset_top = 71.0
@@ -71,7 +60,7 @@ offset_bottom = 140.0
 text = "3"
 label_settings = SubResource("LabelSettings_f045y")
 
-[node name="Score" type="Label" parent="."]
+[node name="Score" type="Label" parent="." unique_id=1484791720]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 14.0
@@ -80,7 +69,7 @@ offset_bottom = 89.0
 text = "SCORE: 9999"
 label_settings = SubResource("LabelSettings_kp53f")
 
-[node name="Time" type="Label" parent="."]
+[node name="Time" type="Label" parent="." unique_id=1767244469]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -93,7 +82,7 @@ text = "Time: 999"
 label_settings = SubResource("LabelSettings_5ysmq")
 horizontal_alignment = 1
 
-[node name="X" type="Label" parent="."]
+[node name="X" type="Label" parent="." unique_id=253936042]
 layout_mode = 0
 offset_left = 68.0
 offset_top = 89.0
@@ -102,7 +91,7 @@ offset_bottom = 124.0
 text = "X"
 label_settings = SubResource("LabelSettings_n3we0")
 
-[node name="Life" type="TextureRect" parent="."]
+[node name="Life" type="TextureRect" parent="." unique_id=963518921]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 83.0
@@ -111,7 +100,7 @@ offset_bottom = 201.0
 scale = Vector2(0.441721, 0.441721)
 texture = ExtResource("3_e24br")
 
-[node name="AbilityChargeProgress" type="ProgressBar" parent="."]
+[node name="AbilityChargeProgress" type="ProgressBar" parent="." unique_id=937932891]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -125,38 +114,35 @@ max_value = 1.0
 step = 0.0
 allow_greater = true
 
-[node name="Upgrades" type="TextureProgressBar" parent="."]
+[node name="Upgrades" type="TextureProgressBar" parent="." unique_id=1641884026]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -215.0
-offset_right = 64.0
-offset_bottom = -151.0
+offset_left = 71.0
+offset_top = -156.0
+offset_right = 190.0
+offset_bottom = -92.0
 grow_vertical = 0
-scale = Vector2(2, 2)
 step = 0.1
-value = 99.9
-fill_mode = 8
-texture_under = SubResource("GradientTexture2D_047uy")
-texture_progress = SubResource("GradientTexture2D_hd3ao")
+texture_progress = SubResource("GradientTexture2D_6fi6k")
 
-[node name="Ability1" type="Sprite2D" parent="Upgrades"]
+[node name="Ability1" type="Sprite2D" parent="Upgrades" unique_id=1972897961]
 z_index = 1
 position = Vector2(22.74, 31.73999)
 scale = Vector2(0.04, 0.04)
 
-[node name="Ability2" type="Sprite2D" parent="Upgrades"]
+[node name="Ability2" type="Sprite2D" parent="Upgrades" unique_id=1924388561]
 z_index = 1
 position = Vector2(47.739998, 31.73999)
 scale = Vector2(0.04, 0.04)
 
-[node name="Ability3" type="Sprite2D" parent="Upgrades"]
+[node name="Ability3" type="Sprite2D" parent="Upgrades" unique_id=1783161883]
 z_index = 1
 position = Vector2(72.24, 31.73999)
 scale = Vector2(0.04, 0.04)
 
-[node name="Ability4" type="Sprite2D" parent="Upgrades"]
+[node name="Ability4" type="Sprite2D" parent="Upgrades" unique_id=1720481509]
 z_index = 1
 position = Vector2(97.24, 31.73999)
 scale = Vector2(0.04, 0.04)

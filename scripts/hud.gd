@@ -10,9 +10,11 @@ func _ready() -> void:
 
 func set_score_label():
 	score.text = "SCORE: " + str(Global.score)
+	set_upgrades()
 
 func set_lives(amount):
 	livesLeft.text = str(amount)
+	set_upgrades()
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):

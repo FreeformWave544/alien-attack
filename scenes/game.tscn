@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://i6fgpb7bsg2s"]
+[gd_scene format=3 uid="uid://i6fgpb7bsg2s"]
 
 [ext_resource type="Script" uid="uid://c1cxi3mupblui" path="res://scripts/game.gd" id="1_oynfb"]
 [ext_resource type="PackedScene" uid="uid://dawhatyahksno" path="res://scenes/hud.tscn" id="2_llffo"]
@@ -18,15 +18,15 @@ font_color = Color(0.63, 0, 0, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3bnsa"]
 size = Vector2(1222, 3892)
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" unique_id=564023448]
 script = ExtResource("1_oynfb")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1602360066]
 layer = -1
 
-[node name="HUD" parent="UI" instance=ExtResource("2_llffo")]
+[node name="HUD" parent="UI" unique_id=1130042439 instance=ExtResource("2_llffo")]
 
-[node name="paused" type="Label" parent="UI"]
+[node name="paused" type="Label" parent="UI" unique_id=1869484781]
 visible = false
 offset_left = 386.0
 offset_top = 280.0
@@ -35,33 +35,33 @@ offset_bottom = 430.0
 text = "PAUSED"
 label_settings = SubResource("LabelSettings_u604d")
 
-[node name="Player" parent="." instance=ExtResource("2_nevbj")]
+[node name="Player" parent="." unique_id=1744447680 instance=ExtResource("2_nevbj")]
 position = Vector2(109, 374)
 
-[node name="EnemySpawner" parent="." instance=ExtResource("4_e38v0")]
+[node name="EnemySpawner" parent="." unique_id=503608854 instance=ExtResource("4_e38v0")]
 
-[node name="Deathzone" type="Area2D" parent="."]
+[node name="Deathzone" type="Area2D" parent="." unique_id=1633404185]
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Deathzone" groups=["asteroid"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deathzone" unique_id=1404164960 groups=["asteroid"]]
 position = Vector2(-938, 348)
 shape = SubResource("RectangleShape2D_3bnsa")
 
-[node name="EnemyHitSound" type="AudioStreamPlayer" parent="."]
+[node name="EnemyHitSound" type="AudioStreamPlayer" parent="." unique_id=1140790459]
 stream = ExtResource("6_qgucp")
 mix_target = 1
 max_polyphony = 100
 playback_type = 1
 
-[node name="PlayerDmg" type="AudioStreamPlayer" parent="."]
+[node name="PlayerDmg" type="AudioStreamPlayer" parent="." unique_id=1044397726]
 stream = ExtResource("7_1dl8s")
 max_polyphony = 50
 
-[node name="mobile" type="CanvasLayer" parent="."]
+[node name="mobile" type="CanvasLayer" parent="." unique_id=287451063]
 visible = false
 
-[node name="up" type="Button" parent="mobile"]
+[node name="up" type="Button" parent="mobile" unique_id=626054539]
 z_index = 4096
 offset_left = 995.0
 offset_top = 520.0
@@ -75,7 +75,7 @@ theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
 action_mode = 0
 text = "W"
 
-[node name="down" type="Button" parent="mobile"]
+[node name="down" type="Button" parent="mobile" unique_id=2000987014]
 z_index = 4096
 offset_left = 1029.0
 offset_top = 613.0
@@ -85,7 +85,7 @@ scale = Vector2(3, 3)
 action_mode = 0
 text = "S"
 
-[node name="left" type="Button" parent="mobile"]
+[node name="left" type="Button" parent="mobile" unique_id=52706277]
 z_index = 4096
 offset_left = 912.0
 offset_top = 611.0
@@ -95,7 +95,7 @@ scale = Vector2(3, 3)
 action_mode = 0
 text = "A"
 
-[node name="right" type="Button" parent="mobile"]
+[node name="right" type="Button" parent="mobile" unique_id=961299659]
 z_index = 4096
 offset_left = 1149.0
 offset_top = 614.0
@@ -105,7 +105,7 @@ scale = Vector2(3, 3)
 action_mode = 0
 text = "D"
 
-[node name="shoot" type="Button" parent="mobile"]
+[node name="shoot" type="Button" parent="mobile" unique_id=1118737946]
 z_index = 4096
 offset_left = 872.0
 offset_top = 517.0
@@ -115,7 +115,7 @@ scale = Vector2(3, 3)
 action_mode = 0
 text = "shoot"
 
-[node name="other pew" type="Button" parent="mobile"]
+[node name="other pew" type="Button" parent="mobile" unique_id=1281082599]
 z_index = 4096
 offset_left = 78.9998
 offset_top = 577.0
@@ -125,29 +125,29 @@ scale = Vector2(2.1, 2.1)
 action_mode = 0
 text = "other shoot"
 
-[node name="backgroudMusic" type="AudioStreamPlayer" parent="."]
+[node name="backgroudMusic" type="AudioStreamPlayer" parent="." unique_id=268149629]
 stream = ExtResource("8_vtaks")
 autoplay = true
 bus = &"Music"
 parameters/looping = true
 
-[node name="ParallaxBackground" parent="." instance=ExtResource("9_0tnpc")]
+[node name="ParallaxBackground" parent="." unique_id=1253074613 instance=ExtResource("9_0tnpc")]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=931400915]
 z_index = -100
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(1, 1, 1, 0)
 
-[node name="ABCDs" type="Node" parent="."]
+[node name="ABCDs" type="Node" parent="." unique_id=819858741]
 
-[node name="Ability1" type="Timer" parent="ABCDs"]
+[node name="Ability1" type="Timer" parent="ABCDs" unique_id=2105707912]
 
-[node name="Ability2" type="Timer" parent="ABCDs"]
+[node name="Ability2" type="Timer" parent="ABCDs" unique_id=2133406722]
 
-[node name="Ability3" type="Timer" parent="ABCDs"]
+[node name="Ability3" type="Timer" parent="ABCDs" unique_id=1359211219]
 
-[node name="Ability4" type="Timer" parent="ABCDs"]
+[node name="Ability4" type="Timer" parent="ABCDs" unique_id=71249019]
 
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="area_entered" from="Deathzone" to="." method="_on_deathzone_area_entered"]

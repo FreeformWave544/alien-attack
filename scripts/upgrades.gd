@@ -11,12 +11,11 @@ const RARITY_COLORS := {
 	"Epic": Color(0.7, 0.3, 0.9), 
 	"Legendary": Color(1, 0.6, 0.1) }
 const RARITY_WEIGHTS := {
-	"Common": 50,
-	"Uncommon": 30,
-	"Rare": 15,
-	"Epic": 4,
-	"Legendary": 1
-}
+	"Common": 80,
+	"Uncommon": 60,
+	"Rare": 25,
+	"Epic": 8,
+	"Legendary": 1 }
 
 func _ready():
 	get_cards()
@@ -29,16 +28,12 @@ func _exit_tree() -> void: get_tree().paused = false
 
 func pick_weighted_upgrade() -> UpgradeData:
 	var pool: Array[UpgradeData] = []
-	for u in upgrades:
-		if u == null:
-			continue
-		if u.rarity in RARITY_WEIGHTS:
-			var weight = RARITY_WEIGHTS[u.rarity]
-			for i in range(weight):
-				pool.append(u)
-	if pool.is_empty():
-		return null
-
+	for upgrade in upgrades:
+		if upgrade == null: continue
+		if upgrade.rarity in RARITY_WEIGHTS:
+			var weight = RARITY_WEIGHTS[upgrade.rarity]
+			for i in range(weight): pool.append(upgrade)
+	if pool.is_empty(): return null
 	return pool.pick_random()
 
 func get_cards(amount := 3):
@@ -61,8 +56,7 @@ func get_cards(amount := 3):
 func assign_available_cards() -> void:
 	var container = $CanvasLayer/HBoxContainer
 	var template = $CanvasLayer/Upgrade
-	for child in container.get_children():
-		child.queue_free()
+	for child in container.get_children(): child.queue_free()
 	for upgrade_name in UpgradeManager.avaliableUpgrades.keys():
 		var upgrade_data = UpgradeManager.avaliableUpgrades[upgrade_name]
 		var new_upgrade = template.duplicate()
@@ -70,8 +64,7 @@ func assign_available_cards() -> void:
 		new_upgrade.get_node("Sprite2D").texture = upgrade_data.Icon
 		var rarity_label = new_upgrade.get_node("Rarity")
 		rarity_label.text = upgrade_data.Rarity
-		if upgrade_data.Rarity in RARITY_COLORS:
-			rarity_label.add_theme_color_override("font_color", RARITY_COLORS[upgrade_data.Rarity])
+		if upgrade_data.Rarity in RARITY_COLORS: rarity_label.add_theme_color_override("font_color", RARITY_COLORS[upgrade_data.Rarity])
 		new_upgrade.get_node("Type").text = upgrade_data.Type
 		new_upgrade.get_node("Name").text = upgrade_name
 		if new_upgrade.has_node("Background"):

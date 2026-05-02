@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ktp3handxuk4"]
+[gd_scene format=3 uid="uid://ktp3handxuk4"]
 
 [ext_resource type="Script" uid="uid://5gjnwra50hl3" path="res://scripts/game_over.gd" id="1_da56o"]
 
@@ -19,7 +19,7 @@ font_color = Color(0.234, 0.78, 0.78, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_xeevv"]
 font_color = Color(0.258824, 0.87451, 0.623529, 1)
 
-[node name="GameOver" type="Control"]
+[node name="GameOver" type="Control" unique_id=1470132177]
 z_index = 4096
 layout_mode = 3
 anchors_preset = 15
@@ -29,10 +29,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_da56o")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1306285242]
 layer = 5
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1944105179]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -46,74 +46,50 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_id8xs")
 
-[node name="GameOver" type="Label" parent="CanvasLayer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=493963194]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -164.0
-offset_top = -140.0
-offset_right = 162.0
-offset_bottom = -57.0
+offset_left = -162.5
+offset_top = -171.0
+offset_right = 162.5
+offset_bottom = 171.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
+
+[node name="GameOver" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=268342515]
+layout_mode = 2
 text = "Game Over"
 label_settings = SubResource("LabelSettings_2xit6")
 
-[node name="FinalTime" type="Label" parent="CanvasLayer/Panel"]
-layout_mode = 0
-offset_left = 182.0
-offset_top = 19.0
-offset_right = 278.0
-offset_bottom = 42.0
+[node name="FinalTime" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1756062626]
+layout_mode = 2
 text = "FINAL TIME: "
 
-[node name="Score" type="Label" parent="CanvasLayer/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -119.5
-offset_top = -55.0
-offset_right = 119.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1233029169]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Score" type="Label" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainer" unique_id=923479163]
+layout_mode = 2
 text = "SCORE: 0"
 label_settings = SubResource("LabelSettings_mws8k")
 
-[node name="DiffMulti" type="Label" parent="CanvasLayer/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 61.0
-offset_top = -64.0
-offset_right = 268.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="DiffMulti" type="Label" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainer" unique_id=552753368]
+layout_mode = 2
 text = "Difficulty Multiplier: "
 label_settings = SubResource("LabelSettings_xeevv")
 
-[node name="RetryButton" type="Button" parent="CanvasLayer/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -95.0
-offset_top = 36.0
-offset_right = 95.0
-offset_bottom = 105.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1483402391]
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainer2" unique_id=1150475046]
+layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(0.36366802, 0.7423972, 1.0534295, 0.72900003)
 theme_override_colors/font_disabled_color = Color(0.79, 0.1264, 0.1264, 0.396078)
 theme_override_colors/icon_normal_color = Color(0.154786, 0.357429, 0.515908, 0.882353)
@@ -123,21 +99,9 @@ theme_override_colors/icon_disabled_color = Color(0.673922, 0.0145488, 0.200555,
 theme_override_font_sizes/font_size = 44
 text = "RETRY"
 
-[node name="MainMenu" type="Button" parent="CanvasLayer/Panel"]
+[node name="MainMenu" type="Button" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainer2" unique_id=2124665341]
 z_index = 1000
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 171.0
-offset_top = -164.0
-offset_right = 419.0
-offset_bottom = -95.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.453724, 0.453724)
+layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(0.2442, 0.51689, 0.74, 0.729412)
 theme_override_colors/font_disabled_color = Color(0.79, 0.1264, 0.1264, 0.396078)
 theme_override_colors/icon_normal_color = Color(0.154786, 0.357429, 0.515908, 0.882353)
@@ -147,5 +111,5 @@ theme_override_colors/icon_disabled_color = Color(0.673922, 0.0145488, 0.200555,
 theme_override_font_sizes/font_size = 44
 text = "Main Menu"
 
-[connection signal="pressed" from="CanvasLayer/Panel/RetryButton" to="." method="_on_retry_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Panel/MainMenu" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/HBoxContainer2/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/HBoxContainer2/MainMenu" to="." method="_on_main_menu_button_pressed"]

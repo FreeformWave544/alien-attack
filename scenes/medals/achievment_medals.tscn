@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmapbxqkr8nbo"]
+[gd_scene format=3 uid="uid://dmapbxqkr8nbo"]
 
 [ext_resource type="Texture2D" uid="uid://cnkvunohtp6kj" path="res://assets/textures/medals/Medal/med0.tres" id="1_0sfhk"]
 [ext_resource type="Texture2D" uid="uid://cum5chlmp6m1o" path="res://assets/textures/medals/Medal/med1.tres" id="1_md74u"]
@@ -53,7 +53,7 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="achievmentMedals" type="AnimatedSprite2D"]
+[node name="achievmentMedals" type="AnimatedSprite2D" unique_id=380319648]
 scale = Vector2(0.518, 0.518)
 sprite_frames = SubResource("SpriteFrames_oonvr")
 frame = 4

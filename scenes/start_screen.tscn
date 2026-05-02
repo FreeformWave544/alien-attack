@@ -1530,6 +1530,12 @@ layout_mode = 2
 theme = ExtResource("2_xxw77")
 text = "Hard mode"
 
+[node name="Upgrades" type="Button" parent="Panel/VBoxContainer" unique_id=1344934268]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_xxw77")
+text = "Upgrades"
+
 [node name="HighScores" type="Label" parent="Panel" unique_id=613356993]
 layout_mode = 0
 offset_left = 894.0
@@ -1577,30 +1583,13 @@ grow_vertical = 0
 theme = ExtResource("2_xxw77")
 text = "Options"
 
-[node name="Upgrades" type="Button" parent="Panel" unique_id=1344934268]
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -478.5
-offset_top = -281.0
-offset_right = -374.5
-offset_bottom = -228.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("2_xxw77")
-text = "Upgrades"
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=188982759]
 environment = SubResource("Environment_ns81b")
 
 [connection signal="pressed" from="Panel/VBoxContainer/Easy" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Normal" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Hard" to="." method="_hard_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Upgrades" to="." method="_on_upgrades_pressed"]
 [connection signal="pressed" from="Panel/achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="Panel/sessionScores" to="." method="_on_session_scores_pressed"]
 [connection signal="pressed" from="Panel/options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="Panel/Upgrades" to="." method="_on_upgrades_pressed"]

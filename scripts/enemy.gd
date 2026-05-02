@@ -4,9 +4,9 @@ signal died
 
 @onready var aniSprite = $AnimatedSprite2D
 @onready var hitSound = $EnemyHitSound
+@onready var constantSpeed := speed
 @export var speed := 300.0
 @export var health := 1.0
-var constantSpeed := speed
 var is_dead := false 
  
 func _ready() -> void:
@@ -23,21 +23,18 @@ func damage(dmg: float = 1):
 		die()
 
 func die():
-	if is_dead:
-		return
+	if is_dead: return
 	is_dead = true
 	Global.addScore += 100
 	aniSprite.visible = true
 	$Sprite2D.visible = false
 	aniSprite.play("default")
 	remove_child($CollisionShape2D) ; remove_child($CollisionShape2D2)
-	await get_tree().create_timer(1.5).timeout
-	if not is_in_group("path"):
-		queue_free()
+	await get_tree().create_timer(0.75).timeout
+	if not is_in_group("path"): queue_free()
 
 func _on_body_entered(body):
-	if body.has_method("take_damage"):
-		body.take_damage()
+	if body.has_method("take_damage"): body.take_damage()
 	die()
 
 func set_speed_multiplier(mult):

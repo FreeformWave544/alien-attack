@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b32bfsv75aw25" path="res://addons/proton_control_animation/examples/theme/assets/panel-transparent-border-000.png" id="1_o0f4b"]
 [ext_resource type="Texture2D" uid="uid://c3o13n7n8bq12" path="res://addons/proton_control_animation/examples/theme/assets/panel-transparent-center-031.png" id="1_u6kvo"]
 [ext_resource type="Texture2D" uid="uid://bsv3i2epyfnrs" path="res://addons/proton_control_animation/examples/theme/assets/panel-transparent-center-000.png" id="2_j60tx"]
+[ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="4_tegka"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nagjp"]
 texture = ExtResource("1_j60tx")
@@ -59,6 +60,7 @@ Button/styles/hover = SubResource("StyleBoxTexture_42ufu")
 Button/styles/normal = SubResource("StyleBoxTexture_xktnr")
 Button/styles/pressed = SubResource("StyleBoxTexture_3mfjf")
 HBoxContainer/constants/separation = 12
+Label/fonts/font = ExtResource("4_tegka")
 MarginContainer/constants/margin_bottom = 32
 MarginContainer/constants/margin_left = 32
 MarginContainer/constants/margin_right = 32
