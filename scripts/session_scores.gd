@@ -25,4 +25,4 @@ func _ready() -> void:
 			current_score = recentScores[i]
 
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/start_screen.tscn")
+	Global.transition("res://scenes/start_screen.tscn")

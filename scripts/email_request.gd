@@ -12,5 +12,6 @@ func _on_email_submitted(new_text: String) -> void:
 		}
 	if $Panel/LineEdit.text:
 		await ApiManager.send_request("POST", "/users", email)
-		get_tree().change_scene_to_file("res://scenes/start_screen.tscn") if Global.jwt_token else try_again()
+		if Global.jwt_token: Global.transition("res://scenes/start_screen.tscn")
+		else: try_again()
 	else:get_tree().reload_current_scene()

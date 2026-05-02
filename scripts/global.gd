@@ -9,6 +9,7 @@ var died: bool = true ;var bossLives = 200 ;var instructions = true ;var WaitFor
 var high_scores = {"easy": 0, "norm": 0, "hard": 0}
 var jwt_token: String = "" ; var sessionRuns: int = 0 ; var recentScores = [] ; var volume: int = 20
 var run := false ; var fastRocketActive := false
+var scroll_offset := Vector2.ZERO
 
 func _ready() -> void:
 	load_achievements();load_scores()
@@ -16,19 +17,19 @@ func _ready() -> void:
 	await get_tree().create_timer(0.5).timeout
 	save_stuff("norm")
 
-func save_stuff(difficil):
+func save_stuff(diffic):
 	var config = ConfigFile.new()
-	config.set_value("player", "highscore", high_scores[difficil])
+	config.set_value("player", "highscore", high_scores[diffic])
 	config.set_value("settings", "volume", volume)
 	config.save("user://settings.cfg")
 
-func load_stuff(difficil):
+func load_stuff(diffic):
 	var config = ConfigFile.new()
 	var err = config.load("user://settings.cfg")
 	if err == OK:
 		var highscore = config.get_value("player", "highscore", 0)
 		var vol = config.get_value("settings", "volume", 1.0)
-		high_scores[difficil] = highscore
+		high_scores[diffic] = highscore
 		volume = vol
 		return str(highscore) + " " + str(vol)
 	else:
@@ -87,3 +88,12 @@ func get_current_animation_length(animated_sprite: AnimatedSprite2D) -> float:
 		if anim_speed > 0:
 			return num_frames / anim_speed
 	return -1.0
+
+func transition(target: String, scrollOffsets: Vector2 = Vector2.ZERO) -> void:
+	while Transition.find_child("Fade").color.a < 0.9: Transition.find_child("Fade").color.a += 0.05 ; await get_tree().process_frame
+	Transition.find_child("Fade").color.a = 1.0
+	get_tree().change_scene_to_file(target)
+	scroll_offset = scrollOffsets
+	await get_tree().process_frame
+	while Transition.find_child("Fade").color.a > 0.1: Transition.find_child("Fade").color.a -= 0.05 ; await get_tree().create_timer(0.1).timeout
+	Transition.find_child("Fade").color.a = 0.0

@@ -59,7 +59,7 @@ func hide_tooltip(i):
 	achievement.visible = false
 
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/start_screen.tscn")
+	Global.transition("res://scenes/start_screen.tscn")
 
 func _on_button_pressed() -> void:
 	Global.achievements[Constants.PATHKILLS] = true

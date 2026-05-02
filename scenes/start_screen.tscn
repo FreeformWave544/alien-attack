@@ -1,4 +1,4 @@
-[gd_scene load_steps=230 format=3 uid="uid://crp0e7iw2pqyb"]
+[gd_scene format=3 uid="uid://crp0e7iw2pqyb"]
 
 [ext_resource type="Script" uid="uid://6duswwenvd4" path="res://scripts/start_screen.gd" id="1_w7hwu"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="2_uhxfp"]
@@ -1356,9 +1356,8 @@ font = ExtResource("2_uhxfp")
 
 [sub_resource type="Environment" id="Environment_ns81b"]
 glow_enabled = true
-glow_blend_mode = 1
 
-[node name="start_screen" type="Control"]
+[node name="start_screen" type="Control" unique_id=647037601]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1368,14 +1367,14 @@ grow_vertical = 2
 mouse_default_cursor_shape = 2
 script = ExtResource("1_w7hwu")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=982521991]
 script = ExtResource("4_438qq")
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1865489022]
 motion_scale = Vector2(0.2, 0.2)
 motion_mirroring = Vector2(2048, 1024)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1657299505]
 modulate = Color(1.5, 1.2, 2.5, 1)
 texture_repeat = 2
 texture = ExtResource("4_4fnoo")
@@ -1383,7 +1382,7 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1024, 1024)
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1080532378]
 modulate = Color(1.5, 1.2, 2.5, 1)
 texture_repeat = 2
 position = Vector2(1024, 0)
@@ -1392,150 +1391,146 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1024, 1024)
 
-[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground" unique_id=142377851]
 motion_mirroring = Vector2(4096, 4096)
 
-[node name="Nebulawetstars" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
+[node name="Nebulawetstars" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7" unique_id=802192536]
 modulate = Color(2.762, 3.314, 4.419, 0.624)
 texture = ExtResource("9_mvonj")
 centered = false
 
-[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground" unique_id=370949980]
 motion_scale = Vector2(0.9, 0.95)
 motion_mirroring = Vector2(4096, 4096)
 
-[node name="Nebula2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+[node name="Nebula2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=1418373821]
 texture = ExtResource("7_c7ysj")
 centered = false
 
-[node name="Nebuladrystars" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+[node name="Nebuladrystars" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=1158945112]
 modulate = Color(0.5, 2, 1, 1)
 texture = ExtResource("8_ouqm2")
 centered = false
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1598011639]
 motion_scale = Vector2(0.55, 0.55)
 motion_offset = Vector2(1280, 0)
 motion_mirroring = Vector2(2000, 720)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=795495646]
 position = Vector2(312, 202)
 sprite_frames = SubResource("SpriteFrames_mn64g")
 autoplay = "default"
 frame_progress = 0.842687
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=414985587]
 position = Vector2(880, 853)
 sprite_frames = SubResource("SpriteFrames_mn64g")
 autoplay = "default"
 frame_progress = 0.377262
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground" unique_id=482692277]
 motion_scale = Vector2(50, 0)
 motion_offset = Vector2(1280, 0)
 motion_mirroring = Vector2(100000, 0)
 
-[node name="Asteroid-Flame" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Asteroid-Flame" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1493645224]
 modulate = Color(2, 1, 1, 1)
 position = Vector2(1543, 337)
 texture = ExtResource("66_ns81b")
 hframes = 3
 frame = 2
 
-[node name="Asteroid-Flame2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Asteroid-Flame2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1140941833]
 modulate = Color(2, 1, 1, 1)
 position = Vector2(3305, 553)
 texture = ExtResource("66_ns81b")
 hframes = 3
 frame = 2
 
-[node name="Asteroid-Flame3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Asteroid-Flame3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=867305542]
 modulate = Color(2, 1, 1, 1)
 position = Vector2(992, 461)
 texture = ExtResource("66_ns81b")
 hframes = 3
 frame = 2
 
-[node name="Asteroid-Flame6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Asteroid-Flame6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=823042378]
 modulate = Color(2, 1, 1, 1)
 position = Vector2(4433, 715)
 texture = ExtResource("66_ns81b")
 hframes = 3
 frame = 2
 
-[node name="Asteroid-Flame7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Asteroid-Flame7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=2071402377]
 modulate = Color(2, 1, 1, 1)
 position = Vector2(6614, 226)
 texture = ExtResource("66_ns81b")
 hframes = 3
 frame = 2
 
-[node name="Asteroid-Flame8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Asteroid-Flame8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1251729574]
 modulate = Color(2, 1, 1, 1)
 position = Vector2(5336, 550)
 texture = ExtResource("66_ns81b")
 hframes = 3
 frame = 2
 
-[node name="Asteroid-Flame9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Asteroid-Flame9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1504838542]
 modulate = Color(2, 1, 1, 1)
 position = Vector2(6196, 49)
 texture = ExtResource("66_ns81b")
 hframes = 3
 frame = 2
 
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground" unique_id=959741581]
 motion_scale = Vector2(0.9, 0.5)
 motion_offset = Vector2(1280, 0)
 motion_mirroring = Vector2(3000, 720)
 
-[node name="earth-like" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+[node name="earth-like" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=1071263540]
 position = Vector2(950, 400)
 sprite_frames = SubResource("SpriteFrames_m6m2a")
 animation = &"noGlow"
 autoplay = "noGlow"
 frame_progress = 0.749621
 
-[node name="earth-like2" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+[node name="earth-like2" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=1877916010]
 position = Vector2(2223, 800)
 sprite_frames = SubResource("SpriteFrames_m6m2a")
 animation = &"glow"
 autoplay = "glow"
 frame_progress = 0.118092
 
-[node name="Panel" type="Control" parent="."]
+[node name="Panel" type="Control" parent="." unique_id=2086863756]
 anchors_preset = 0
 offset_right = 1283.0
 offset_bottom = 721.0
 
-[node name="Button" type="Button" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=581327915]
 layout_mode = 0
-offset_left = 163.0
-offset_top = 120.0
-offset_right = 171.0
-offset_bottom = 128.0
+offset_left = 112.0
+offset_top = 129.0
+offset_right = 249.0
+offset_bottom = 296.0
+theme_override_constants/separation = 12
+
+[node name="Easy" type="Button" parent="Panel/VBoxContainer" unique_id=1427139463]
+layout_mode = 2
 theme = ExtResource("2_xxw77")
 text = "Easy mode"
 
-[node name="Button2" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 163.0
-offset_top = 223.0
-offset_right = 255.0
-offset_bottom = 254.0
+[node name="Normal" type="Button" parent="Panel/VBoxContainer" unique_id=1677837589]
+layout_mode = 2
 theme = ExtResource("2_xxw77")
 text = "Normal mode"
 
-[node name="Button3" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 163.0
-offset_top = 335.0
-offset_right = 255.0
-offset_bottom = 366.0
+[node name="Hard" type="Button" parent="Panel/VBoxContainer" unique_id=1094944805]
+layout_mode = 2
 theme = ExtResource("2_xxw77")
 text = "Hard mode"
 
-[node name="HighScores" type="Label" parent="Panel"]
+[node name="HighScores" type="Label" parent="Panel" unique_id=613356993]
 layout_mode = 0
 offset_left = 894.0
 offset_top = 82.0
@@ -1543,21 +1538,21 @@ offset_right = 989.0
 offset_bottom = 105.0
 theme = ExtResource("2_xxw77")
 text = "High Scores:
-    easy: 0
-    normal: 0
-    hard: 0"
+    easy: 0.0
+    normal: 0.0
+    hard: 0.0"
 label_settings = SubResource("LabelSettings_l8082")
 
-[node name="achievements" type="Button" parent="Panel"]
+[node name="achievements" type="Button" parent="Panel" unique_id=1973750043]
 layout_mode = 0
-offset_left = 860.0
+offset_left = 894.0
 offset_top = 380.0
-offset_right = 1010.0
+offset_right = 1044.0
 offset_bottom = 440.0
 theme = ExtResource("2_xxw77")
 text = "ACHIEVEMENTS"
 
-[node name="sessionScores" type="Button" parent="Panel"]
+[node name="sessionScores" type="Button" parent="Panel" unique_id=1548155248]
 layout_mode = 0
 offset_left = 1067.0
 offset_top = 76.0
@@ -1566,7 +1561,7 @@ offset_bottom = 129.0
 theme = ExtResource("2_xxw77")
 text = "Session Scores"
 
-[node name="options" type="Button" parent="Panel"]
+[node name="options" type="Button" parent="Panel" unique_id=2003884451]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1582,7 +1577,7 @@ grow_vertical = 0
 theme = ExtResource("2_xxw77")
 text = "Options"
 
-[node name="Upgrades" type="Button" parent="Panel"]
+[node name="Upgrades" type="Button" parent="Panel" unique_id=1344934268]
 visible = false
 layout_mode = 1
 anchors_preset = 7
@@ -1599,12 +1594,12 @@ grow_vertical = 0
 theme = ExtResource("2_xxw77")
 text = "Upgrades"
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=188982759]
 environment = SubResource("Environment_ns81b")
 
-[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Panel/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="Panel/Button3" to="." method="_hard_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Easy" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Normal" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Hard" to="." method="_hard_pressed"]
 [connection signal="pressed" from="Panel/achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="Panel/sessionScores" to="." method="_on_session_scores_pressed"]
 [connection signal="pressed" from="Panel/options" to="." method="_on_options_pressed"]
