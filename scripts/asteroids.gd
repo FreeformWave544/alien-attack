@@ -31,7 +31,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if area is Enemy:
 		area.is_dead = true
 	await get_tree().process_frame
-	area.queue_free()
+	if not area.is_in_group("asteroid"): area.queue_free()
 
 func playerContact(body: Node2D):
 	$Sprite.play("Explosion")

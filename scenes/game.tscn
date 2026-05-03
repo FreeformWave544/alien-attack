@@ -44,7 +44,7 @@ position = Vector2(109, 374)
 
 [node name="EnemySpawner" parent="." unique_id=503608854 instance=ExtResource("4_e38v0")]
 
-[node name="Deathzone" type="Area2D" parent="." unique_id=1633404185]
+[node name="Deathzone" type="Area2D" parent="." unique_id=1633404185 groups=["asteroid"]]
 collision_layer = 8
 collision_mask = 2
 

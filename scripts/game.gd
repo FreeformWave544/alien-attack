@@ -44,7 +44,8 @@ func _ready():
 			$UI/HUD/Upgrades.value = (100.0 / (10.0 * len(UpgradeManager.equippedUpgrades) + 10)) * tim
 			await get_tree().create_timer(1.0).timeout
 			while get_tree().paused:
-				await get_tree().process_frame
+				if is_inside_tree(): await get_tree().process_frame
+				else: break
 		var upgrade = upgrader.instantiate()
 		add_child(upgrade)
 		upgrade.toggle()
@@ -100,8 +101,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ability_4") and UpgradeManager.equippedUpgrades.size() > 3: use_ability(UpgradeManager.equippedUpgrades[3].ID, 3)
 
 func _on_deathzone_area_entered(area):
-	if area.is_in_group("fireball"):
-		area.blow()
+	if area.name == $Deathzone.name: return
+	if area.is_in_group("fireball"): area.blow()
 	elif not area.is_in_group("dodge") and not area.is_in_group("fireball"):
 		if not invincibility_active:
 			score -= 50
@@ -111,8 +112,7 @@ func _on_deathzone_area_entered(area):
 				else:
 					dead()
 					player.die()
-	elif not area.is_in_group("path") and not area.is_in_group("fireball"):
-		area.queue_free()
+	elif not area.is_in_group("path") and not area.is_in_group("fireball"): area.queue_free()
 
 func _on_player_took_damage():
 	if lives <= 0:
