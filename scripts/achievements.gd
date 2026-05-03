@@ -30,7 +30,7 @@ func achieve(i):
 	var texture = medal.sprite_frames.get_frame_texture(medal.animation, medal.frame)
 	if texture:
 		var texture_size = texture.get_size() ; shape.extents = texture_size / 2.5
-	else: print("No texture found for medal frame ", medal.frame)
+	else: print("No medal frame texture: ", medal.frame)
 	var collision = CollisionShape2D.new()
 	collision.shape = shape
 	area.add_child(collision)

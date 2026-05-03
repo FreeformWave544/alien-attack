@@ -37,7 +37,7 @@ func load_stuff(diffic):
 
 func percent_change(new_value, old_value):
 	if old_value == 0:
-		return "N/A"
+		return "0.0%"
 	var change = (new_value - old_value) / old_value * 100
 	if change > 0:
 		return "+" + str(change) + "%"

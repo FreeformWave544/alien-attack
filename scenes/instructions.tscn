@@ -70,11 +70,13 @@ label_settings = SubResource("LabelSettings_tnqs8")
 horizontal_alignment = 1
 
 [node name="CheckButton" type="CheckButton" parent="Panel/VBoxContainer" unique_id=791977450]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Don't show again"
 alignment = 1
 
 [node name="close" type="Button" parent="Panel/VBoxContainer" unique_id=689589942]
+custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_nisbi")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_njqp3")

@@ -103,9 +103,7 @@ func thirdAttack():
 	fireball.global_position.y = player.global_position.y
 
 func activate_tractor_beam():
-	if not player:
-		print("Error: Player node not found!")
-		return
+	if not player: return
 	tractor_beam.visible = true
 	tractor_beam_active = true
 	attacking = true

@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cy414otvdtroq" path="res://assets/audio/explode.wav" id="7_1dl8s"]
 [ext_resource type="AudioStream" uid="uid://f8vu5erpodo1" path="res://assets/audio/space_flight.mp3" id="8_vtaks"]
 [ext_resource type="PackedScene" uid="uid://ba7asrce161ma" path="res://scenes/parallax_background.tscn" id="9_0tnpc"]
+[ext_resource type="Shader" uid="uid://cqq5woimbi5cr" path="res://PlexusParticles.gdshader" id="10_vtaks"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_u604d"]
 font = ExtResource("3_dp2ur")
@@ -17,6 +18,9 @@ font_color = Color(0.63, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3bnsa"]
 size = Vector2(1222, 3892)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kvpfn"]
+shader = ExtResource("10_vtaks")
 
 [node name="Game" type="Node2D" unique_id=564023448]
 script = ExtResource("1_oynfb")
@@ -134,10 +138,11 @@ parameters/looping = true
 [node name="ParallaxBackground" parent="." unique_id=1253074613 instance=ExtResource("9_0tnpc")]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=931400915]
+modulate = Color(1, 1, 1, 0)
 z_index = -100
+material = SubResource("ShaderMaterial_kvpfn")
 offset_right = 1280.0
 offset_bottom = 720.0
-color = Color(1, 1, 1, 0)
 
 [node name="ABCDs" type="Node" parent="." unique_id=819858741]
 

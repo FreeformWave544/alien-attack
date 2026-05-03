@@ -17,11 +17,9 @@ var score: int = 0:
 @onready var enemy_hit_sound = $EnemyHitSound
 @onready var player_dmg = $PlayerDmg
 @onready var boss = preload("res://scenes/boss.tscn")
-@onready var plexusParticles = preload("res://PlexusParticles.gdshader")
-@onready var plexusBackground = find_child("ColorRect")
+@onready var plexusBackground = $ColorRect
 var fastRocketCharge := 0.0
 
-# Ability state tracking
 var ability_active: Dictionary = {}
 var invincibility_active := false
 var ghostly_phoenix_available := false
@@ -45,6 +43,8 @@ func _ready():
 		for tim in range(10 * len(UpgradeManager.equippedUpgrades) + 10):
 			$UI/HUD/Upgrades.value = (100.0 / (10.0 * len(UpgradeManager.equippedUpgrades) + 10)) * tim
 			await get_tree().create_timer(1.0).timeout
+			while get_tree().paused:
+				await get_tree().process_frame
 		var upgrade = upgrader.instantiate()
 		add_child(upgrade)
 		upgrade.toggle()
@@ -60,10 +60,8 @@ func _process(delta: float) -> void:
 	hud.time.text = "Time: %.2f" % time_elapsed
 	if Global.score > oldScore:
 		oldScore = Global.score
-		if fastRocketCharge < 100:
-			fastRocketCharge += randf_range(0.01, 0.05)
-		else:
-			fastRocketCharge += randf_range(0.01, 0.5) / (fastRocketCharge / 100)
+		if fastRocketCharge < 100: fastRocketCharge += randf_range(0.01, 0.05)
+		else: fastRocketCharge += randf_range(0.01, 0.5) / (fastRocketCharge / 100)
 		_abilityChargeHandler()
 		hud.set_score_label()
 		enemy_hit_sound.play()
@@ -84,7 +82,7 @@ func _physics_process(delta):
 		if not timer_path: return
 		var timer = get_node_or_null(timer_path)
 		if not timer: return
-		$UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).value = 1.0 - (timer.time_left / ABCDs[timer_key])
+		$UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).value = 1.0 - (timer.time_left / ABCDs[i])
 		if $UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).value >= 1.0: $UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).modulate.a = 1.0
 		else: $UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).modulate.a = 0.5
 	hud.set_score_label()
@@ -131,7 +129,6 @@ func dead():
 	if !Global.run:
 		var end_instance = end_scene.instantiate()
 		if hud: hud.add_child(end_instance)
-		else: print("HUD is null!")
 
 func _on_enemy_spawner_enemy_spawned(enemy_instance):
 	enemy_instance.connect("died", _on_enemy_died)
@@ -158,12 +155,10 @@ func apply_hard_mode():
 func fastRocket():
 	fastRocketCharge -= 1.0
 	Engine.time_scale = 0.5
-	var shader_material = ShaderMaterial.new()
-	shader_material.shader = plexusParticles
-	plexusBackground.material = shader_material
+	plexusBackground.modulate.a = 1.0
 	Global.fastRocketActive = true
 	await get_tree().create_timer(fastRocketDuration).timeout
-	plexusBackground.material = ShaderMaterial.new()
+	plexusBackground.modulate.a = 0.0
 	Global.fastRocketActive = false
 	Engine.time_scale = 1.0
 
@@ -181,12 +176,8 @@ func _abilityChargeHandler():
 	$UI/HUD/AbilityChargeProgress.value = fastRocketCharge
 
 @export_category("Abilities")
-@export var ABCDs: Dictionary = {
-	"AB1CD": 15.0,  # Invincibility
-	"AB2CD": 30.0,  # Life Exchange
-	"AB3CD": 60.0,  # Ghostly Phoenix
-	"AB4CD": 20.0   # Slow Enemies / Eye of...
-}
+@export var ABCDs: Array = [15.0, 20.0, 30.0, 60.0]
+@export var tiers: Array = [["Slow"], ["invincibility"], ["lifeExchange"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
 	"AB1CD": "ABCDs/Ability1",
 	"AB2CD": "ABCDs/Ability2",
@@ -195,27 +186,20 @@ func _abilityChargeHandler():
 }
 
 func use_ability(ability: String, slot: int = 0) -> void:
+	_setup_ability_timers()
 	var timer_key = "AB%dCD" % (slot + 1)
 	var timer_path = ABCDTimers.get(timer_key)
 	if not timer_path: return
 	var timer = get_node_or_null(timer_path)
 	if not timer: return
-	if timer.time_left > 0.0:
-		print("Ability on cooldown: ", timer.time_left, "s remaining")
-		return
+	if timer.time_left > 0.0: return
 	match ability:
-		"invincibility":
-			_activate_invincibility(timer)
-		"lifeExchange":
-			_activate_life_exchange(timer)
-		"ghostPhoenix":
-			_activate_ghostly_phoenix(timer)
-		"Slow":
-			_activate_slow_enemies(timer)
-		"Eye":
-			_activate_eye_of_chaos(timer)
-		_:
-			print("Unknown ability: ", ability)
+		"invincibility": _activate_invincibility(timer)
+		"lifeExchange": _activate_life_exchange(timer)
+		"ghostPhoenix": _activate_ghostly_phoenix(timer)
+		"Slow": _activate_slow_enemies(timer)
+		"Eye": _activate_eye_of_chaos(timer)
+		_: print("Unknown ability: ", ability)
 
 func _activate_invincibility(timer: Timer) -> void:
 	if invincibility_active:
@@ -230,11 +214,9 @@ func _activate_invincibility(timer: Timer) -> void:
 	await get_tree().create_timer(3.0).timeout
 	invincibility_active = false
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
-	print("Invincibility ended")
 
 func _activate_life_exchange(timer: Timer) -> void:
 	if Global.score < 200:
-		print("Not enough score for Life Exchange (need at least 200)")
 		return
 	var score_to_convert = int(Global.score * 0.5)
 	var lives_gained = max(1.0, score_to_convert / 1000.0)
@@ -246,7 +228,6 @@ func _activate_life_exchange(timer: Timer) -> void:
 	tween.tween_property($Player, "scale", Vector2(1.3, 1.3), 0.2)
 	tween.tween_property($Player, "scale", Vector2(1.0, 1.0), 0.2)
 	timer.start()
-	print("Life Exchange: +", lives_gained, " lives, -", score_to_convert, " score")
 
 func _activate_ghostly_phoenix(timer: Timer) -> void:
 	ghostly_phoenix_available = true
@@ -256,11 +237,9 @@ func _activate_ghostly_phoenix(timer: Timer) -> void:
 	tween.tween_property($Player/Sprite2D, "modulate", Color(1.5, 1.5, 0.5, 0.7), 1.0)
 	tween.tween_property($Player/Sprite2D, "modulate", Color(1.0, 1.0, 1.0, 0.7), 1.0)
 	timer.start()
-	print("Ghostly Phoenix active - will revive on next death")
 
 func _trigger_ghostly_phoenix() -> void:
-	if not ghostly_phoenix_available:
-		return
+	if not ghostly_phoenix_available: return
 	ghostly_phoenix_available = false
 	lives = 2
 	invincibility_active = true
@@ -287,10 +266,13 @@ func _activate_slow_enemies(timer: Timer) -> void:
 func _activate_eye_of_chaos(timer: Timer) -> void:
 	if eye_active: return
 	eye_active = true
+	if not slow_enemies_active:
+		slow_enemies_active = true
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			if enemy.has_method("set_speed_multiplier"): enemy.set_speed_multiplier(0.5)
 	var shader_material = ShaderMaterial.new()
-	if plexusParticles:
-		shader_material.shader = plexusParticles
-		plexusBackground.material = shader_material
+	if plexusBackground:
+		plexusBackground.modulate.a = 1.0
 	var original_time_scale = Engine.time_scale
 	var shake_amount = 10.0
 	var shake_duration = 1.0
@@ -300,17 +282,25 @@ func _activate_eye_of_chaos(timer: Timer) -> void:
 		player.position = original_pos + Vector2(randf_range(-shake_amount, shake_amount), randf_range(-shake_amount, shake_amount))
 		shake_timer += get_process_delta_time()
 		await get_tree().process_frame
+	fastRocketCharge += 1.0
 	fastRocket()
 	player.position = original_pos
 	timer.start()
 	await get_tree().create_timer(8.0).timeout
-	plexusBackground.material = ShaderMaterial.new()
+	plexusBackground.modulate.a = 0.0
 	eye_active = false
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if enemy.has_method("set_speed_multiplier"): enemy.set_speed_multiplier(false)
+	slow_enemies_active = false
 
 func _setup_ability_timers() -> void:
-	for key in ABCDTimers.keys():
-		var timer_path = ABCDTimers[key]
+	for i in range(len(ABCDTimers.keys())):
+		var timer_path = ABCDTimers[ABCDTimers.keys()[i]]
 		var timer = get_node_or_null(timer_path)
-		if timer:
-			timer.wait_time = ABCDs[key]
-			timer.one_shot = true
+		if timer and i < len(UpgradeManager.equippedUpgrades):
+			for tier in tiers:
+				for ability in tier:
+					if ability == UpgradeManager.equippedUpgrades[i]["ID"]:
+						timer.wait_time = ABCDs[tiers.find(tier)]
+						timer.one_shot = true
+						break

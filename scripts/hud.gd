@@ -19,8 +19,8 @@ func set_lives(amount):
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		process_mode = Node.PROCESS_MODE_ALWAYS
-		get_tree().paused = !get_tree().paused
 		$"../paused".visible = !$"../paused".visible
+		get_tree().paused = $"../paused".visible
 
 func set_upgrades():
 	var equipped = UpgradeManager.equippedUpgrades

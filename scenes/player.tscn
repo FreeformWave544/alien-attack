@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://3j3rsm7d301i"]
+[gd_scene format=3 uid="uid://3j3rsm7d301i"]
 
 [ext_resource type="Texture2D" uid="uid://bv33a83ppemxc" path="res://assets/textures/player_ship.png" id="1_fc56a"]
 [ext_resource type="Script" uid="uid://iid5oew0vws6" path="res://scripts/player.gd" id="1_j7rbi"]
@@ -160,40 +160,41 @@ height = 92.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lyayy"]
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=818148622 groups=["player"]]
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_j7rbi")
 speed = 460
 
-[node name="Flame" type="GPUParticles2D" parent="."]
+[node name="Flame" type="GPUParticles2D" parent="." unique_id=1869208705]
 position = Vector2(-36, 0)
 amount = 50
 lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_4sl7g")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1351336129]
 rotation = 1.5708
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_fc56a")
 
-[node name="plo" type="AnimatedSprite2D" parent="."]
+[node name="plo" type="AnimatedSprite2D" parent="." unique_id=1619220526]
 scale = Vector2(2.4375, 2.4375)
 sprite_frames = SubResource("SpriteFrames_achot")
 frame = 15
 frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2141000589]
 position = Vector2(7, 0)
 shape = SubResource("CapsuleShape2D_oiwsp")
 
-[node name="RocketContainer" type="Node" parent="."]
+[node name="RocketContainer" type="Node" parent="." unique_id=17085723]
 
-[node name="achieve" type="AudioStreamPlayer" parent="RocketContainer"]
+[node name="achieve" type="AudioStreamPlayer" parent="RocketContainer" unique_id=1626499987]
 stream = ExtResource("3_41682")
+volume_db = -20.0
 max_polyphony = 100
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1626858653]
 offset_left = 10.0
 offset_top = 9.0
 offset_right = 138.0
@@ -204,16 +205,16 @@ value = 1.0
 texture_progress = ExtResource("3_dytrb")
 script = ExtResource("4_x1wda")
 
-[node name="Timer" type="Timer" parent="TextureProgressBar"]
+[node name="Timer" type="Timer" parent="TextureProgressBar" unique_id=992222015]
 process_callback = 0
 wait_time = 0.525
 one_shot = true
 autostart = true
 
-[node name="Laser" type="AudioStreamPlayer" parent="."]
+[node name="Laser" type="AudioStreamPlayer" parent="." unique_id=1628372400]
 stream = ExtResource("3_xt5sl")
 
-[node name="easyview" type="TextureRect" parent="."]
+[node name="easyview" type="TextureRect" parent="." unique_id=1688369880]
 offset_left = 42.0
 offset_right = 2042.0
 offset_bottom = 1.0
