@@ -15,7 +15,7 @@ const RARITY_WEIGHTS := {
 	"Uncommon": 60,
 	"Rare": 25,
 	"Epic": 8,
-	"Legendary": 100 }
+	"Legendary": 1 }
 
 func _ready():
 	get_cards()
