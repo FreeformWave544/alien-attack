@@ -1,11 +1,11 @@
 extends Control
 
 @onready var score = $Score
-@onready var livesLeft = $Lives
+@onready var livesLeft = $Container/Lives
 @onready var time: Label = $Time
 
 func _ready() -> void:
-	$Difficulty.text = str(Global.difficil) + " MODE"
+	$Container/Difficulty.text = str(Global.difficil) + " MODE"
 	set_upgrades()
 
 func set_score_label():
@@ -27,5 +27,4 @@ func set_upgrades():
 	if !equipped: return
 	var children = $Upgrades.get_children()
 	for idx in children.size():
-		if idx < equipped.size():
-			children[idx].texture = equipped[idx]["Icon"]
+		if idx < equipped.size(): children[idx].texture_progress = equipped[idx]["Icon"]

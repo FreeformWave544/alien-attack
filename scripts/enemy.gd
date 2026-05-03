@@ -19,8 +19,7 @@ func _physics_process(delta):
 
 func damage(dmg: float = 1):
 	health -= dmg
-	if health <= 0:
-		die()
+	if health <= 0: die()
 
 func die():
 	if is_dead: return

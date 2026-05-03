@@ -72,20 +72,26 @@ func _process(delta: float) -> void:
 			_trigger_ghostly_phoenix()
 			ghostly_phoenix_available = false
 			Global.TakeLIVES = 0
-		elif invincibility_active and Global.TakeLIVES > 0:
-			Global.TakeLIVES = 0
+		elif invincibility_active and Global.TakeLIVES > 0: Global.TakeLIVES = 0
 		else:
 			lives -= Global.TakeLIVES
 			Global.TakeLIVES = 0
 
 func _physics_process(delta):
+	for i in range(4):
+		var timer_key = "AB%dCD" % (i + 1)
+		var timer_path = ABCDTimers.get(timer_key)
+		if not timer_path: return
+		var timer = get_node_or_null(timer_path)
+		if not timer: return
+		$UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).value = 1.0 - (timer.time_left / ABCDs[timer_key])
+		if $UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).value >= 1.0: $UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).modulate.a = 1.0
+		else: $UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).modulate.a = 0.5
 	hud.set_score_label()
 	hud.set_lives(lives)
-	if lives <= 0 and not ghostly_phoenix_available:
-		dead()
+	if lives <= 0 and not ghostly_phoenix_available: dead()
 	var direction = Vector2.ZERO
-	if direction.length() > 0:
-		direction = direction.normalized()
+	if direction.length() > 0: direction = direction.normalized()
 	player.position += direction * 200 * delta
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -103,8 +109,7 @@ func _on_deathzone_area_entered(area):
 			score -= 50
 			lives -= 1
 			if lives <= 0:
-				if ghostly_phoenix_available:
-					_trigger_ghostly_phoenix()
+				if ghostly_phoenix_available: _trigger_ghostly_phoenix()
 				else:
 					dead()
 					player.die()
@@ -112,16 +117,6 @@ func _on_deathzone_area_entered(area):
 		area.queue_free()
 
 func _on_player_took_damage():
-	#if invincibility_active:
-		#return
-	#if ghostly_phoenix_available and lives <= 1:
-		#_trigger_ghostly_phoenix()
-		#return
-	#
-	#player_dmg.play()
-	#lives -= 1
-	#score -= 100
-	#hud.set_lives(lives)
 	if lives <= 0:
 		if ghostly_phoenix_available:
 			_trigger_ghostly_phoenix()
@@ -141,10 +136,7 @@ func dead():
 func _on_enemy_spawner_enemy_spawned(enemy_instance):
 	enemy_instance.connect("died", _on_enemy_died)
 	add_child(enemy_instance)
-	
-	# Apply slow enemies effect if active
-	if slow_enemies_active and enemy_instance.has_method("set_speed_multiplier"):
-		enemy_instance.set_speed_multiplier(0.5)
+	if slow_enemies_active and enemy_instance.has_method("set_speed_multiplier"): enemy_instance.set_speed_multiplier(0.5)
 
 func _on_enemy_died():
 	score += 100
@@ -152,8 +144,7 @@ func _on_enemy_died():
 	enemy_hit_sound.play()
 
 func death():
-	for i in 3:
-		player_dmg.play()
+	player_dmg.play()
 
 func apply_easy_mode():
 	lives = 5
@@ -206,22 +197,12 @@ func _abilityChargeHandler():
 func use_ability(ability: String, slot: int = 0) -> void:
 	var timer_key = "AB%dCD" % (slot + 1)
 	var timer_path = ABCDTimers.get(timer_key)
-	
-	if not timer_path:
-		print("No timer path for slot: ", slot)
-		return
-	
+	if not timer_path: return
 	var timer = get_node_or_null(timer_path)
-	if not timer:
-		print("Timer not found at path: ", timer_path)
-		return
-	
-	# Check if ability is on cooldown
+	if not timer: return
 	if timer.time_left > 0.0:
 		print("Ability on cooldown: ", timer.time_left, "s remaining")
 		return
-	
-	# Activate the ability
 	match ability:
 		"invincibility":
 			_activate_invincibility(timer)
@@ -256,7 +237,7 @@ func _activate_life_exchange(timer: Timer) -> void:
 		print("Not enough score for Life Exchange (need at least 200)")
 		return
 	var score_to_convert = int(Global.score * 0.5)
-	var lives_gained = max(1, score_to_convert / 500)
+	var lives_gained = max(1.0, score_to_convert / 1000.0)
 	lives += lives_gained
 	Global.score -= score_to_convert
 	hud.set_lives(lives)

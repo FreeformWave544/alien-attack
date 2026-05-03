@@ -7,7 +7,7 @@ var recentScores = {}
 @onready var gold = preload("res://scenes/medals/gold_medal.tscn")
 @onready var platinum = preload("res://scenes/medals/platinum_medal.tscn")
 @onready var diffMulti: Label = $CanvasLayer/Panel/VBoxContainer/HBoxContainer/DiffMulti
-var medalPos = Vector2(400, 252)
+var medalPos = Vector2(800, 252)
 var run: bool = false
 
 func _ready():
@@ -43,25 +43,23 @@ func fetch_best_score():
 func display_medal(score: int):
 	Global.sessionRuns += 1
 	Global.recentScores.append(score)
-	if Global.score >= 10000:
+	if Global.score >= 20000:
 		var platinum_instance = platinum.instantiate()
 		platinum_instance.global_position = medalPos
-		add_child(platinum_instance)
-	elif Global.score >= 3000:
+		$CanvasLayer.add_child(platinum_instance)
+	elif Global.score >= 5000:
 		var gold_instance = gold.instantiate()
 		gold_instance.global_position = medalPos
-		add_child(gold_instance)
-	elif Global.score >= 750:
+		$CanvasLayer.add_child(gold_instance)
+	elif Global.score >= 2000:
 		var silver_instance = silver.instantiate()
 		silver_instance.global_position = medalPos
-		add_child(silver_instance)
+		$CanvasLayer.add_child(silver_instance)
 	else:
 		var bronze_instance = bronze.instantiate()
 		bronze_instance.global_position = medalPos
-		add_child(bronze_instance)
-		
-	if Global.score >= 12800 and Global.difficil == "easy":
-		Global.achievements["HHigh"] = true
+		$CanvasLayer.add_child(bronze_instance)
+	if Global.score >= 12800 and Global.difficil == "easy": Global.achievements["HHigh"] = true
 
 func _on_retry_button_pressed() -> void:
 	get_tree().paused = false
