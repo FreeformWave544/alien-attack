@@ -5,12 +5,14 @@ var achievements = Global.achievements
 
 func _ready():
 	if Global.achievements:
+		$CanvasLayer/none.text = ""
 		for key in Global.achievements:
 			if Global.achievements[key]:
 				match key:
 					Constants.PATHKILLS: achieve(1)
 					Constants.EHIGH: achieve(2)
 					Constants.HHIGH: achieve(3)
+					Constants.DEADWALKED: achieve(4)
 	else: $CanvasLayer/none.text = "No achievements :("
 
 func achieve(i):
@@ -58,3 +60,5 @@ func _on_button_pressed() -> void:
 	Global.achievements[Constants.PATHKILLS] = true
 	Global.achievements[Constants.HHIGH] = true
 	Global.achievements[Constants.EHIGH] = true
+	Global.achievements[Constants.DEADWALKED] = true
+	_ready()

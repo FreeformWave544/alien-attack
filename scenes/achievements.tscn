@@ -1189,6 +1189,16 @@ text = "Beat the score of 12800.
 Achieved!"
 horizontal_alignment = 1
 
+[node name="ach4" type="Label" parent="CanvasLayer" unique_id=1261241202]
+offset_left = -204.0
+offset_top = -71.0
+offset_right = -19.0
+offset_bottom = -22.0
+theme = ExtResource("4_8m26q")
+text = "Necromanced 10 or more
+enemies at once!"
+horizontal_alignment = 1
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1828507544]
 script = ExtResource("4_gq3ih")
 

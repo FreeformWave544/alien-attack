@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cje0yuhj6l75j" path="res://assets/Any/WarlockIcons/46.png" id="6_hxux0"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="7_mp7ln"]
 [ext_resource type="Texture2D" uid="uid://df2rox462opqd" path="res://assets/Any/WarlockIcons/38.png" id="7_vi17a"]
+[ext_resource type="Texture2D" uid="uid://cpyahvgsarg5x" path="res://assets/Any/WarlockIcons/3.png" id="8_h5bgf"]
 
 [sub_resource type="Resource" id="Resource_yoata"]
 script = ExtResource("2_5wf0v")
@@ -54,6 +55,15 @@ rarity = "Legendary"
 icon = ExtResource("7_vi17a")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 
+[sub_resource type="Resource" id="Resource_vi17a"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Dead Shall Walk"
+type = "Offence"
+ID = "WalkingDead"
+rarity = "Epic"
+icon = ExtResource("8_h5bgf")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
 [sub_resource type="LabelSettings" id="LabelSettings_keijs"]
 font = ExtResource("7_mp7ln")
 font_size = 24
@@ -77,7 +87,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.00235, 1.0105)
 script = ExtResource("1_h5bgf")
-upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu"), SubResource("Resource_h5bgf")])
+upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu"), SubResource("Resource_h5bgf"), SubResource("Resource_vi17a")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1257614020]
 

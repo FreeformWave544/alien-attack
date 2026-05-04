@@ -23,6 +23,9 @@ func _physics_process(delta: float) -> void:
 		get_tree().paused = $"../paused".visible
 
 func set_upgrades():
+	if len(UpgradeManager.equippedUpgrades) == 0:
+		for guy in $Upgrades.get_children():
+			guy.texture_progress = null
 	var equipped = UpgradeManager.equippedUpgrades
 	if !equipped: return
 	var children = $Upgrades.get_children()

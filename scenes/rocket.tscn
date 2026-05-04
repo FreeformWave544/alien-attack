@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cl44oadxbfooc"]
+[gd_scene format=3 uid="uid://cl44oadxbfooc"]
 
 [ext_resource type="Texture2D" uid="uid://do2b11by7k0ct" path="res://assets/textures/rocket.png" id="1_j2k63"]
 [ext_resource type="Script" uid="uid://bvsyvqttv20yv" path="res://scripts/rocket.gd" id="1_x0o42"]
@@ -35,35 +35,35 @@ scale_max = 15.0
 scale_curve = SubResource("CurveTexture_ggyga")
 color_ramp = SubResource("GradientTexture1D_fdg4w")
 
-[node name="Rocket" type="Area2D"]
+[node name="Rocket" type="Area2D" unique_id=1700590700]
 collision_layer = 4
 collision_mask = 18
 script = ExtResource("1_x0o42")
 speed = 500
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=266400362]
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_j2k63")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1531058321]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_o5yhq")
 
-[node name="VisibleNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="VisibleNotifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=591725306]
 position = Vector2(-23, 0)
 
-[node name="Flame" type="GPUParticles2D" parent="."]
+[node name="Flame" type="GPUParticles2D" parent="." unique_id=2089607158]
 position = Vector2(-36, 0)
 amount = 50
 lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_iklx4")
 
-[node name="EnemyHitSound" type="AudioStreamPlayer" parent="."]
+[node name="EnemyHitSound" type="AudioStreamPlayer" parent="." unique_id=864858161]
 stream = ExtResource("3_edp8f")
 volume_db = 24.0
 max_polyphony = 100
 
-[node name="achieve" type="AudioStreamPlayer" parent="."]
+[node name="achieve" type="AudioStreamPlayer" parent="." unique_id=158295263]
 stream = ExtResource("4_il06e")
 max_polyphony = 100
 

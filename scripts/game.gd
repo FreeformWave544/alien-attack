@@ -19,7 +19,6 @@ var score: int = 0:
 @onready var boss = preload("res://scenes/boss.tscn")
 @onready var plexusBackground = $ColorRect
 var fastRocketCharge := 0.0
-
 var ability_active: Dictionary = {}
 var invincibility_active := false
 var ghostly_phoenix_available := false
@@ -32,13 +31,12 @@ func _ready():
 	UpgradeManager.equippedUpgrades = []
 	$mobile.visible = false
 	hud.set_score_label()
+	hud.set_upgrades()
+	_abilityChargeHandler()
 	hud.set_lives(lives)
-	if Global.difficil == "easy":
-		apply_easy_mode()
-	elif Global.difficil == "hard":
-		apply_hard_mode()
-	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
-		$mobile.visible = true
+	if Global.difficil == "easy": apply_easy_mode()
+	elif Global.difficil == "hard": apply_hard_mode()
+	if OS.has_feature("web_android") or OS.has_feature("web_ios"): $mobile.visible = true
 	for i in range(4):
 		for tim in range(10 * len(UpgradeManager.equippedUpgrades) + 10):
 			$UI/HUD/Upgrades.value = (100.0 / (10.0 * len(UpgradeManager.equippedUpgrades) + 10)) * tim
@@ -177,7 +175,7 @@ func _abilityChargeHandler():
 
 @export_category("Abilities")
 @export var ABCDs: Array = [15.0, 20.0, 30.0, 60.0]
-@export var tiers: Array = [["Slow"], ["invincibility"], ["lifeExchange"], ["ghostPhoenix", "Eye"]]
+@export var tiers: Array = [["Slow"], ["invincibility"], ["lifeExchange", "WalkingDead"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
 	"AB1CD": "ABCDs/Ability1",
 	"AB2CD": "ABCDs/Ability2",
@@ -199,6 +197,7 @@ func use_ability(ability: String, slot: int = 0) -> void:
 		"ghostPhoenix": _activate_ghostly_phoenix(timer)
 		"Slow": _activate_slow_enemies(timer)
 		"Eye": _activate_eye_of_chaos(timer)
+		"WalkingDead": _activate_walking_dead(timer)
 		_: print("Unknown ability: ", ability)
 
 func _activate_invincibility(timer: Timer) -> void:
@@ -214,6 +213,37 @@ func _activate_invincibility(timer: Timer) -> void:
 	await get_tree().create_timer(3.0).timeout
 	invincibility_active = false
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+var walking_dead_pool := []
+var walking_dead_active := false
+func _activate_walking_dead(timer: Timer) -> void:
+	if walking_dead_active: return
+	walking_dead_active = true
+	$Player/Sprite2D.modulate = Color(1.7, 0.0, 0.0, 1.0)
+	var tween = create_tween()
+	tween.set_loops(6)
+	tween.tween_property($Player/Sprite2D, "modulate:r", 1.5, 0.25)
+	tween.tween_property($Player/Sprite2D, "modulate:r", 2.0, 0.2)
+	timer.start()
+	await get_tree().create_timer(10.0).timeout
+	walking_dead_active = false
+	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	if len(walking_dead_pool) > 0:
+		if len(walking_dead_pool) >= 10:
+			Global.achievements["deadWalked"] = true
+		for pos in walking_dead_pool:
+			var enemyInst = preload("res://scenes/enemy.tscn").instantiate()
+			add_child(enemyInst)
+			enemyInst.modulate.g -= 0.2
+			enemyInst.modulate.b -= 0.2
+			enemyInst.global_position = pos
+			enemyInst.speed = abs(enemyInst.speed) * -1
+			enemyInst.find_child("Sprite2D").flip_v = !enemyInst.find_child("Sprite2D").flip_v
+			enemyInst.set_collision_layer_value(3, true)
+	for kiddo in $EnemySpawner.get_children():
+		if "DeadMarker" in kiddo.name:
+			kiddo.queue_free()
+	walking_dead_pool.clear()
 
 func _activate_life_exchange(timer: Timer) -> void:
 	if Global.score < 200:
