@@ -8,7 +8,8 @@ signal died
 @export var speed := 300.0
 @export var health := 1.0
 var is_dead := false 
-
+@onready var game = get_parent().get_parent().get_parent()
+ 
 func _ready() -> void:
 	aniSprite.visible = false
 	$EnemyHitSound.volume_db = Global.volume - 30
@@ -16,6 +17,8 @@ func _ready() -> void:
 func _physics_process(delta):
 	if not is_dead:
 		global_position.x += -speed * delta
+		if is_in_group("path"): return
+		$Sprite2D.flip_v = false if speed > 0 else true
 
 func damage(dmg: float = 1):
 	health -= dmg
@@ -24,10 +27,11 @@ func damage(dmg: float = 1):
 func die():
 	if is_dead: return
 	is_dead = true
-	if not is_in_group("path") and $Sprite2D.flip_v == false and get_parent().get_parent().get_parent().walking_dead_active:
+	if not is_in_group("path") and $Sprite2D.flip_v == false and game and game.name == "Game" and game.walking_dead_active:
 		get_parent().get_parent().get_parent().walking_dead_pool.append(global_position)
 		var deadMark := preload("res://scenes/dead_marker.tscn").instantiate()
 		get_parent().get_parent().add_child(deadMark, true)
+		deadMark.global_position = global_position
 	Global.addScore += 100
 	aniSprite.visible = true
 	$Sprite2D.visible = false

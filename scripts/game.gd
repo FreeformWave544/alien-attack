@@ -41,7 +41,7 @@ func _ready():
 		for tim in range(10 * len(UpgradeManager.equippedUpgrades) + 10):
 			$UI/HUD/Upgrades.value = (100.0 / (10.0 * len(UpgradeManager.equippedUpgrades) + 10)) * tim
 			await get_tree().create_timer(1.0).timeout
-			while get_tree().paused:
+			while is_inside_tree() and get_tree() and get_tree().paused:
 				if is_inside_tree(): await get_tree().process_frame
 				else: break
 		var upgrade = upgrader.instantiate()
@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 			Global.TakeLIVES = 0
 		elif invincibility_active and Global.TakeLIVES > 0: Global.TakeLIVES = 0
 		else:
-			lives -= Global.TakeLIVES
+			lives -= Global.TakeLIVES if not neurowave_active else Global.TakeLIVES * 2
 			Global.TakeLIVES = 0
 
 func _physics_process(delta):
@@ -100,16 +100,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_deathzone_area_entered(area):
 	if area.name == $Deathzone.name: return
+	if area.find_child("Sprite2D").flip_v == true and area.is_in_group("enemy"): print("WITCH!") ; return
 	if area.is_in_group("fireball"): area.blow()
 	elif not area.is_in_group("dodge") and not area.is_in_group("fireball"):
-		if not invincibility_active:
-			score -= 50
-			lives -= 1
-			if lives <= 0:
-				if ghostly_phoenix_available: _trigger_ghostly_phoenix()
-				else:
-					dead()
-					player.die()
+		if invincibility_active: return
+		score -= 50
+		lives -= 1
+		if lives <= 0:
+			if ghostly_phoenix_available: _trigger_ghostly_phoenix()
+			else:
+				dead()
+				player.die()
 	elif not area.is_in_group("path") and not area.is_in_group("fireball"): area.queue_free()
 
 func _on_player_took_damage():
@@ -174,10 +175,10 @@ func _abilityChargeHandler():
 	$UI/HUD/AbilityChargeProgress.value = fastRocketCharge
 
 @export_category("Abilities")
-@export var ABCDs: Array = [15.0, 20.0, 30.0, 60.0]
-@export var tiers: Array = [["Slow"], ["invincibility"], ["lifeExchange", "WalkingDead"], ["ghostPhoenix", "Eye"]]
+@export var ABCDs: Array = [15.0, 20.0, 30.0, 45.0, 60.0]
+@export var tiers: Array = [["Slow", "neurowave"], ["invincibility"], ["lifeExchange"], ["WalkingDead"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
-	"AB1CD": "ABCDs/Ability1",
+	"AB1CD": "ABCDs/Ability1", 
 	"AB2CD": "ABCDs/Ability2",
 	"AB3CD": "ABCDs/Ability3",
 	"AB4CD": "ABCDs/Ability4"
@@ -198,6 +199,7 @@ func use_ability(ability: String, slot: int = 0) -> void:
 		"Slow": _activate_slow_enemies(timer)
 		"Eye": _activate_eye_of_chaos(timer)
 		"WalkingDead": _activate_walking_dead(timer)
+		"neurowave": _neurowave(timer)
 		_: print("Unknown ability: ", ability)
 
 func _activate_invincibility(timer: Timer) -> void:
@@ -213,6 +215,23 @@ func _activate_invincibility(timer: Timer) -> void:
 	await get_tree().create_timer(3.0).timeout
 	invincibility_active = false
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+var neurowave_active := false
+func _neurowave(timer: Timer) -> void:
+	if neurowave_active: return
+	neurowave_active = true
+	$Player.timer.wait_time /= 2.0
+	var tween = create_tween()
+	tween.set_loops(6)
+	tween.tween_property($Neurowave, "color:a", 0.005, 0.25)
+	tween.tween_property($Neurowave, "color:a", 0.025, 0.25)
+	timer.start()
+	await get_tree().create_timer(3.0).timeout
+	$Player.timer.wait_time *= 2.0
+	neurowave_active = false
+	$Neurowave.color.a = 0.0
+	await get_tree().process_frame
+	$Neurowave.color.a = 0.0
 
 var walking_dead_pool := []
 var walking_dead_active := false

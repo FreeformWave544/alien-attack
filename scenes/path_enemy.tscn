@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://s537f77e2rtm"]
+[gd_scene format=3 uid="uid://s537f77e2rtm"]
 
 [ext_resource type="Script" uid="uid://cb57v2jdn82jg" path="res://scripts/path_enemy.gd" id="1_cs5rq"]
 [ext_resource type="Script" uid="uid://cntvmhnhb0phf" path="res://scripts/enemy.gd" id="2_2wht8"]
@@ -272,43 +272,44 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="PathEnemy" type="Path2D" groups=["enemies"]]
+[node name="PathEnemy" type="Path2D" unique_id=479170914 groups=["enemies"]]
 position = Vector2(-187, -31)
 curve = SubResource("Curve2D_2wht8")
 script = ExtResource("1_cs5rq")
 paths = Array[Curve2D]([SubResource("Curve2D_k87c6"), SubResource("Curve2D_1byh0"), SubResource("Curve2D_2wht8"), SubResource("Curve2D_3m0v3")])
 
-[node name="PathFollow2D" type="PathFollow2D" parent="."]
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1118727339]
 position = Vector2(1036, 752)
 rotation = -2.5591047
 loop = false
 
-[node name="Enemy" type="Area2D" parent="PathFollow2D" groups=["enemies", "path"]]
+[node name="Enemy" type="Area2D" parent="PathFollow2D" unique_id=890017324 groups=["enemies", "path"]]
 position = Vector2(0.000244141, 0.000244141)
 rotation = 3.14159
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("2_2wht8")
 speed = 0
+health = null
 
-[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Enemy"]
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Enemy" unique_id=2005634240]
 rotation = 4.71239
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_un7k8")
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Enemy" groups=["enemies", "path"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Enemy" unique_id=1350512000 groups=["enemies", "path"]]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wu7fc")
 
-[node name="EnemyHitSound" type="AudioStreamPlayer" parent="PathFollow2D/Enemy"]
+[node name="EnemyHitSound" type="AudioStreamPlayer" parent="PathFollow2D/Enemy" unique_id=1892360633]
 stream = ExtResource("4_5bipp")
 volume_db = 24.0
 mix_target = 1
 max_polyphony = 100
 playback_type = 1
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D/Enemy"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D/Enemy" unique_id=1383805740]
 scale = Vector2(5.50208, 5.50208)
 sprite_frames = SubResource("SpriteFrames_qcp6c")
 
