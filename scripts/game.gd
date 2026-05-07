@@ -40,7 +40,7 @@ func _ready():
 	for i in range(4):
 		for tim in range(10 * len(UpgradeManager.equippedUpgrades) + 10):
 			$UI/HUD/Upgrades.value = (100.0 / (10.0 * len(UpgradeManager.equippedUpgrades) + 10)) * tim
-			await get_tree().create_timer(1.0).timeout
+			if is_inside_tree() and get_tree(): await get_tree().create_timer(1.0).timeout
 			while is_inside_tree() and get_tree() and get_tree().paused:
 				if is_inside_tree(): await get_tree().process_frame
 				else: break

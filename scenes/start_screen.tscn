@@ -1559,6 +1559,7 @@ theme = ExtResource("2_xxw77")
 text = "ACHIEVEMENTS"
 
 [node name="sessionScores" type="Button" parent="Panel" unique_id=1548155248]
+visible = false
 layout_mode = 0
 offset_left = 1067.0
 offset_top = 76.0
