@@ -213,6 +213,7 @@ autostart = true
 
 [node name="Laser" type="AudioStreamPlayer" parent="." unique_id=1628372400]
 stream = ExtResource("3_xt5sl")
+pitch_scale = 1.2
 
 [node name="easyview" type="TextureRect" parent="." unique_id=1688369880]
 offset_left = 42.0

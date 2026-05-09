@@ -57,6 +57,7 @@ func shoot():
 		rocket_instance.global_position.x += 80
 		timer.one_shot = true
 		timer.start()
+		laser.pitch_scale = randf_range(0.8, 1.2)
 		laser.play()
 
 func take_damage(v := 1):

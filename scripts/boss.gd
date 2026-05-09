@@ -12,6 +12,7 @@ var score_drain_timer = 0
 var tractor = 0
 
 func _ready():
+	Global.bossLives = 200
 	attackLoop()
 	change_frame_loop()
 	start()
@@ -70,16 +71,15 @@ func firstAttack():
 		create_expanding_circle()
 		for e in range(5):
 			var gap = randi_range(1, 9)
-			var otherGap = gap + 1
 			await get_tree().create_timer(4).timeout
 			var pos = Vector2(1000, 50)
-			for i in range(13):
-				if i != gap and i != otherGap:
+			for i in range(9):
+				if i != gap and i != gap + 1:
 					var enemyInstance = enemy.instantiate()
 					$enemyContainer.add_child(enemyInstance)
 					enemyInstance.global_position = pos
 					enemyInstance.add_to_group("dodge")
-				pos += Vector2(0, 70)
+				pos += Vector2(0, 80)
 		attacking = false
 		Global.canFire = true
 

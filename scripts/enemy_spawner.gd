@@ -14,8 +14,7 @@ var value = 0.0
 @onready var timer = $Timer
 
 func _on_timer_timeout() -> void:
-	if Global.isBoss:
-		return
+	if Global.isBoss: timer.start() ; return
 	var spawn_rate = randf_range(0.2, 6.6) * (1.0 - value * 0.1)
 	timer.wait_time = clamp(spawn_rate, 0.4, 6.6)
 	timer.one_shot = true

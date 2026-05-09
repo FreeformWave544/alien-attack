@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cuavi5rtlsrod"]
+[gd_scene format=3 uid="uid://cuavi5rtlsrod"]
 
 [ext_resource type="Script" uid="uid://bxm845enhpd1e" path="res://scripts/boss.gd" id="1_5i3dt"]
 [ext_resource type="Texture2D" uid="uid://btvr5avr8e3kj" path="res://assets/textures/boss/boss2frame0-removebg-preview.png" id="2_5j6oc"]
@@ -280,40 +280,49 @@ animations = [{
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qilo5"]
 shader = ExtResource("9_shgo4")
 
-[node name="boss" type="Area2D" groups=["boss"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2avx2"]
+size = Vector2(160.69395, 580.28375)
+
+[node name="boss" type="Area2D" unique_id=818672394 groups=["boss"]]
 scale = Vector2(1.34417, 1.34417)
 collision_layer = 16
 collision_mask = 5
 script = ExtResource("1_5i3dt")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1776304503]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_w3tog")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1794254918]
 position = Vector2(-10, 1)
 shape = SubResource("CapsuleShape2D_26xey")
 
-[node name="enemyContainer" type="Node" parent="."]
+[node name="enemyContainer" type="Node" parent="." unique_id=229508645]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1468274718]
 offset_left = 513.328
 offset_top = 276.007
 offset_right = 553.328
 offset_bottom = 316.007
 
-[node name="big boom" type="AnimatedSprite2D" parent="."]
+[node name="big boom" type="AnimatedSprite2D" parent="." unique_id=557799766]
 scale = Vector2(11.6903, 11.6903)
 sprite_frames = SubResource("SpriteFrames_8bcas")
 
-[node name="small boom" type="AnimatedSprite2D" parent="."]
+[node name="small boom" type="AnimatedSprite2D" parent="." unique_id=2132652646]
 position = Vector2(541.598, 1.48791)
 scale = Vector2(1.39514, 1.39514)
 sprite_frames = SubResource("SpriteFrames_bd1n3")
 frame = 10
 frame_progress = 0.828133
 
-[node name="TractorBeam" type="ColorRect" parent="."]
+[node name="TractorBeam" type="ColorRect" parent="." unique_id=1558873306]
 material = SubResource("ShaderMaterial_qilo5")
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2135590470]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1128380048]
+shape = SubResource("RectangleShape2D_2avx2")

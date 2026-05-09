@@ -49,6 +49,11 @@ func _ready():
 		upgrade.toggle()
 		await upgrade.upgradeClicked
 		upgrade.queue_free()
+	await get_tree().create_timer(1.0).timeout
+	var bossGuy = boss.instantiate()
+	add_child(bossGuy)
+	bossGuy.global_position = Vector2(1500, 360)
+	Global.isBoss = true
 
 var time_elapsed := 0.0
 var oldScore = -1
@@ -86,7 +91,7 @@ func _physics_process(delta):
 		else: $UI/HUD/Upgrades.find_child("Ability" + str(i + 1)).modulate.a = 0.5
 	hud.set_score_label()
 	hud.set_lives(lives)
-	if lives <= 0 and not ghostly_phoenix_available: dead()
+	if lives is int and lives <= 0 and not ghostly_phoenix_available: dead()
 	var direction = Vector2.ZERO
 	if direction.length() > 0: direction = direction.normalized()
 	player.position += direction * 200 * delta
@@ -100,8 +105,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_deathzone_area_entered(area):
 	if area.name == $Deathzone.name: return
-	if area.find_child("Sprite2D").flip_v == true and area.is_in_group("enemy"): print("WITCH!") ; return
-	if area.is_in_group("fireball"): area.blow()
+	if area.find_child("Sprite2D") != null and area.find_child("Sprite2D").flip_v and area.is_in_group("enemy"): print("WITCH!") ; return        
+	if area.is_in_group("fireball"): area.blow()  
 	elif not area.is_in_group("dodge") and not area.is_in_group("fireball"):
 		if invincibility_active: return
 		score -= 50
