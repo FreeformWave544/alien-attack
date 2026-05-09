@@ -168,3 +168,5 @@ func died():
 	Global.addScore += randi_range(7, 20) * 100
 	Global.isBoss = false
 	Global.canFire = true
+	if Global.bossLives <= -10:
+		Global.achievements["overkill"] = true

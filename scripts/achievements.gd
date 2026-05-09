@@ -4,15 +4,16 @@ var medals = preload("res://scenes/medals/achievment_medals.tscn")
 var achievements = Global.achievements
 
 func _ready():
-	if not Global.achievements: $CanvasLayer/none.text = "No achievements :(" ; return
+	if not achievements: $CanvasLayer/none.text = "No achievements :(" ; return
 	$CanvasLayer/none.text = ""
-	for key in Global.achievements:
-		if Global.achievements[key]:
+	for key in achievements:
+		if achievements[key]:
 			match key:
 				Constants.PATHKILLS: achieve(1)
 				Constants.EHIGH: achieve(2)
 				Constants.HHIGH: achieve(3)
 				Constants.DEADWALKED: achieve(4)
+				Constants.OVERKILL: achieve(5)
 
 func achieve(i):
 	var medal = medals.instantiate()
@@ -60,4 +61,5 @@ func _on_button_pressed() -> void:
 	Global.achievements[Constants.HHIGH] = true
 	Global.achievements[Constants.EHIGH] = true
 	Global.achievements[Constants.DEADWALKED] = true
+	Global.achievements[Constants.OVERKILL] = true
 	_ready()
