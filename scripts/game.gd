@@ -36,7 +36,7 @@ func _ready():
 	hud.set_lives(lives)
 	if Global.difficil == "easy": apply_easy_mode()
 	elif Global.difficil == "hard": apply_hard_mode()
-	if OS.has_feature("web_android") or OS.has_feature("web_ios"): $mobile.visible = true
+	if OS.has_feature("web_android") or OS.has_feature("web_ios"): $mobile.visible = true ; mobileUpdate()
 	for i in range(4):
 		for tim in range(10 * len(UpgradeManager.equippedUpgrades) + 10):
 			$UI/HUD/Upgrades.value = (100.0 / (10.0 * len(UpgradeManager.equippedUpgrades) + 10)) * tim
@@ -348,3 +348,18 @@ func _setup_ability_timers() -> void:
 						timer.wait_time = ABCDs[tiers.find(tier)]
 						timer.one_shot = true
 						break
+
+func ab1():
+	if UpgradeManager.equippedUpgrades.size() > 0: use_ability(UpgradeManager.equippedUpgrades[0].ID, 0)
+func ab2():
+	if UpgradeManager.equippedUpgrades.size() > 1: use_ability(UpgradeManager.equippedUpgrades[1].ID, 1)
+func ab3():
+	if UpgradeManager.equippedUpgrades.size() > 2: use_ability(UpgradeManager.equippedUpgrades[2].ID, 2)
+func ab4():
+	if UpgradeManager.equippedUpgrades.size() > 3: use_ability(UpgradeManager.equippedUpgrades[3].ID, 3)
+
+func mobileUpdate():
+	if UpgradeManager.equippedUpgrades.size() > 0: $mobile/Ab1.show()
+	elif UpgradeManager.equippedUpgrades.size() > 2: $mobile/Ab2.show()
+	elif UpgradeManager.equippedUpgrades.size() > 3: $mobile/Ab3.show()
+	elif UpgradeManager.equippedUpgrades.size() > 4: $mobile/Ab4.show() ; return

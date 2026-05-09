@@ -77,5 +77,6 @@ func assign_available_cards() -> void:
 func _on_upgrade_pressed(data) -> void:
 	emit_signal("upgradeClicked")
 	UpgradeManager.equippedUpgrades.append(data)
+	if get_parent().has_method("mobileUpdate"): get_parent().mobileUpdate()
 	get_child(0).hide()
 	get_tree().paused = false
