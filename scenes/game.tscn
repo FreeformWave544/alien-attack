@@ -18,6 +18,22 @@ font_color = Color(0.63, 0, 0, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vtaks"]
 
+[sub_resource type="Gradient" id="Gradient_vtaks"]
+offsets = PackedFloat32Array(0.13939394, 0.21212122, 0.2969697, 0.34545454, 0.4, 0.5939394, 0.6424242, 0.92121214, 1)
+colors = PackedColorArray(0.29411766, 0.29411766, 0.29411766, 0.13725491, 0, 0, 0, 1, 0.41960785, 0, 0, 0.1764706, 0, 0, 0, 1, 0.72156864, 0.72156864, 0.72156864, 0, 0.29411766, 0.29411766, 0.29411766, 0.29411766, 0, 0, 0, 1, 0.54509807, 0.54509807, 0.54509807, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kvpfn"]
+gradient = SubResource("Gradient_vtaks")
+fill = 2
+
+[sub_resource type="Gradient" id="Gradient_dinhu"]
+offsets = PackedFloat32Array(0.3272727, 0.36969697, 0.46060607, 0.4969697, 0.5939394, 0.72727275, 0.8121212, 0.92121214, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0.45882353, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kvuet"]
+gradient = SubResource("Gradient_dinhu")
+fill = 2
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kvpfn"]
 shader = ExtResource("10_vtaks")
 
@@ -63,71 +79,12 @@ stream = ExtResource("7_1dl8s")
 max_polyphony = 50
 
 [node name="mobile" type="CanvasLayer" parent="." unique_id=287451063]
-visible = false
 
-[node name="up" type="Button" parent="mobile" unique_id=626054539]
-z_index = 4096
-offset_left = 995.0
-offset_top = 520.0
-offset_right = 1057.0
-offset_bottom = 551.0
-scale = Vector2(3, 3)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.86, 0.86, 0.86, 1)
-theme_override_colors/icon_pressed_color = Color(0.72, 0.0648, 0.0648, 1)
-theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
-action_mode = 0
-text = "W"
-
-[node name="down" type="Button" parent="mobile" unique_id=2000987014]
-z_index = 4096
-offset_left = 1029.0
-offset_top = 613.0
-offset_right = 1069.0
-offset_bottom = 644.0
-scale = Vector2(3, 3)
-action_mode = 0
-text = "S"
-
-[node name="left" type="Button" parent="mobile" unique_id=52706277]
-z_index = 4096
-offset_left = 912.0
-offset_top = 611.0
-offset_right = 951.0
-offset_bottom = 642.0
-scale = Vector2(3, 3)
-action_mode = 0
-text = "A"
-
-[node name="right" type="Button" parent="mobile" unique_id=961299659]
-z_index = 4096
-offset_left = 1149.0
-offset_top = 614.0
-offset_right = 1189.0
-offset_bottom = 645.0
-scale = Vector2(3, 3)
-action_mode = 0
-text = "D"
-
-[node name="shoot" type="Button" parent="mobile" unique_id=1118737946]
-z_index = 4096
-offset_left = 872.0
-offset_top = 517.0
-offset_right = 913.0
-offset_bottom = 548.0
-scale = Vector2(3, 3)
-action_mode = 0
-text = "shoot"
-
-[node name="other pew" type="Button" parent="mobile" unique_id=1281082599]
-z_index = 4096
-offset_left = 78.9998
-offset_top = 577.0
-offset_right = 120.0
-offset_bottom = 608.0
-scale = Vector2(2.1, 2.1)
-action_mode = 0
-text = "other shoot"
+[node name="TouchScreenButton" type="TouchScreenButton" parent="mobile" unique_id=1765163421]
+position = Vector2(1161, 628)
+rotation = -0.7853982
+texture_normal = SubResource("GradientTexture2D_kvpfn")
+texture_pressed = SubResource("GradientTexture2D_kvuet")
 
 [node name="backgroudMusic" type="AudioStreamPlayer" parent="." unique_id=268149629]
 stream = ExtResource("8_vtaks")
@@ -164,13 +121,5 @@ color = Color(0.78431374, 0.39215687, 0.92941177, 0)
 
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="area_entered" from="Deathzone" to="." method="_on_deathzone_area_entered"]
-[connection signal="button_down" from="mobile/up" to="." method="_on_up_button_down"]
-[connection signal="button_up" from="mobile/up" to="." method="_on_up_button_up"]
-[connection signal="button_down" from="mobile/down" to="." method="_on_down_button_down"]
-[connection signal="button_up" from="mobile/down" to="." method="_on_down_button_up"]
-[connection signal="button_down" from="mobile/left" to="." method="_on_left_button_down"]
-[connection signal="button_up" from="mobile/left" to="." method="_on_left_button_up"]
-[connection signal="button_down" from="mobile/right" to="." method="_on_right_button_down"]
-[connection signal="button_up" from="mobile/right" to="." method="_on_right_button_up"]
-[connection signal="button_down" from="mobile/shoot" to="." method="_on_shoot_button_down"]
-[connection signal="button_down" from="mobile/other pew" to="." method="_on_shoot_button_down"]
+[connection signal="pressed" from="mobile/TouchScreenButton" to="Player" method="move_right" binds= [true]]
+[connection signal="released" from="mobile/TouchScreenButton" to="Player" method="move_right" binds= [false]]

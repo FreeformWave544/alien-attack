@@ -29,7 +29,7 @@ func _ready():
 	Global.score = 0
 	_setup_ability_timers()
 	UpgradeManager.equippedUpgrades = []
-	$mobile.visible = false
+	#$mobile.visible = false
 	hud.set_score_label()
 	hud.set_upgrades()
 	_abilityChargeHandler()
@@ -165,16 +165,6 @@ func fastRocket():
 	plexusBackground.modulate.a = 0.0
 	Global.fastRocketActive = false
 	Engine.time_scale = 1.0
-
-func _on_up_button_down(): player.move_up()
-func _on_up_button_up(): player.move_up(false)
-func _on_down_button_down(): player.move_down()
-func _on_down_button_up(): player.move_down(false)
-func _on_left_button_down(): player.move_left()
-func _on_left_button_up(): player.move_left(false)
-func _on_right_button_down(): player.move_right()
-func _on_right_button_up(): player.move_right(false)
-func _on_shoot_button_down(): player.shoot()
 
 func _abilityChargeHandler():
 	$UI/HUD/AbilityChargeProgress.value = fastRocketCharge
