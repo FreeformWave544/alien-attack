@@ -19,12 +19,13 @@ font_color = Color(0.63, 0, 0, 1)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vtaks"]
 
 [sub_resource type="Gradient" id="Gradient_vtaks"]
-offsets = PackedFloat32Array(0.13939394, 0.21212122, 0.2969697, 0.34545454, 0.4, 0.5939394, 0.6424242, 0.92121214, 1)
-colors = PackedColorArray(0.29411766, 0.29411766, 0.29411766, 0.13725491, 0, 0, 0, 1, 0.41960785, 0, 0, 0.1764706, 0, 0, 0, 1, 0.72156864, 0.72156864, 0.72156864, 0, 0.29411766, 0.29411766, 0.29411766, 0.29411766, 0, 0, 0, 1, 0.54509807, 0.54509807, 0.54509807, 0, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0.13939394, 0.21212122, 0.2969697, 0.34545454, 0.4, 0.55151516, 0.58787876, 0.6484848, 0.7090909)
+colors = PackedColorArray(0.29411766, 0.29411766, 0.29411766, 0.13725491, 0, 0, 0, 1, 0.41960785, 0, 0, 0.1764706, 0, 0, 0, 1, 0.72156864, 0.72156864, 0.72156864, 0, 0.29411766, 0.29411766, 0.29411766, 0.29411766, 0, 0, 0, 1, 0.46214834, 0.46214834, 0.46214834, 0.15217394, 0.54509807, 0.54509807, 0.54509807, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kvpfn"]
 gradient = SubResource("Gradient_vtaks")
-fill = 2
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_dinhu"]
 offsets = PackedFloat32Array(0.3272727, 0.36969697, 0.46060607, 0.4969697, 0.5939394, 0.72727275, 0.8121212, 0.92121214, 1)
@@ -80,9 +81,33 @@ max_polyphony = 50
 
 [node name="mobile" type="CanvasLayer" parent="." unique_id=287451063]
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="mobile" unique_id=1765163421]
-position = Vector2(1161, 628)
+[node name="Right" type="TouchScreenButton" parent="mobile" unique_id=1765163421]
+position = Vector2(1163.0001, 628)
 rotation = -0.7853982
+texture_normal = SubResource("GradientTexture2D_kvpfn")
+texture_pressed = SubResource("GradientTexture2D_kvuet")
+
+[node name="Left" type="TouchScreenButton" parent="mobile" unique_id=1674661430]
+position = Vector2(1159, 628.00006)
+rotation = 2.3561945
+texture_normal = SubResource("GradientTexture2D_kvpfn")
+texture_pressed = SubResource("GradientTexture2D_kvuet")
+
+[node name="Up" type="TouchScreenButton" parent="mobile" unique_id=907366342]
+position = Vector2(1161, 625.99994)
+rotation = 3.926991
+texture_normal = SubResource("GradientTexture2D_kvpfn")
+texture_pressed = SubResource("GradientTexture2D_kvuet")
+
+[node name="Down" type="TouchScreenButton" parent="mobile" unique_id=216028119]
+position = Vector2(1161, 630)
+rotation = 0.7853982
+texture_normal = SubResource("GradientTexture2D_kvpfn")
+texture_pressed = SubResource("GradientTexture2D_kvuet")
+
+[node name="Shoot" type="TouchScreenButton" parent="mobile" unique_id=227276313]
+position = Vector2(94.00003, 587)
+rotation = 0.7853982
 texture_normal = SubResource("GradientTexture2D_kvpfn")
 texture_pressed = SubResource("GradientTexture2D_kvuet")
 
@@ -121,5 +146,12 @@ color = Color(0.78431374, 0.39215687, 0.92941177, 0)
 
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="area_entered" from="Deathzone" to="." method="_on_deathzone_area_entered"]
-[connection signal="pressed" from="mobile/TouchScreenButton" to="Player" method="move_right" binds= [true]]
-[connection signal="released" from="mobile/TouchScreenButton" to="Player" method="move_right" binds= [false]]
+[connection signal="pressed" from="mobile/Right" to="Player" method="move_right"]
+[connection signal="released" from="mobile/Right" to="Player" method="move_right"]
+[connection signal="pressed" from="mobile/Left" to="Player" method="move_left"]
+[connection signal="released" from="mobile/Left" to="Player" method="move_left"]
+[connection signal="pressed" from="mobile/Up" to="Player" method="move_up"]
+[connection signal="released" from="mobile/Up" to="Player" method="move_up"]
+[connection signal="pressed" from="mobile/Down" to="Player" method="move_down"]
+[connection signal="released" from="mobile/Down" to="Player" method="move_down"]
+[connection signal="pressed" from="mobile/Shoot" to="Player" method="shoot"]

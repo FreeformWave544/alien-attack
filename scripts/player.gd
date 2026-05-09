@@ -76,26 +76,34 @@ func die():
 	$plo.play("default")
 	await $plo.animation_finished
 
-func move_up(v := true):
-	while v == true: 
+var uv := false
+func move_up():
+	uv = !uv
+	while uv == true: 
 		Input.action_press("move_up")
 		await get_tree().process_frame
 	Input.action_release("move_up")
 
-func move_down(v := true):
-	while v == true: 
+var dv := false
+func move_down():
+	dv = !dv
+	while dv == true: 
 		Input.action_press("move_down")
 		await get_tree().process_frame
 	Input.action_release("move_down")
 
-func move_left(v := true):
-	while v == true: 
+var lv := false
+func move_left():
+	lv = !lv
+	while lv == true: 
 		Input.action_press("move_left")
 		await get_tree().process_frame
 	Input.action_release("move_left")
 
-func move_right(v := true):
-	while v == true: 
+var rv := false
+func move_right():
+	rv = !rv
+	while rv == true: 
 		Input.action_press("move_right")
 		await get_tree().process_frame
 	Input.action_release("move_right")

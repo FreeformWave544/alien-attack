@@ -29,7 +29,7 @@ func _ready():
 	Global.score = 0
 	_setup_ability_timers()
 	UpgradeManager.equippedUpgrades = []
-	#$mobile.visible = false
+	$mobile.visible = false
 	hud.set_score_label()
 	hud.set_upgrades()
 	_abilityChargeHandler()
