@@ -171,7 +171,7 @@ func _abilityChargeHandler():
 
 @export_category("Abilities")
 @export var ABCDs: Array = [15.0, 20.0, 30.0, 45.0, 60.0]
-@export var tiers: Array = [["Slow", "neurowave"], ["invincibility"], ["lifeExchange"], ["WalkingDead"], ["ghostPhoenix", "Eye"]]
+@export var tiers: Array = [["Slow", "neurowave", "surge"], ["invincibility", "doubles"], ["lifeExchange"], ["WalkingDead"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
 	"AB1CD": "ABCDs/Ability1", 
 	"AB2CD": "ABCDs/Ability2",
@@ -195,6 +195,8 @@ func use_ability(ability: String, slot: int = 0) -> void:
 		"Eye": _activate_eye_of_chaos(timer)
 		"WalkingDead": _activate_walking_dead(timer)
 		"neurowave": _neurowave(timer)
+		"doubles": _doppleganger(timer)
+		"surge": _surge(timer)
 		_: print("Unknown ability: ", ability)
 
 func _activate_invincibility(timer: Timer) -> void:
@@ -210,6 +212,29 @@ func _activate_invincibility(timer: Timer) -> void:
 	await get_tree().create_timer(3.0).timeout
 	invincibility_active = false
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+var doubles_active := false
+func _doppleganger(timer: Timer) -> void:
+	if doubles_active: return
+	doubles_active = true
+	var double1 = $Player.duplicate()
+	$Doubles.add_child(double1, true)
+	double1.global_position.y += 100
+	var double2 = $Player.duplicate()
+	$Doubles.add_child(double2, true)
+	double2.global_position.y -= 100
+	timer.start()
+	await get_tree().create_timer(3.0).timeout
+	for child in $Doubles.get_children(): child.queue_free()
+	doubles_active = false
+
+var surge_active := false
+func _surge(timer: Timer) -> void:
+	if surge_active: return
+	surge_active = true
+	timer.start()
+	await $Player._surge()
+	surge_active = false
 
 var neurowave_active := false
 func _neurowave(timer: Timer) -> void:

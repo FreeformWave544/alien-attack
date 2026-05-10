@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://df2rox462opqd" path="res://assets/Any/WarlockIcons/38.png" id="7_vi17a"]
 [ext_resource type="Texture2D" uid="uid://cpyahvgsarg5x" path="res://assets/Any/WarlockIcons/3.png" id="8_h5bgf"]
 [ext_resource type="Texture2D" uid="uid://dj5f5lvj82r5e" path="res://assets/Any/WarlockIcons/42.png" id="9_5wf0v"]
+[ext_resource type="Texture2D" uid="uid://dq3n8q880jxge" path="res://assets/Any/WarlockIcons/41.png" id="10_yoata"]
+[ext_resource type="Texture2D" uid="uid://bkpt611thn0gj" path="res://assets/Any/WarlockIcons/7.png" id="11_3vdl0"]
 
 [sub_resource type="Resource" id="Resource_yoata"]
 script = ExtResource("2_5wf0v")
@@ -74,6 +76,23 @@ rarity = "Uncommon"
 icon = ExtResource("9_5wf0v")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 
+[sub_resource type="Resource" id="Resource_deu2k"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Doppleganger"
+type = "Offensive"
+ID = "doubles"
+rarity = "Uncommon"
+icon = ExtResource("10_yoata")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
+[sub_resource type="Resource" id="Resource_mp7ln"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Surge"
+type = "Defensive"
+ID = "surge"
+icon = ExtResource("11_3vdl0")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
 [sub_resource type="LabelSettings" id="LabelSettings_keijs"]
 font = ExtResource("7_mp7ln")
 font_size = 24
@@ -97,7 +116,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.00235, 1.0105)
 script = ExtResource("1_h5bgf")
-upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu"), SubResource("Resource_h5bgf"), SubResource("Resource_vi17a"), SubResource("Resource_3vdl0")])
+upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu"), SubResource("Resource_h5bgf"), SubResource("Resource_vi17a"), SubResource("Resource_3vdl0"), SubResource("Resource_deu2k"), SubResource("Resource_mp7ln")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1257614020]
 

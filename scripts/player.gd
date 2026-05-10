@@ -107,3 +107,28 @@ func move_right():
 		Input.action_press("move_right")
 		await get_tree().process_frame
 	Input.action_release("move_right")
+
+func _surge() -> bool:
+	$Surge.global_position = global_position
+	$Surge.show()
+	while $Surge.global_position.x < 1280.0:
+		if get_tree().paused: continue
+		$Surge.global_position.x += 7.5
+		await get_tree().process_frame
+	$Surge.hide()
+	return true
+
+func _on_surge_area_entered(area: Area2D) -> void:
+	if area.is_in_group("fireball"): return
+	if area.is_in_group("enemies"):
+		area.die()
+		if area.is_in_group("path"): Global.pathKills += 1
+		if !Global.pathGot:
+			if Global.pathKills >= 10:
+				Global.achievements["pathKills"] = true
+				get_parent().find_child("achieve").pitch_scale = 1.0 + randf_range(-0.7, 0.7)
+				get_parent().find_child("achieve").play()
+				Global.pathGot = true
+		else: area.hitSound.play()
+	if area.is_in_group("boss"):
+		area.damaged()

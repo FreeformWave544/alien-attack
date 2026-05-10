@@ -160,8 +160,22 @@ height = 92.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lyayy"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
+radius = 70.00714
+
+[sub_resource type="Gradient" id="Gradient_fjrip"]
+offsets = PackedFloat32Array(0.07272727, 0.15757576, 0.26666668, 0.35757574, 0.6909091)
+colors = PackedColorArray(1, 0.105882354, 0.827451, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0.7019608, 0.43529412, 0.57254905, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_smehm"]
+gradient = SubResource("Gradient_fjrip")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Player" type="CharacterBody2D" unique_id=818148622 groups=["player"]]
-collision_mask = 2
+collision_mask = 18
 motion_mode = 1
 script = ExtResource("1_j7rbi")
 speed = 460
@@ -220,3 +234,17 @@ offset_left = 42.0
 offset_right = 2042.0
 offset_bottom = 1.0
 texture = SubResource("CanvasTexture_lyayy")
+
+[node name="Surge" type="Area2D" parent="." unique_id=753141078]
+visible = false
+top_level = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Surge" unique_id=498621436]
+shape = SubResource("CircleShape2D_fjrip")
+
+[node name="Surge" type="Sprite2D" parent="Surge" unique_id=1967482982]
+texture = SubResource("GradientTexture2D_smehm")
+
+[connection signal="area_entered" from="Surge" to="." method="_on_surge_area_entered"]
