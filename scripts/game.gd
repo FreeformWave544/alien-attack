@@ -171,7 +171,7 @@ func _abilityChargeHandler():
 
 @export_category("Abilities")
 @export var ABCDs: Array = [15.0, 20.0, 30.0, 45.0, 60.0]
-@export var tiers: Array = [["Slow", "neurowave", "surge"], ["invincibility", "doubles"], ["lifeExchange"], ["WalkingDead"], ["ghostPhoenix", "Eye"]]
+@export var tiers: Array = [["Slow", "neurowave", "surge", "homing"], ["invincibility", "doubles"], ["lifeExchange"], ["WalkingDead"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
 	"AB1CD": "ABCDs/Ability1", 
 	"AB2CD": "ABCDs/Ability2",
@@ -197,6 +197,7 @@ func use_ability(ability: String, slot: int = 0) -> void:
 		"neurowave": _neurowave(timer)
 		"doubles": _doppleganger(timer)
 		"surge": _surge(timer)
+		"homing": _homing_head(timer)
 		_: print("Unknown ability: ", ability)
 
 func _activate_invincibility(timer: Timer) -> void:
@@ -227,6 +228,14 @@ func _doppleganger(timer: Timer) -> void:
 	await get_tree().create_timer(3.0).timeout
 	for child in $Doubles.get_children(): child.queue_free()
 	doubles_active = false
+
+var homing_active := false
+func _homing_head(timer: Timer) -> void:
+	if homing_active or len($EnemySpawner/SpawnPositions.get_children()) <= 0: return
+	homing_active = true
+	timer.start()
+	await $Player._homing_head()
+	homing_active = false
 
 var surge_active := false
 func _surge(timer: Timer) -> void:

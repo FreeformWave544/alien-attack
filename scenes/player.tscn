@@ -161,7 +161,7 @@ height = 92.0
 [sub_resource type="CanvasTexture" id="CanvasTexture_lyayy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
-radius = 70.00714
+radius = 23.769728
 
 [sub_resource type="Gradient" id="Gradient_fjrip"]
 offsets = PackedFloat32Array(0.07272727, 0.15757576, 0.26666668, 0.35757574, 0.6909091)
@@ -173,6 +173,42 @@ width = 128
 height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_smehm"]
+offsets = PackedFloat32Array(0.07272727, 0.25454545)
+colors = PackedColorArray(0, 0.84705883, 0.9843137, 0.39215687, 0.105882354, 0.8627451, 0.9843137, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ur7pv"]
+gradient = SubResource("Gradient_smehm")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_y4r1p"]
+offsets = PackedFloat32Array(0, 0.221311, 0.713115, 0.959016, 1)
+colors = PackedColorArray(0.7, 0.361667, 0, 0, 0.0627451, 0.5686275, 0.8156863, 0.76862746, 0, 0.16470589, 0.50980395, 1, 0.39, 0, 0, 0.12549, 0, 0.16470589, 0.50980395, 0.1254902)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d2wvv"]
+gradient = SubResource("Gradient_y4r1p")
+
+[sub_resource type="Curve" id="Curve_3v2ag"]
+_data = [Vector2(0.02, 0.164835), 0.0, 2.95567, 0, 0, Vector2(1, 0.384615), -0.51511, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jej6c"]
+curve = SubResource("Curve_3v2ag")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f1ej7"]
+lifetime_randomness = 0.4
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
+spread = 5.0
+initial_velocity_min = -250.0
+initial_velocity_max = -10.0
+gravity = Vector3(0, 0, 0)
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_jej6c")
+color_ramp = SubResource("GradientTexture1D_d2wvv")
 
 [node name="Player" type="CharacterBody2D" unique_id=818148622 groups=["player"]]
 collision_mask = 18
@@ -247,4 +283,24 @@ shape = SubResource("CircleShape2D_fjrip")
 [node name="Surge" type="Sprite2D" parent="Surge" unique_id=1967482982]
 texture = SubResource("GradientTexture2D_smehm")
 
+[node name="Homing" type="Area2D" parent="." unique_id=1370758736]
+visible = false
+top_level = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Homing" unique_id=37165286]
+shape = SubResource("CircleShape2D_fjrip")
+
+[node name="Surge" type="Sprite2D" parent="Homing" unique_id=1570336573]
+texture = SubResource("GradientTexture2D_ur7pv")
+
+[node name="Flame" type="GPUParticles2D" parent="Homing" unique_id=770874905]
+amount = 50
+lifetime = 0.2
+randomness = 0.5
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_f1ej7")
+
 [connection signal="area_entered" from="Surge" to="." method="_on_surge_area_entered"]
+[connection signal="area_entered" from="Homing" to="." method="_on_homing_area_entered"]
