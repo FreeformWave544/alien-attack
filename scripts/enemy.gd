@@ -24,7 +24,15 @@ func damage(dmg: float = 1):
 	health -= dmg
 	if health <= 0: die()
 
+func flash():
+	var tempMod = modulate
+	modulate = Color(3.294, 3.294, 3.294, 1.0)
+	await get_tree().create_timer(0.1).timeout
+	modulate = tempMod
+
 func die():
+	health -= 150
+	if not (health <= 0.0): flash() ; return
 	if is_dead: return
 	is_dead = true
 	if not is_in_group("path") and $Sprite2D.flip_v == false and game and game.name == "Game" and game.walking_dead_active:

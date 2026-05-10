@@ -26,7 +26,7 @@ var slow_enemies_active := false
 var eye_active := false
 
 func _ready():
-	Global.score = 0
+	Global.isBoss = false ; Global.canFire = true ; Global.pathKills = 0 ; Global.score = 0 ; Global.TakeLIVES = 0 ; Global.bossLives = 200 ; Global.fastRocketActive = false  
 	_setup_ability_timers()
 	UpgradeManager.equippedUpgrades = []
 	$mobile.visible = false
@@ -53,7 +53,6 @@ func _ready():
 	var bossGuy = boss.instantiate()
 	add_child(bossGuy)
 	bossGuy.global_position = Vector2(1500, 360)
-	Global.isBoss = true
 
 var time_elapsed := 0.0
 var oldScore = -1

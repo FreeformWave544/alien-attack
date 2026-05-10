@@ -40,9 +40,8 @@ func _on_timer_timeout() -> void:
 	else:
 		enemy_instance = enemy_scene.instantiate()
 		enemy_instance.global_position = Vector2(1400, randi_range(15, 720))
-	var enemy_health = 100 + value * 10 
 	var enemy_speed = 100 + value * 10
-	enemy_instance.set("health", enemy_health)
+	enemy_instance.set("health", randf_range(60, 100) + value * 10)
 	enemy_instance.set("speed", enemy_speed)
 	if is_inside_tree(): enemy_instance.connect("died", Callable(game_script, "_on_enemy_died"))
 	enemy_container.add_child(enemy_instance)

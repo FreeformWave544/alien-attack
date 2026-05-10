@@ -10,9 +10,10 @@ var attacking = false
 var tractor_beam_active = false
 var score_drain_timer = 0
 var tractor = 0
-
+ 
 func _ready():
 	Global.bossLives = 200
+	Global.isBoss = true
 	attackLoop()
 	change_frame_loop()
 	start()

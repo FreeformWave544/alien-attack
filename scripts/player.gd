@@ -112,14 +112,16 @@ func move_right():
 func _surge() -> bool:
 	$Surge.global_position = global_position
 	$Surge.show()
+	$Surge/CollisionShape2D.disabled = false
 	while $Surge.global_position.x < 1280.0:
-		if get_tree().paused: await get_tree().process_frame ; continue
+		if get_tree() and get_tree().paused: await get_tree().process_frame ; continue
 		$Surge.global_position.x += projSpeed
 		await get_tree().process_frame
 	for i in range(10):
 		$Surge.modulate.a -= 0.1
 		$Surge.global_position.x += 0.1
 		await get_tree().process_frame
+	$Surge/CollisionShape2D.disabled = true
 	$Surge.hide()
 	$Surge.modulate.a = 1.0
 	$Surge.global_position = Vector2(-150.0, 150.0)
@@ -128,19 +130,21 @@ func _surge() -> bool:
 func _homing_head():
 	$Homing.global_position = global_position
 	$Homing.show()
+	$Homing/CollisionShape2D.disabled = false
 	var startTime := Time.get_unix_time_from_system()
 	var targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
 	while Time.get_unix_time_from_system() - startTime <= 5.0:
 		if get_tree().paused: await get_tree().process_frame ; continue
 		if $Homing.global_position.x >= 1300.0: global_position.x -= 0.1 ; await get_tree().process_frame
 		if len($"../EnemySpawner/SpawnPositions".get_children()) <= 0: $Homing.global_position.x += 0.1 ; await get_tree().process_frame
-		if not targetEnemy: targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
+		if not targetEnemy and not (len($"../EnemySpawner/SpawnPositions".get_children()) <= 0): targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
 		$Homing.global_position.x = move_toward($Homing.global_position.x, targetEnemy.global_position.x, projSpeed) if targetEnemy else $Homing.global_position.x + 0.1
 		$Homing.global_position.y = move_toward($Homing.global_position.y, targetEnemy.global_position.y, projSpeed) if targetEnemy else $Homing.global_position.y
 		await get_tree().process_frame
 	for i in range(10):
 		$Homing.modulate.a -= 0.1
 		await get_tree().process_frame
+	$Homing/CollisionShape2D.disabled = true
 	$Homing.hide()
 	$Homing.modulate.a = 1.0
 	$Homing.global_position = Vector2(-150.0, 150.0)
@@ -159,6 +163,9 @@ func _on_surge_area_entered(area: Area2D) -> void:
 				Global.pathGot = true
 		else: area.hitSound.play()
 	if area.is_in_group("boss"): area.damaged()
+	while area:
+		await get_tree().create_timer(0.1).timeout
+		area.die()
 
 func _on_homing_area_entered(area: Area2D) -> void:
 	if area.is_in_group("fireball"): return
@@ -173,6 +180,9 @@ func _on_homing_area_entered(area: Area2D) -> void:
 				Global.pathGot = true
 		else: area.hitSound.play()
 	if area.is_in_group("boss"): area.damaged()
+	while area:
+		await get_tree().create_timer(1.0).timeout
+		if area: area.die()
 
 @onready var upgrader = preload("res://scenes/upgrades.tscn").instantiate()
 func _on_debug_visibility_changed() -> void:

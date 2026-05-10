@@ -12,7 +12,7 @@ var run := false ; var fastRocketActive := false
 var scroll_offset := Vector2.ZERO
 
 func _ready() -> void:
-	load_achievements();load_scores()
+	load_achievements() ; load_scores()
 	high_scores["instructions"] = instructions
 	await get_tree().create_timer(0.5).timeout
 	save_stuff("norm")
