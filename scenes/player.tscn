@@ -302,5 +302,63 @@ randomness = 0.5
 trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_f1ej7")
 
+[node name="Debug" type="CanvasLayer" parent="." unique_id=346265220]
+process_mode = 3
+visible = false
+
+[node name="Panel" type="Panel" parent="Debug" unique_id=495892230]
+custom_minimum_size = Vector2(500, 500)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Debug/Panel" unique_id=1308465343]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Debug/Panel/CenterContainer" unique_id=1607373481]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=618408580]
+layout_mode = 2
+text = "EQUIPPED UPGRADES"
+
+[node name="Ability1" type="OptionButton" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=1528428416]
+layout_mode = 2
+
+[node name="Ability2" type="OptionButton" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=965612944]
+layout_mode = 2
+
+[node name="Ability3" type="OptionButton" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=503436689]
+layout_mode = 2
+
+[node name="Ability4" type="OptionButton" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=1973116937]
+layout_mode = 2
+
+[node name="Update" type="Button" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=1726725875]
+layout_mode = 2
+text = "Submit"
+
+[node name="Back" type="Button" parent="Debug/Panel" unique_id=801476952]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "BACK"
+
 [connection signal="area_entered" from="Surge" to="." method="_on_surge_area_entered"]
 [connection signal="area_entered" from="Homing" to="." method="_on_homing_area_entered"]
+[connection signal="visibility_changed" from="Debug" to="." method="_on_debug_visibility_changed"]
+[connection signal="pressed" from="Debug/Panel/CenterContainer/VBoxContainer/Update" to="." method="_update_equipped"]
+[connection signal="pressed" from="Debug/Panel/Back" to="." method="_on_back_pressed"]
