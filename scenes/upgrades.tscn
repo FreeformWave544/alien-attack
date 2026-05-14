@@ -124,7 +124,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.00235, 1.0105)
 script = ExtResource("1_h5bgf")
 upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu"), SubResource("Resource_h5bgf"), SubResource("Resource_vi17a"), SubResource("Resource_3vdl0"), SubResource("Resource_deu2k"), SubResource("Resource_mp7ln"), SubResource("Resource_keijs")])
 

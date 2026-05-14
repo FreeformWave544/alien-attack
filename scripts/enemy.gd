@@ -23,7 +23,7 @@ func _physics_process(delta):
 func damage(dmg: float = 1):
 	health -= dmg
 	if health <= 0: die()
-
+ 
 func flash():
 	var tempMod = modulate
 	modulate = Color(3.294, 3.294, 3.294, 1.0)

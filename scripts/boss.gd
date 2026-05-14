@@ -22,7 +22,7 @@ func _ready():
 	tractor_beam.pivot_offset = Vector2(0, 100)
 
 func _process(delta):
-	if tractor_beam_active and player:
+	if tractor_beam_active and player and not get_tree().paused:
 		var start_pos = global_position - Vector2(0,-125)
 		var end_pos = player.global_position - Vector2(0,-125)
 		var dir = end_pos - start_pos
@@ -47,13 +47,13 @@ func change_frame_loop():
 		await get_tree().create_timer(0.2).timeout
 		sprite.frame = count
 		count += 1
-		if count >= 4:
-			count = 0
+		if count >= 4: count = 0
 
 func attackLoop():
 	var attack
 	while true:
 		await get_tree().create_timer(1).timeout
+		if get_tree().paused: continue
 		while not attacking:
 			await get_tree().create_timer(3).timeout
 			attack = randi_range(1, 4)

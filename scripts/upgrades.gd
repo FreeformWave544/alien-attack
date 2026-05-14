@@ -11,18 +11,18 @@ const RARITY_COLORS := {
 	"Epic": Color(0.7, 0.3, 0.9), 
 	"Legendary": Color(1, 0.6, 0.1) }
 const RARITY_WEIGHTS := {
-	"Common": 80,
-	"Uncommon": 60,
-	"Rare": 25,
+	"Common": 70,
+	"Uncommon": 50,
+	"Rare": 20,
 	"Epic": 8,
-	"Legendary": 1 }
+	"Legendary": 2
+}
 
 func _ready():
 	get_cards()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-func toggle():
-	get_tree().paused = true
+func toggle(): get_tree().paused = true
 
 func _exit_tree() -> void: get_tree().paused = false
 

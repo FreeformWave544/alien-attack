@@ -165,7 +165,7 @@ func _on_surge_area_entered(area: Area2D) -> void:
 	if area.is_in_group("boss"): area.damaged()
 	while area:
 		await get_tree().create_timer(0.1).timeout
-		area.die()
+		if area: area.die()
 
 func _on_homing_area_entered(area: Area2D) -> void:
 	if area.is_in_group("fireball"): return
