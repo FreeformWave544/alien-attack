@@ -326,3 +326,14 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1128380048]
 shape = SubResource("RectangleShape2D_2avx2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=23557693]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=842015188]
+offset_left = 108.0
+offset_top = -300.0
+offset_right = 158.0
+offset_bottom = 300.0
+max_value = 200.0
+value = 200.0
+fill_mode = 2

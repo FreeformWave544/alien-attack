@@ -125,6 +125,7 @@ func deactivate_tractor_beam():
 func damaged():
 	sprite.frame = 5
 	Global.bossLives -= 1
+	$CanvasLayer/ProgressBar.value = Global.bossLives
 	if Global.bossLives <= 0:
 		died()
 
