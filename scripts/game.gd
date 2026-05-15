@@ -5,7 +5,7 @@ extends Node2D
 var score: int = 0:
 	set(v):
 		score = v
-		if fastRocketCharge < 100: fastRocketCharge += randf_range(0.01, 0.05)
+		if fastRocketCharge < 100.0: fastRocketCharge += randf_range(0.01, 0.05)
 		else: fastRocketCharge += randf_range(0.01, 0.5) / (fastRocketCharge / 100)
 		_abilityChargeHandler()
 		hud.set_score_label()
@@ -44,15 +44,18 @@ func _ready():
 			while is_inside_tree() and get_tree() and get_tree().paused:
 				if is_inside_tree(): await get_tree().process_frame
 				else: break
-		var upgrade = upgrader.instantiate()
-		add_child(upgrade)
-		upgrade.toggle()
-		await upgrade.upgradeClicked
-		upgrade.queue_free()
+		get_upgrade()
 	await get_tree().create_timer(1.0).timeout
 	var bossGuy = boss.instantiate()
 	add_child(bossGuy)
 	bossGuy.global_position = Vector2(1500, 360)
+
+func get_upgrade():
+	var upgrade = upgrader.instantiate()
+	add_child(upgrade)
+	upgrade.toggle()
+	await upgrade.upgradeClicked
+	upgrade.queue_free()
 
 var time_elapsed := 0.0
 var oldScore = -1
@@ -79,7 +82,7 @@ func _process(delta: float) -> void:
 			Global.TakeLIVES = 0
 
 func _physics_process(delta):
-	for i in range(4):
+	for i in range(len(UpgradeManager.equippedUpgrades)):
 		var timer_key = "AB%dCD" % (i + 1)
 		var timer_path = ABCDTimers.get(timer_key)
 		if not timer_path: return
@@ -97,10 +100,10 @@ func _physics_process(delta):
 
 func _unhandled_input(event: InputEvent) -> void:
 	if !Global.fastRocketActive and fastRocketCharge > 1.0 and event.is_action("ultimate"): fastRocket()
-	if Input.is_action_just_pressed("ability_1") and UpgradeManager.equippedUpgrades.size() > 0: use_ability(UpgradeManager.equippedUpgrades[0].ID, 0)
-	if Input.is_action_just_pressed("ability_2") and UpgradeManager.equippedUpgrades.size() > 1: use_ability(UpgradeManager.equippedUpgrades[1].ID, 1)
-	if Input.is_action_just_pressed("ability_3") and UpgradeManager.equippedUpgrades.size() > 2: use_ability(UpgradeManager.equippedUpgrades[2].ID, 2)
-	if Input.is_action_just_pressed("ability_4") and UpgradeManager.equippedUpgrades.size() > 3: use_ability(UpgradeManager.equippedUpgrades[3].ID, 3)
+	if Input.is_action_just_pressed("ability_1") and UpgradeManager.equippedUpgrades.size() > 0: use_ability(0)
+	if Input.is_action_just_pressed("ability_2") and UpgradeManager.equippedUpgrades.size() > 1: use_ability(1)
+	if Input.is_action_just_pressed("ability_3") and UpgradeManager.equippedUpgrades.size() > 2: use_ability(2)
+	if Input.is_action_just_pressed("ability_4") and UpgradeManager.equippedUpgrades.size() > 3: use_ability(3)
 
 func _on_deathzone_area_entered(area):
 	if area.name == $Deathzone.name: return
@@ -164,6 +167,7 @@ func fastRocket():
 	plexusBackground.modulate.a = 0.0
 	Global.fastRocketActive = false
 	Engine.time_scale = 1.0
+	_abilityChargeHandler()
 
 func _abilityChargeHandler():
 	$UI/HUD/AbilityChargeProgress.value = fastRocketCharge
@@ -172,36 +176,47 @@ func _abilityChargeHandler():
 @export var ABCDs: Array = [15.0, 20.0, 30.0, 45.0, 60.0]
 @export var tiers: Array = [["Slow", "neurowave", "surge", "homing"], ["invincibility", "doubles"], ["lifeExchange"], ["WalkingDead"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
-	"AB1CD": "ABCDs/Ability1", 
+	"AB1CD": "ABCDs/Ability1",
 	"AB2CD": "ABCDs/Ability2",
 	"AB3CD": "ABCDs/Ability3",
-	"AB4CD": "ABCDs/Ability4"
+	"AB4CD": "ABCDs/Ability4",
+	"AB5CD": "ABCDs/Ability5",
+	"AB6CD": "ABCDs/Ability6",
+	"AB7CD": "ABCDs/Ability7",
+	"AB8CD": "ABCDs/Ability8"
 }
 
-func use_ability(ability: String, slot: int = 0) -> void:
+func use_ability(slot: int = 0) -> void:
+	var ability = null
+	if len(UpgradeManager.equippedUpgrades) - 1 >= slot: ability = UpgradeManager.equippedUpgrades[slot].ID
+	else: return
+	print(slot, " -=- ", UpgradeManager.equippedUpgrades[slot].ID)
 	_setup_ability_timers()
 	var timer_key = "AB%dCD" % (slot + 1)
 	var timer_path = ABCDTimers.get(timer_key)
+	print(timer_path, " time path")
 	if not timer_path: return
 	var timer = get_node_or_null(timer_path)
+	print(timer, " time")
 	if not timer: return
-	if timer.time_left > 0.0: return
+	if timer.time_left > 0.0:
+		if slot + 4 <= len(UpgradeManager.equippedUpgrades) - 1: use_ability(slot + 4) ; print(slot + 4, " -=-=- <<--")
+		return
 	match ability:
-		"invincibility": _activate_invincibility(timer)
-		"lifeExchange": _activate_life_exchange(timer)
-		"ghostPhoenix": _activate_ghostly_phoenix(timer)
-		"Slow": _activate_slow_enemies(timer)
-		"Eye": _activate_eye_of_chaos(timer)
-		"WalkingDead": _activate_walking_dead(timer)
-		"neurowave": _neurowave(timer)
-		"doubles": _doppleganger(timer)
-		"surge": _surge(timer)
-		"homing": _homing_head(timer)
+		"invincibility": _activate_invincibility(timer, slot)
+		"lifeExchange": _activate_life_exchange(timer, slot)
+		"ghostPhoenix": _activate_ghostly_phoenix(timer, slot)
+		"Slow": _activate_slow_enemies(timer, slot)
+		"Eye": _activate_eye_of_chaos(timer, slot)
+		"WalkingDead": _activate_walking_dead(timer, slot)
+		"neurowave": _neurowave(timer, slot)
+		"doubles": _doppleganger(timer, slot)
+		"surge": _surge(timer, slot)
+		"homing": _homing_head(timer, slot)
 		_: print("Unknown ability: ", ability)
 
-func _activate_invincibility(timer: Timer) -> void:
-	if invincibility_active:
-		return
+func _activate_invincibility(timer: Timer, slot: int) -> void:
+	if invincibility_active: return
 	invincibility_active = true
 	$Player/Sprite2D.modulate = Color(4.0, 4.0, 4.0)
 	var tween = create_tween()
@@ -214,7 +229,7 @@ func _activate_invincibility(timer: Timer) -> void:
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 var doubles_active := false
-func _doppleganger(timer: Timer) -> void:
+func _doppleganger(timer: Timer, slot: int) -> void:
 	if doubles_active: return
 	doubles_active = true
 	var double1 = $Player.duplicate()
@@ -228,16 +243,13 @@ func _doppleganger(timer: Timer) -> void:
 	for child in $Doubles.get_children(): child.queue_free()
 	doubles_active = false
 
-var homing_active := false
-func _homing_head(timer: Timer) -> void:
-	if homing_active or len($EnemySpawner/SpawnPositions.get_children()) <= 0: return
-	homing_active = true
+func _homing_head(timer: Timer, slot: int) -> void:
+	if len($EnemySpawner/SpawnPositions.get_children()) <= 0: return
 	timer.start()
 	await $Player._homing_head()
-	homing_active = false
 
 var surge_active := false
-func _surge(timer: Timer) -> void:
+func _surge(timer: Timer, slot: int) -> void:
 	if surge_active: return
 	surge_active = true
 	timer.start()
@@ -245,7 +257,7 @@ func _surge(timer: Timer) -> void:
 	surge_active = false
 
 var neurowave_active := false
-func _neurowave(timer: Timer) -> void:
+func _neurowave(timer: Timer, slot: int) -> void:
 	if neurowave_active: return
 	neurowave_active = true
 	$Player.timer.wait_time /= 2.0
@@ -263,7 +275,7 @@ func _neurowave(timer: Timer) -> void:
 
 var walking_dead_pool := []
 var walking_dead_active := false
-func _activate_walking_dead(timer: Timer) -> void:
+func _activate_walking_dead(timer: Timer, slot: int) -> void:
 	if walking_dead_active: return
 	walking_dead_active = true
 	$Player/Sprite2D.modulate = Color(1.7, 0.0, 0.0, 1.0)
@@ -292,9 +304,8 @@ func _activate_walking_dead(timer: Timer) -> void:
 			kiddo.queue_free()
 	walking_dead_pool.clear()
 
-func _activate_life_exchange(timer: Timer) -> void:
-	if Global.score < 200:
-		return
+func _activate_life_exchange(timer: Timer, slot: int) -> void:
+	if Global.score < 200: return
 	var score_to_convert = int(Global.score * 0.5)
 	var lives_gained = max(1.0, score_to_convert / 1000.0)
 	lives += lives_gained
@@ -306,7 +317,8 @@ func _activate_life_exchange(timer: Timer) -> void:
 	tween.tween_property($Player, "scale", Vector2(1.0, 1.0), 0.2)
 	timer.start()
 
-func _activate_ghostly_phoenix(timer: Timer) -> void:
+func _activate_ghostly_phoenix(timer: Timer, slot: int) -> void:
+	if not timer.is_stopped(): return
 	ghostly_phoenix_available = true
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 0.7)
 	var tween = create_tween()
@@ -329,7 +341,7 @@ func _trigger_ghostly_phoenix() -> void:
 	await get_tree().create_timer(2.0).timeout
 	invincibility_active = false
 
-func _activate_slow_enemies(timer: Timer) -> void:
+func _activate_slow_enemies(timer: Timer, slot: int) -> void:
 	if slow_enemies_active: return
 	slow_enemies_active = true
 	for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -340,7 +352,7 @@ func _activate_slow_enemies(timer: Timer) -> void:
 		if enemy.has_method("set_speed_multiplier"): enemy.set_speed_multiplier(false)
 	slow_enemies_active = false
 
-func _activate_eye_of_chaos(timer: Timer) -> void:
+func _activate_eye_of_chaos(timer: Timer, slot: int) -> void:
 	if eye_active: return
 	eye_active = true
 	if not slow_enemies_active:
@@ -378,18 +390,18 @@ func _setup_ability_timers() -> void:
 			for tier in tiers:
 				for ability in tier:
 					if ability == UpgradeManager.equippedUpgrades[i]["ID"]:
-						timer.wait_time = ABCDs[tiers.find(tier)]
+						timer.wait_time = ABCDs[tiers.find(tier)] / $Player.AbSpeedMulti
 						timer.one_shot = true
 						break
 
 func ab1():
-	if UpgradeManager.equippedUpgrades.size() > 0: use_ability(UpgradeManager.equippedUpgrades[0].ID, 0)
+	if UpgradeManager.equippedUpgrades.size() > 0: use_ability(0)
 func ab2():
-	if UpgradeManager.equippedUpgrades.size() > 1: use_ability(UpgradeManager.equippedUpgrades[1].ID, 1)
+	if UpgradeManager.equippedUpgrades.size() > 1: use_ability(1)
 func ab3():
-	if UpgradeManager.equippedUpgrades.size() > 2: use_ability(UpgradeManager.equippedUpgrades[2].ID, 2)
+	if UpgradeManager.equippedUpgrades.size() > 2: use_ability(2)
 func ab4():
-	if UpgradeManager.equippedUpgrades.size() > 3: use_ability(UpgradeManager.equippedUpgrades[3].ID, 3)
+	if UpgradeManager.equippedUpgrades.size() > 3: use_ability(3)
 
 func mobileUpdate():
 	if UpgradeManager.equippedUpgrades.size() > 0: $mobile/Ab1.show()

@@ -4,8 +4,9 @@ signal took_damage
 
 var rocket_scene = preload("res://scenes/rocket.tscn")
 
-@onready var laser = $Laser
+@export var AbSpeedMulti := 1.0
 @export var speed = 300
+@onready var laser = $Laser
 @onready var rocket_container = $RocketContainer
 @onready var timer = $TextureProgressBar/Timer
 @onready var easyview = $easyview
@@ -19,8 +20,7 @@ func _ready():
 	$Laser.volume_db = Global.volume - 30
 
 func _process(delta):
-	if Input.is_action_just_pressed("shoot"):
-		shoot()
+	if Input.is_action_just_pressed("shoot"): shoot()
 	if Global.difficil == "easy":
 		if fading_in == 0:
 			start_fade_in()
@@ -110,6 +110,7 @@ func move_right():
 	Input.action_release("move_right")
 
 func _surge() -> bool:
+	if not $Surge: return false
 	$Surge.global_position = global_position
 	$Surge.show()
 	$Surge/CollisionShape2D.disabled = false
@@ -128,26 +129,26 @@ func _surge() -> bool:
 	return true
 
 func _homing_head():
-	$Homing.global_position = global_position
-	$Homing.show()
-	$Homing/CollisionShape2D.disabled = false
+	var homingInst = preload("res://scenes/homing.tscn").instantiate()
+	add_child(homingInst, true)
+	homingInst.global_position = global_position
+	homingInst.connect("area_entered", _on_homing_area_entered)
 	var startTime := Time.get_unix_time_from_system()
 	var targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
+	if targetEnemy is Path2D:
+		targetEnemy = targetEnemy.get_child(0).get_child(0)
 	while Time.get_unix_time_from_system() - startTime <= 5.0:
-		if get_tree().paused: await get_tree().process_frame ; continue
-		if $Homing.global_position.x >= 1300.0: global_position.x -= 0.1 ; await get_tree().process_frame
-		if len($"../EnemySpawner/SpawnPositions".get_children()) <= 0: $Homing.global_position.x += 0.1 ; await get_tree().process_frame
+		if get_tree().paused or not homingInst: await get_tree().process_frame ; continue
+		if not homingInst and homingInst.global_position.x >= 1300.0: homingInst.global_position.x -= 0.1 ; await get_tree().process_frame
+		if len($"../EnemySpawner/SpawnPositions".get_children()) <= 0: homingInst.global_position.x += 0.1 ; await get_tree().process_frame
 		if not targetEnemy and not (len($"../EnemySpawner/SpawnPositions".get_children()) <= 0): targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
-		$Homing.global_position.x = move_toward($Homing.global_position.x, targetEnemy.global_position.x, projSpeed) if targetEnemy else $Homing.global_position.x + 0.1
-		$Homing.global_position.y = move_toward($Homing.global_position.y, targetEnemy.global_position.y, projSpeed) if targetEnemy else $Homing.global_position.y
+		homingInst.global_position.x = move_toward(homingInst.global_position.x, targetEnemy.global_position.x, projSpeed) if targetEnemy else homingInst.global_position.x + 0.1
+		homingInst.global_position.y = move_toward(homingInst.global_position.y, targetEnemy.global_position.y, projSpeed) if targetEnemy else homingInst.global_position.y
 		await get_tree().process_frame
 	for i in range(10):
-		$Homing.modulate.a -= 0.1
+		homingInst.modulate.a -= 0.1
 		await get_tree().process_frame
-	$Homing/CollisionShape2D.disabled = true
-	$Homing.hide()
-	$Homing.modulate.a = 1.0
-	$Homing.global_position = Vector2(-150.0, 150.0)
+	homingInst.queue_free()
 	return true
 
 func _on_surge_area_entered(area: Area2D) -> void:

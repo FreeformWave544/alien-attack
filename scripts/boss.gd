@@ -125,7 +125,7 @@ func deactivate_tractor_beam():
 func damaged():
 	sprite.frame = 5
 	Global.bossLives -= 1
-	$CanvasLayer/ProgressBar.value = Global.bossLives
+	$ProgressBar.value = Global.bossLives
 	if Global.bossLives <= 0:
 		died()
 
@@ -170,5 +170,8 @@ func died():
 	Global.addScore += randi_range(7, 20) * 100
 	Global.isBoss = false
 	Global.canFire = true
-	if Global.bossLives <= -10:
-		Global.achievements["overkill"] = true
+	if Global.bossLives <= -10: Global.achievements["overkill"] = true
+	player.AbSpeedMulti = 1.5
+	get_parent().fastRocketCharge += 5.0
+	get_parent().fastRocketDuration += 0.2
+	get_parent().get_upgrade()

@@ -191,6 +191,14 @@ offset_bottom = 720.0
 
 [node name="Ability4" type="Timer" parent="ABCDs" unique_id=71249019]
 
+[node name="Ability5" type="Timer" parent="ABCDs" unique_id=551825674]
+
+[node name="Ability6" type="Timer" parent="ABCDs" unique_id=1686990438]
+
+[node name="Ability7" type="Timer" parent="ABCDs" unique_id=1381490221]
+
+[node name="Ability8" type="Timer" parent="ABCDs" unique_id=224681210]
+
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=247997303]
 
 [node name="Neurowave" type="ColorRect" parent="." unique_id=110592714]

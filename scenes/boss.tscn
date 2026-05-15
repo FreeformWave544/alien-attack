@@ -283,6 +283,9 @@ shader = ExtResource("9_shgo4")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2avx2"]
 size = Vector2(160.69395, 580.28375)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2avx2"]
+bg_color = Color(0.6, 0, 0, 1)
+
 [node name="boss" type="Area2D" unique_id=818672394 groups=["boss"]]
 scale = Vector2(1.34417, 1.34417)
 collision_layer = 16
@@ -327,13 +330,16 @@ collision_layer = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1128380048]
 shape = SubResource("RectangleShape2D_2avx2")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=23557693]
-
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=842015188]
-offset_left = 108.0
-offset_top = -300.0
-offset_right = 158.0
-offset_bottom = 300.0
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=842015188]
+offset_left = 100.0
+offset_top = -250.0
+offset_right = 600.0
+offset_bottom = -223.0
+rotation = 1.5707964
+theme_override_colors/font_color = Color(0.9490196, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/background = SubResource("StyleBoxFlat_2avx2")
 max_value = 200.0
 value = 200.0
 fill_mode = 2

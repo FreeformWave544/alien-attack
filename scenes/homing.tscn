@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://b26ggosyxxp4y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
+radius = 23.769728
+
+[sub_resource type="Gradient" id="Gradient_smehm"]
+offsets = PackedFloat32Array(0.07272727, 0.25454545)
+colors = PackedColorArray(0, 0.84705883, 0.9843137, 0.39215687, 0.105882354, 0.8627451, 0.9843137, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ur7pv"]
+gradient = SubResource("Gradient_smehm")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_y4r1p"]
+offsets = PackedFloat32Array(0, 0.221311, 0.713115, 0.959016, 1)
+colors = PackedColorArray(0.7, 0.361667, 0, 0, 0.0627451, 0.5686275, 0.8156863, 0.76862746, 0, 0.16470589, 0.50980395, 1, 0.39, 0, 0, 0.12549, 0, 0.16470589, 0.50980395, 0.1254902)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d2wvv"]
+gradient = SubResource("Gradient_y4r1p")
+
+[sub_resource type="Curve" id="Curve_3v2ag"]
+_data = [Vector2(0.02, 0.164835), 0.0, 2.95567, 0, 0, Vector2(1, 0.384615), -0.51511, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jej6c"]
+curve = SubResource("Curve_3v2ag")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f1ej7"]
+lifetime_randomness = 0.4
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
+spread = 5.0
+initial_velocity_min = -250.0
+initial_velocity_max = -10.0
+gravity = Vector3(0, 0, 0)
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_jej6c")
+color_ramp = SubResource("GradientTexture1D_d2wvv")
+sub_emitter_keep_velocity = true
+
+[node name="Homing" type="Area2D" unique_id=1405182393]
+top_level = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1956990278]
+shape = SubResource("CircleShape2D_fjrip")
+
+[node name="Surge" type="Sprite2D" parent="." unique_id=1975096455]
+texture = SubResource("GradientTexture2D_ur7pv")
+
+[node name="Flame" type="GPUParticles2D" parent="." unique_id=1941494901]
+amount = 50
+sub_emitter = NodePath(".")
+lifetime = 0.2
+randomness = 0.5
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_f1ej7")
