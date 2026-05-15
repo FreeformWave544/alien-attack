@@ -5,7 +5,7 @@ signal took_damage
 var rocket_scene = preload("res://scenes/rocket.tscn")
 
 @export var AbSpeedMulti := 1.0
-@export var speed = 300
+@export var speed = 300.0
 @onready var laser = $Laser
 @onready var rocket_container = $RocketContainer
 @onready var timer = $TextureProgressBar/Timer
@@ -18,33 +18,31 @@ func _ready():
 	$plo.visible = false
 	$plo.process_mode = Node.PROCESS_MODE_ALWAYS
 	$Laser.volume_db = Global.volume - 30
+	match Global.difficil:
+		"easy": responsiveness = 18.0
+		"norm": responsiveness = 10.0
+		"hard": responsiveness = 4.0
 
 func _process(delta):
 	if Input.is_action_just_pressed("shoot"): shoot()
 	if Global.difficil == "easy":
-		if fading_in == 0:
-			start_fade_in()
+		if fading_in == 0: start_fade_in()
 	if fading_in == 1:
 		easyview.modulate.a = min(easyview.modulate.a + (delta * fade_speed), 1.0)
-		if easyview.modulate.a >= 1.0:
-			start_fade_out()
+		if easyview.modulate.a >= 1.0: start_fade_out()
 	elif fading_in == -1:
 		easyview.modulate.a = max(easyview.modulate.a - (delta * (fade_speed+(fade_speed * 0.5))), 0.0)
-		if easyview.modulate.a <= 0.0:
-			start_fade_in()
+		if easyview.modulate.a <= 0.0: start_fade_in()
 
 func start_fade_in(): fading_in = 1
 
 func start_fade_out(): fading_in = -1
 
+@export var responsiveness := 0.5
 var projSpeed = 500.0
 func _physics_process(delta):
 	projSpeed = 500.0 * delta
-	velocity = Vector2(0,0)
-	if Input.is_action_pressed("move_right"): velocity.x = speed
-	if Input.is_action_pressed("move_left"): velocity.x = -speed
-	if Input.is_action_pressed("move_up"): velocity.y = -speed
-	if Input.is_action_pressed("move_down"): velocity.y = speed
+	velocity = lerp(velocity, speed * Input.get_vector("move_left", "move_right", "move_up", "move_down"), 1.0 - exp(-responsiveness * delta))
 	if Input.is_action_pressed("debug") and OS.is_debug_build(): $Debug.visible = !$Debug.visible ; get_tree().paused = $Debug.visible
 	move_and_slide()
 	var screen_size = get_viewport_rect().size

@@ -22,7 +22,8 @@ func _ready():
 	get_cards()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-func toggle(): get_tree().paused = true
+func toggle():
+	if get_tree() and is_inside_tree(): get_tree().paused = true
 
 func _exit_tree() -> void: get_tree().paused = false
 
