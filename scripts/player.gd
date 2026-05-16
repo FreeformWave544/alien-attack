@@ -115,7 +115,7 @@ func _surge() -> bool:
 	while $Surge.global_position.x < 1280.0:
 		if get_tree() and get_tree().paused: await get_tree().process_frame ; continue
 		$Surge.global_position.x += projSpeed
-		await get_tree().process_frame
+		if is_inside_tree() and get_tree(): await get_tree().process_frame
 	for i in range(10):
 		$Surge.modulate.a -= 0.1
 		$Surge.global_position.x += 0.1
@@ -133,7 +133,7 @@ func _homing_head():
 	homingInst.connect("area_entered", _on_homing_area_entered)
 	var startTime := Time.get_unix_time_from_system()
 	var targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
-	if targetEnemy is Path2D:
+	if targetEnemy is Path2D or targetEnemy is PathFollow2D:
 		targetEnemy = targetEnemy.get_child(0).get_child(0)
 	while Time.get_unix_time_from_system() - startTime <= 5.0:
 		if get_tree().paused or not homingInst: await get_tree().process_frame ; continue

@@ -37,6 +37,13 @@ func _ready():
 	if Global.difficil == "easy": apply_easy_mode()
 	elif Global.difficil == "hard": apply_hard_mode()
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"): $mobile.visible = true ; mobileUpdate()
+	await upgradeLoop()
+	await get_tree().create_timer(1.0).timeout
+	var bossGuy = boss.instantiate()
+	add_child(bossGuy)
+	bossGuy.global_position = Vector2(1500, 360)
+
+func upgradeLoop() -> bool:
 	for i in range(4):
 		for tim in range(10 * len(UpgradeManager.equippedUpgrades) + 10):
 			$UI/HUD/Upgrades.value = (100.0 / (10.0 * len(UpgradeManager.equippedUpgrades) + 10)) * tim
@@ -45,10 +52,7 @@ func _ready():
 				if is_inside_tree(): await get_tree().process_frame
 				else: break
 		get_upgrade()
-	await get_tree().create_timer(1.0).timeout
-	var bossGuy = boss.instantiate()
-	add_child(bossGuy)
-	bossGuy.global_position = Vector2(1500, 360)
+	return true
 
 func get_upgrade():
 	var upgrade = upgrader.instantiate()
@@ -107,7 +111,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_deathzone_area_entered(area):
 	if area.name == $Deathzone.name: return
-	if area.find_child("Sprite2D") != null and area.find_child("Sprite2D").flip_v and area.is_in_group("enemy"): print("WITCH!") ; return        
+	if area.find_child("Sprite2D") != null and area.find_child("Sprite2D").flip_v and area.is_in_group("enemy"): return
 	if area.is_in_group("fireball"): area.blow()  
 	elif not area.is_in_group("dodge") and not area.is_in_group("fireball"):
 		if invincibility_active: return
@@ -122,10 +126,8 @@ func _on_deathzone_area_entered(area):
 
 func _on_player_took_damage():
 	if lives <= 0:
-		if ghostly_phoenix_available:
-			_trigger_ghostly_phoenix()
-		else:
-			dead()
+		if ghostly_phoenix_available: _trigger_ghostly_phoenix()
+		else: dead()
 
 func dead():
 	Global.run = false
@@ -146,8 +148,7 @@ func _on_enemy_died():
 	hud.set_score_label()
 	enemy_hit_sound.play()
 
-func death():
-	player_dmg.play()
+func death(): player_dmg.play()
 
 func apply_easy_mode():
 	lives = 5
@@ -169,11 +170,10 @@ func fastRocket():
 	Engine.time_scale = 1.0
 	_abilityChargeHandler()
 
-func _abilityChargeHandler():
-	$UI/HUD/AbilityChargeProgress.value = fastRocketCharge
+func _abilityChargeHandler(): $UI/HUD/AbilityChargeProgress.value = fastRocketCharge
 
 @export_category("Abilities")
-@export var ABCDs: Array = [15.0, 20.0, 30.0, 45.0, 60.0]
+@export var ABCDs: Array = [15.0, 20.0, 30.0, 45.0, 60.0, 80.0, 90.0, 100.0, 120.0]
 @export var tiers: Array = [["Slow", "neurowave", "surge", "homing"], ["invincibility", "doubles"], ["lifeExchange"], ["WalkingDead"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
 	"AB1CD": "ABCDs/Ability1",
@@ -190,17 +190,14 @@ func use_ability(slot: int = 0) -> void:
 	var ability = null
 	if len(UpgradeManager.equippedUpgrades) - 1 >= slot: ability = UpgradeManager.equippedUpgrades[slot].ID
 	else: return
-	print(slot, " -=- ", UpgradeManager.equippedUpgrades[slot].ID)
 	_setup_ability_timers()
 	var timer_key = "AB%dCD" % (slot + 1)
 	var timer_path = ABCDTimers.get(timer_key)
-	print(timer_path, " time path")
 	if not timer_path: return
 	var timer = get_node_or_null(timer_path)
-	print(timer, " time")
 	if not timer: return
 	if timer.time_left > 0.0:
-		if slot + 4 <= len(UpgradeManager.equippedUpgrades) - 1: use_ability(slot + 4) ; print(slot + 4, " -=-=- <<--")
+		if slot + 4 <= len(UpgradeManager.equippedUpgrades) - 1: use_ability(slot + 4)
 		return
 	match ability:
 		"invincibility": _activate_invincibility(timer, slot)
@@ -288,8 +285,7 @@ func _activate_walking_dead(timer: Timer, slot: int) -> void:
 	walking_dead_active = false
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	if len(walking_dead_pool) > 0:
-		if len(walking_dead_pool) >= 10:
-			Global.achievements["deadWalked"] = true
+		if len(walking_dead_pool) >= 10: Global.achievements["deadWalked"] = true
 		for pos in walking_dead_pool:
 			var enemyInst = preload("res://scenes/enemy.tscn").instantiate()
 			add_child(enemyInst)
@@ -300,8 +296,7 @@ func _activate_walking_dead(timer: Timer, slot: int) -> void:
 			enemyInst.find_child("Sprite2D").flip_v = !enemyInst.find_child("Sprite2D").flip_v
 			enemyInst.set_collision_layer_value(3, true)
 	for kiddo in $EnemySpawner.get_children():
-		if "DeadMarker" in kiddo.name:
-			kiddo.queue_free()
+		if "DeadMarker" in kiddo.name: kiddo.queue_free()
 	walking_dead_pool.clear()
 
 func _activate_life_exchange(timer: Timer, slot: int) -> void:
@@ -360,8 +355,7 @@ func _activate_eye_of_chaos(timer: Timer, slot: int) -> void:
 		for enemy in get_tree().get_nodes_in_group("enemies"):
 			if enemy.has_method("set_speed_multiplier"): enemy.set_speed_multiplier(0.5)
 	var shader_material = ShaderMaterial.new()
-	if plexusBackground:
-		plexusBackground.modulate.a = 1.0
+	if plexusBackground: plexusBackground.modulate.a = 1.0
 	var original_time_scale = Engine.time_scale
 	var shake_amount = 10.0
 	var shake_duration = 1.0

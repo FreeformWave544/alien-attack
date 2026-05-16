@@ -10,7 +10,7 @@ var attacking = false
 var tractor_beam_active = false
 var score_drain_timer = 0
 var tractor = 0
- 
+
 func _ready():
 	Global.bossLives = 200
 	Global.isBoss = true
@@ -126,8 +126,7 @@ func damaged():
 	sprite.frame = 5
 	Global.bossLives -= 1
 	$ProgressBar.value = Global.bossLives
-	if Global.bossLives <= 0:
-		died()
+	if Global.bossLives <= 0: died()
 
 func create_expanding_circle():
 	Global.canFire = false
@@ -172,6 +171,5 @@ func died():
 	Global.canFire = true
 	if Global.bossLives <= -10: Global.achievements["overkill"] = true
 	player.AbSpeedMulti = 1.5
-	get_parent().fastRocketCharge += 5.0
 	get_parent().fastRocketDuration += 0.2
-	get_parent().get_upgrade()
+	get_parent().upgradeLoop()

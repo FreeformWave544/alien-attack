@@ -11,7 +11,7 @@ func _ready() -> void:
 		HighScores.text = "High Scores:\n   Easy: %.1f\n   Normal: %.1f\n   Hard: %.1f" % [scores["easy"], scores["norm"], scores["hard"]]
 		if waffles and Global.instructions:
 			waffles = false
-			var instructions = load("res://scenes/instructions.tscn")
+			var instructions = load("res://scenes/instructions.scn")
 			var instructionsInstance = instructions.instantiate()
 			$Panel.add_child(instructionsInstance)
 
