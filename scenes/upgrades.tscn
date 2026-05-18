@@ -110,6 +110,7 @@ upgrade_name = "Homing Horde"
 type = "Offensive"
 ID = "hHorde"
 rarity = "Rare"
+infusible = true
 icon = ExtResource("13_mp7ln")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 

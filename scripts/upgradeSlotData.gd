@@ -7,6 +7,6 @@ class_name UpgradeData
 @export var ID: String = "Null"
 @export_group("Extra")
 @export_enum("Common", "Uncommon", "Rare", "Epic", "Legendary") var rarity: String = "Common"
-
+@export var infusible := false
 @export_group("Display Settings")
 @export var icon: Texture2D

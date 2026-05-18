@@ -51,7 +51,8 @@ func get_cards(amount := 3):
 			"Type": x.type,
 			"ID": x.ID,
 			"Rarity": x.rarity,
-			"Icon": x.icon}
+			"Icon": x.icon,
+			"Infused": true if x.infusible and (randi() % 100 + 1) > 70 else false}
 	assign_available_cards()
 
 func assign_available_cards() -> void:
@@ -66,7 +67,7 @@ func assign_available_cards() -> void:
 		var rarity_label = new_upgrade.get_node("Rarity")
 		rarity_label.text = upgrade_data.Rarity
 		if upgrade_data.Rarity in RARITY_COLORS: rarity_label.add_theme_color_override("font_color", RARITY_COLORS[upgrade_data.Rarity])
-		new_upgrade.get_node("Type").text = upgrade_data.Type
+		new_upgrade.get_node("Type").text = upgrade_data.Type if not upgrade_data.Infused else "Infused"
 		new_upgrade.get_node("Name").text = upgrade_name
 		if new_upgrade.has_node("Background"):
 			new_upgrade.get_node("Background").modulate = RARITY_COLORS.get(upgrade_data.Rarity, Color.WHITE)

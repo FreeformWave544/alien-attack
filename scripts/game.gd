@@ -221,7 +221,7 @@ func use_ability(slot: int = 0) -> void:
 		"doubles": _doppleganger(timer, slot)
 		"surge": _surge(timer, slot)
 		"homing": _homing_head(timer, slot)
-		"hHorde": _homing_horde(timer, slot)
+		"hHorde": _homing_horde(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		_: print("Unknown ability: ", ability)
 
 func _activate_invincibility(timer: Timer, slot: int) -> void:
@@ -257,10 +257,10 @@ func _homing_head(timer: Timer, slot: int) -> void:
 	timer.start()
 	await $Player._homing_head()
 
-func _homing_horde(timer: Timer, slot: int) -> void:
+func _homing_horde(timer: Timer, slot: int, infused = false) -> void:
 	if len($EnemySpawner/SpawnPositions.get_children()) <= 0: return
 	timer.start()
-	for u in range(17):
+	for u in range(17 if infused else 7):
 		while len($EnemySpawner/SpawnPositions.get_children()) <= 0: await get_tree().create_timer(0.1).timeout
 		$Player._homing_head()
 		await get_tree().create_timer(0.2).timeout
