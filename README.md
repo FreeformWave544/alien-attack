@@ -47,7 +47,7 @@ A fun, sci-fi, incremental, hardcore-style, horde game. (Hmm I wonder if I can f
 
 - >10+ Exciting Upgrades!
 - >3+ Unique Enemies!
-- >1+ Boss (Included as an enemy)
+- >1+ Boss! (Included as an enemy.)
 
 
 <!-- Getting Started -->
