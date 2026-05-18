@@ -108,22 +108,23 @@ func move_right():
 	Input.action_release("move_right")
 
 func _surge() -> bool:
-	if not $Surge: return false
-	$Surge.global_position = global_position
-	$Surge.show()
-	$Surge/CollisionShape2D.disabled = false
-	while $Surge.global_position.x < 1280.0:
+	var surgeInst = preload("res://scenes/surge.tscn").instantiate()
+	add_child(surgeInst, true)
+	if not surgeInst: return false
+	surgeInst.global_position = global_position
+	surgeInst.connect("area_entered", _on_surge_area_entered)
+	surgeInst.show()
+	while surgeInst.global_position.x < 1280.0:
 		if get_tree() and get_tree().paused: await get_tree().process_frame ; continue
-		$Surge.global_position.x += projSpeed
+		surgeInst.global_position.x += projSpeed
 		if is_inside_tree() and get_tree(): await get_tree().process_frame
 	for i in range(10):
-		$Surge.modulate.a -= 0.1
-		$Surge.global_position.x += 0.1
+		surgeInst.modulate.a -= 0.1
+		surgeInst.global_position.x += 1.0
 		await get_tree().process_frame
-	$Surge/CollisionShape2D.disabled = true
-	$Surge.hide()
-	$Surge.modulate.a = 1.0
-	$Surge.global_position = Vector2(-150.0, 150.0)
+	surgeInst.hide()
+	surgeInst.modulate.a = 1.0
+	surgeInst.global_position = Vector2(-150.0, 150.0)
 	return true
 
 func _homing_head():
@@ -133,18 +134,19 @@ func _homing_head():
 	homingInst.connect("area_entered", _on_homing_area_entered)
 	var startTime := Time.get_unix_time_from_system()
 	var targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
-	if targetEnemy is Path2D or targetEnemy is PathFollow2D:
-		targetEnemy = targetEnemy.get_child(0).get_child(0)
+	if targetEnemy is Path2D or targetEnemy is PathFollow2D: targetEnemy = targetEnemy.get_child(0).get_child(0)
 	while Time.get_unix_time_from_system() - startTime <= 5.0:
-		if get_tree().paused or not homingInst: await get_tree().process_frame ; continue
+		if get_tree() and is_inside_tree() and (get_tree().paused or not homingInst): await get_tree().process_frame ; continue
 		if not homingInst and homingInst.global_position.x >= 1300.0: homingInst.global_position.x -= 0.1 ; await get_tree().process_frame
 		if len($"../EnemySpawner/SpawnPositions".get_children()) <= 0: homingInst.global_position.x += 0.1 ; await get_tree().process_frame
 		if not targetEnemy and not (len($"../EnemySpawner/SpawnPositions".get_children()) <= 0): targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
 		homingInst.global_position.x = move_toward(homingInst.global_position.x, targetEnemy.global_position.x, projSpeed) if targetEnemy else homingInst.global_position.x + 0.1
 		homingInst.global_position.y = move_toward(homingInst.global_position.y, targetEnemy.global_position.y, projSpeed) if targetEnemy else homingInst.global_position.y
 		await get_tree().process_frame
-	for i in range(10):
-		homingInst.modulate.a -= 0.1
+	for i in range(20):
+		if not homingInst: return true
+		homingInst.modulate.a -= 0.05
+		homingInst.global_position = Vector2(move_toward(homingInst.global_position.x, global_position.x, projSpeed), move_toward(homingInst.global_position.y, global_position.y, projSpeed))
 		await get_tree().process_frame
 	homingInst.queue_free()
 	return true
@@ -186,25 +188,42 @@ func _on_homing_area_entered(area: Area2D) -> void:
 @onready var upgrader = preload("res://scenes/upgrades.tscn").instantiate()
 func _on_debug_visibility_changed() -> void:
 	if not $Debug.visible: return
-	var ab1 = $Debug/Panel/CenterContainer/VBoxContainer/Ability1
-	var ab2 = $Debug/Panel/CenterContainer/VBoxContainer/Ability2
-	var ab3 = $Debug/Panel/CenterContainer/VBoxContainer/Ability3
-	var ab4 = $Debug/Panel/CenterContainer/VBoxContainer/Ability4
+	var ab1 = $Debug/Panel/CenterContainer/Container/VBoxContainer/Ability1
+	var ab2 = $Debug/Panel/CenterContainer/Container/VBoxContainer/Ability2
+	var ab3 = $Debug/Panel/CenterContainer/Container/VBoxContainer/Ability3
+	var ab4 = $Debug/Panel/CenterContainer/Container/VBoxContainer/Ability4
+	var ab5 = $Debug/Panel/CenterContainer/Container/VBoxContainer2/Ability5
+	var ab6 = $Debug/Panel/CenterContainer/Container/VBoxContainer2/Ability6
+	var ab7 = $Debug/Panel/CenterContainer/Container/VBoxContainer2/Ability7
+	var ab8 = $Debug/Panel/CenterContainer/Container/VBoxContainer2/Ability8
 	ab1.clear()
 	ab2.clear()
 	ab3.clear()
 	ab4.clear()
+	ab5.clear()
+	ab6.clear()
+	ab7.clear()
+	ab8.clear()
 	for upgrade in upgrader.upgrades:
 		ab1.add_item(upgrade.ID)
 		ab2.add_item(upgrade.ID)
 		ab3.add_item(upgrade.ID)
 		ab4.add_item(upgrade.ID)
+		ab5.add_item(upgrade.ID)
+		ab6.add_item(upgrade.ID)
+		ab7.add_item(upgrade.ID)
+		ab8.add_item(upgrade.ID)
 	ab1.select(-1)
 	ab2.select(-1)
 	ab3.select(-1)
 	ab4.select(-1)
+	ab5.select(-1)
+	ab6.select(-1)
+	ab7.select(-1)
+	ab8.select(-1)
 	for i in range(len(UpgradeManager.equippedUpgrades)):
-		var ab = $Debug/Panel/CenterContainer/VBoxContainer.find_child("Ability" + str(i + 1))
+		var cont = "2" if i + 1 >= 5 else ""
+		var ab = $Debug/Panel/CenterContainer/Container.find_child("VBoxContainer" + cont).find_child("Ability" + str(i + 1))
 		if not ab: return
 		for item_index in range(ab.item_count):
 			if ab.get_item_text(item_index) == UpgradeManager.equippedUpgrades[i]["ID"]: ab.select(item_index) ; break
@@ -212,8 +231,9 @@ func _on_debug_visibility_changed() -> void:
 func _on_back_pressed() -> void: $Debug.hide() ; get_tree().paused = false
 
 func _update_equipped() -> void:
-	for i in range(4):
-		var ab = $Debug/Panel/CenterContainer/VBoxContainer.find_child("Ability" + str(i + 1))
+	$"../backgroudMusic".process_mode = Node.PROCESS_MODE_ALWAYS if Global.playWhilePaused else Node.PROCESS_MODE_INHERIT
+	for i in range(8):
+		var ab = $Debug/Panel/CenterContainer/Container.find_child("Ability" + str(i + 1))
 		if ab.selected == -1: continue
 		for upgrade in upgrader.upgrades:
 			if upgrade.ID == ab.get_item_text(ab.selected):

@@ -20,7 +20,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		process_mode = Node.PROCESS_MODE_ALWAYS
 		$"../paused".visible = !$"../paused".visible
+		$"../options".visible = $"../paused".visible
 		get_tree().paused = $"../paused".visible
+		$"../../backgroudMusic".process_mode = Node.PROCESS_MODE_ALWAYS if Global.playWhilePaused else Node.PROCESS_MODE_INHERIT
 
 func set_upgrades():
 	if len(UpgradeManager.equippedUpgrades) == 0:

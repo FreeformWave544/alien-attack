@@ -34,8 +34,7 @@ func _process(delta):
 			score_drain_timer = 0
 			tractor += 1
 			Global.addScore += 2
-			if tractor == 20:
-				tractor_beam_active = false
+			if tractor == 20: tractor_beam_active = false
 
 func start():
 	while global_position.x != 1110:
@@ -57,14 +56,10 @@ func attackLoop():
 		while not attacking:
 			await get_tree().create_timer(3).timeout
 			attack = randi_range(1, 4)
-			if attack == 1:
-				firstAttack()
-			elif attack == 2:
-				secondAttack()
-			elif attack == 3:
-				activate_tractor_beam()
-			elif attack == 4:
-				thirdAttack()
+			if attack == 1: firstAttack()
+			elif attack == 2: secondAttack()
+			elif attack == 3: activate_tractor_beam()
+			elif attack == 4: thirdAttack()
 
 func firstAttack():
 	if Global.died:
@@ -73,7 +68,7 @@ func firstAttack():
 		for e in range(5):
 			var gap = randi_range(1, 9)
 			await get_tree().create_timer(4).timeout
-			var pos = Vector2(1000, 50)
+			var pos = Vector2(1000, 40)
 			for i in range(9):
 				if i != gap and i != gap + 1:
 					var enemyInstance = enemy.instantiate()
@@ -114,8 +109,7 @@ func activate_tractor_beam():
 		Global.addScore -= 50
 		await get_tree().create_timer(1).timeout
 		stolenTimes += 1
-		if stolenTimes > 5:
-			deactivate_tractor_beam()
+		if stolenTimes > 5: deactivate_tractor_beam()
 
 func deactivate_tractor_beam():
 	tractor_beam.visible = false

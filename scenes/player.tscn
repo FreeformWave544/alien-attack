@@ -160,20 +160,6 @@ height = 92.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lyayy"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
-radius = 23.769728
-
-[sub_resource type="Gradient" id="Gradient_fjrip"]
-offsets = PackedFloat32Array(0.07272727, 0.15757576, 0.26666668, 0.35757574, 0.6909091)
-colors = PackedColorArray(1, 0.105882354, 0.827451, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0.7019608, 0.43529412, 0.57254905, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_smehm"]
-gradient = SubResource("Gradient_fjrip")
-width = 128
-height = 128
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [node name="Player" type="CharacterBody2D" unique_id=818148622 groups=["player"]]
 collision_mask = 18
 motion_mode = 1
@@ -234,18 +220,6 @@ offset_right = 2042.0
 offset_bottom = 1.0
 texture = SubResource("CanvasTexture_lyayy")
 
-[node name="Surge" type="Area2D" parent="." unique_id=753141078]
-visible = false
-top_level = true
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Surge" unique_id=498621436]
-shape = SubResource("CircleShape2D_fjrip")
-
-[node name="Surge" type="Sprite2D" parent="Surge" unique_id=1967482982]
-texture = SubResource("GradientTexture2D_smehm")
-
 [node name="Debug" type="CanvasLayer" parent="." unique_id=346265220]
 process_mode = 3
 visible = false
@@ -268,26 +242,46 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Debug/Panel/CenterContainer" unique_id=1607373481]
+[node name="Container" type="FlowContainer" parent="Debug/Panel/CenterContainer" unique_id=1480189167]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+alignment = 1
 
-[node name="Label" type="Label" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=618408580]
+[node name="Label" type="Label" parent="Debug/Panel/CenterContainer/Container" unique_id=618408580]
 layout_mode = 2
 text = "EQUIPPED UPGRADES"
 
-[node name="Ability1" type="OptionButton" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=1528428416]
+[node name="VBoxContainer" type="VBoxContainer" parent="Debug/Panel/CenterContainer/Container" unique_id=1941473938]
 layout_mode = 2
 
-[node name="Ability2" type="OptionButton" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=965612944]
+[node name="Ability1" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer" unique_id=1528428416]
 layout_mode = 2
 
-[node name="Ability3" type="OptionButton" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=503436689]
+[node name="Ability2" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer" unique_id=965612944]
 layout_mode = 2
 
-[node name="Ability4" type="OptionButton" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=1973116937]
+[node name="Ability3" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer" unique_id=503436689]
 layout_mode = 2
 
-[node name="Update" type="Button" parent="Debug/Panel/CenterContainer/VBoxContainer" unique_id=1726725875]
+[node name="Ability4" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer" unique_id=1973116937]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Debug/Panel/CenterContainer/Container" unique_id=1917241176]
+layout_mode = 2
+
+[node name="Ability5" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer2" unique_id=20715037]
+layout_mode = 2
+
+[node name="Ability6" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer2" unique_id=216637528]
+layout_mode = 2
+
+[node name="Ability7" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer2" unique_id=596917722]
+layout_mode = 2
+
+[node name="Ability8" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer2" unique_id=1115930987]
+layout_mode = 2
+
+[node name="Update" type="Button" parent="Debug/Panel/CenterContainer/Container" unique_id=1726725875]
 layout_mode = 2
 text = "Submit"
 
@@ -301,7 +295,6 @@ offset_bottom = 8.0
 grow_horizontal = 0
 text = "BACK"
 
-[connection signal="area_entered" from="Surge" to="." method="_on_surge_area_entered"]
 [connection signal="visibility_changed" from="Debug" to="." method="_on_debug_visibility_changed"]
-[connection signal="pressed" from="Debug/Panel/CenterContainer/VBoxContainer/Update" to="." method="_update_equipped"]
+[connection signal="pressed" from="Debug/Panel/CenterContainer/Container/Update" to="." method="_update_equipped"]
 [connection signal="pressed" from="Debug/Panel/Back" to="." method="_on_back_pressed"]

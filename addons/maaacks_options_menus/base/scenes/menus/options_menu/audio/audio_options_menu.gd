@@ -35,3 +35,6 @@ func _ready() -> void:
 
 func _on_mute_control_setting_changed(value : bool) -> void:
 	AppSettings.set_mute(value)
+
+func _on_check_button_toggled(toggled_on: bool) -> void:
+	Global.playWhilePaused = toggled_on

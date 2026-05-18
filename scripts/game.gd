@@ -26,8 +26,10 @@ var slow_enemies_active := false
 var eye_active := false
 
 func _ready():
-	Global.isBoss = false ; Global.canFire = true ; Global.pathKills = 0 ; Global.score = 0 ; Global.TakeLIVES = 0 ; Global.bossLives = 200 ; Global.fastRocketActive = false  
+	Global.isBoss = false ; Global.canFire = true ; Global.pathKills = 0 ; Global.score = 0 ; Global.TakeLIVES = 0 ; Global.bossLives = 200 ; Global.fastRocketActive = false
+	$backgroudMusic.process_mode = Node.PROCESS_MODE_ALWAYS if Global.playWhilePaused else Node.PROCESS_MODE_INHERIT
 	_setup_ability_timers()
+	_music()
 	UpgradeManager.equippedUpgrades = []
 	$mobile.visible = false
 	hud.set_score_label()
@@ -38,7 +40,7 @@ func _ready():
 	elif Global.difficil == "hard": apply_hard_mode()
 	if OS.has_feature("web_android") or OS.has_feature("web_ios"): $mobile.visible = true ; mobileUpdate()
 	await upgradeLoop()
-	await get_tree().create_timer(1.0).timeout
+	if get_tree() and is_inside_tree(): await get_tree().create_timer(1.0).timeout
 	var bossGuy = boss.instantiate()
 	add_child(bossGuy)
 	bossGuy.global_position = Vector2(1500, 360)
@@ -55,12 +57,21 @@ func upgradeLoop() -> bool:
 	return true
 
 func get_upgrade():
+	$backgroudMusic.process_mode = Node.PROCESS_MODE_ALWAYS if Global.playWhilePaused else Node.PROCESS_MODE_INHERIT
 	var upgrade = upgrader.instantiate()
 	add_child(upgrade)
 	upgrade.toggle()
 	await upgrade.upgradeClicked
 	upgrade.queue_free()
 
+@export var songs: Array[AudioStream]
+func _music():
+	while true:
+		$backgroudMusic.process_mode = Node.PROCESS_MODE_ALWAYS if Global.playWhilePaused else Node.PROCESS_MODE_INHERIT
+		$backgroudMusic.stream = songs.pick_random()
+		$backgroudMusic.play()
+		await $backgroudMusic.finished
+ 
 var time_elapsed := 0.0
 var oldScore = -1
 func _process(delta: float) -> void:
@@ -174,7 +185,7 @@ func _abilityChargeHandler(): $UI/HUD/AbilityChargeProgress.value = fastRocketCh
 
 @export_category("Abilities")
 @export var ABCDs: Array = [15.0, 20.0, 30.0, 45.0, 60.0, 80.0, 90.0, 100.0, 120.0]
-@export var tiers: Array = [["Slow", "neurowave", "surge", "homing"], ["invincibility", "doubles"], ["lifeExchange"], ["WalkingDead"], ["ghostPhoenix", "Eye"]]
+@export var tiers: Array = [["Slow", "neurowave", "surge", "homing"], ["invincibility", "doubles"], ["lifeExchange"], ["WalkingDead", "hHorde"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
 	"AB1CD": "ABCDs/Ability1",
 	"AB2CD": "ABCDs/Ability2",
@@ -210,6 +221,7 @@ func use_ability(slot: int = 0) -> void:
 		"doubles": _doppleganger(timer, slot)
 		"surge": _surge(timer, slot)
 		"homing": _homing_head(timer, slot)
+		"hHorde": _homing_horde(timer, slot)
 		_: print("Unknown ability: ", ability)
 
 func _activate_invincibility(timer: Timer, slot: int) -> void:
@@ -245,13 +257,18 @@ func _homing_head(timer: Timer, slot: int) -> void:
 	timer.start()
 	await $Player._homing_head()
 
-var surge_active := false
+func _homing_horde(timer: Timer, slot: int) -> void:
+	if len($EnemySpawner/SpawnPositions.get_children()) <= 0: return
+	timer.start()
+	for u in range(17):
+		while len($EnemySpawner/SpawnPositions.get_children()) <= 0: await get_tree().create_timer(0.1).timeout
+		$Player._homing_head()
+		await get_tree().create_timer(0.2).timeout
+	await $Player._homing_head()
+
 func _surge(timer: Timer, slot: int) -> void:
-	if surge_active: return
-	surge_active = true
 	timer.start()
 	await $Player._surge()
-	surge_active = false
 
 var neurowave_active := false
 func _neurowave(timer: Timer, slot: int) -> void:
@@ -358,10 +375,9 @@ func _activate_eye_of_chaos(timer: Timer, slot: int) -> void:
 	if plexusBackground: plexusBackground.modulate.a = 1.0
 	var original_time_scale = Engine.time_scale
 	var shake_amount = 10.0
-	var shake_duration = 1.0
 	var shake_timer = 0.0
 	var original_pos = player.position
-	while shake_timer < shake_duration:
+	while shake_timer < 1.0:
 		player.position = original_pos + Vector2(randf_range(-shake_amount, shake_amount), randf_range(-shake_amount, shake_amount))
 		shake_timer += get_process_delta_time()
 		await get_tree().process_frame
@@ -378,8 +394,7 @@ func _activate_eye_of_chaos(timer: Timer, slot: int) -> void:
 
 func _setup_ability_timers() -> void:
 	for i in range(len(ABCDTimers.keys())):
-		var timer_path = ABCDTimers[ABCDTimers.keys()[i]]
-		var timer = get_node_or_null(timer_path)
+		var timer = get_node_or_null(ABCDTimers[ABCDTimers.keys()[i]])
 		if timer and i < len(UpgradeManager.equippedUpgrades):
 			for tier in tiers:
 				for ability in tier:
@@ -402,3 +417,5 @@ func mobileUpdate():
 	elif UpgradeManager.equippedUpgrades.size() > 2: $mobile/Ab2.show()
 	elif UpgradeManager.equippedUpgrades.size() > 3: $mobile/Ab3.show()
 	elif UpgradeManager.equippedUpgrades.size() > 4: $mobile/Ab4.show() ; return
+
+func _on_options_pressed() -> void: $UI.add_child(preload("res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn").instantiate()) ; $backgroudMusic.process_mode = Node.PROCESS_MODE_ALWAYS if Global.playWhilePaused else Node.PROCESS_MODE_INHERIT

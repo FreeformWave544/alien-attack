@@ -11,8 +11,7 @@ func _ready() -> void:
 	pathfollow.set_progress_ratio(0)
 
 func _process(delta: float) -> void:
-	if !enemy:
-		return
+	if !enemy: return
 	if not enemy.is_dead:
 		pathfollow.progress_ratio += 0.15 * delta
 		if pathfollow.progress_ratio >= 1.0:

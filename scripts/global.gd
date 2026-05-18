@@ -10,6 +10,7 @@ var high_scores = {"easy": 0, "norm": 0, "hard": 0}
 var jwt_token: String = "" ; var sessionRuns: int = 0 ; var recentScores = [] ; var volume: int = 20
 var run := false ; var fastRocketActive := false
 var scroll_offset := Vector2.ZERO
+var playWhilePaused := false
 
 func _ready() -> void:
 	load_achievements() ; load_scores()

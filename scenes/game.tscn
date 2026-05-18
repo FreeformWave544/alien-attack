@@ -1,15 +1,25 @@
 [gd_scene format=3 uid="uid://i6fgpb7bsg2s"]
 
 [ext_resource type="Script" uid="uid://c1cxi3mupblui" path="res://scripts/game.gd" id="1_oynfb"]
+[ext_resource type="AudioStream" uid="uid://bitdmhsl38wpu" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/mp3/1 - Astro Reverie.mp3" id="2_264po"]
 [ext_resource type="PackedScene" uid="uid://dawhatyahksno" path="res://scenes/hud.tscn" id="2_llffo"]
 [ext_resource type="PackedScene" uid="uid://3j3rsm7d301i" path="res://scenes/player.tscn" id="2_nevbj"]
+[ext_resource type="AudioStream" uid="uid://doi604dtrn5oq" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/mp3/2 - Galactic Odyssey.mp3" id="3_1kice"]
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="3_dp2ur"]
+[ext_resource type="AudioStream" uid="uid://dsv6hi6dd2u3k" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/mp3/3 - Lunar Serenity.mp3" id="4_5newe"]
 [ext_resource type="PackedScene" uid="uid://dxfnwtsu6sbeb" path="res://scenes/enemy_spawner.tscn" id="4_e38v0"]
+[ext_resource type="AudioStream" uid="uid://dpl4wa5qpkndg" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/mp3/4 - Celestial Echoes.mp3" id="5_37s47"]
+[ext_resource type="AudioStream" uid="uid://dc8lgtybil2ml" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/mp3/5 - Stellar Drift .mp3" id="6_bt5mj"]
 [ext_resource type="AudioStream" uid="uid://crx5syp1f34be" path="res://assets/audio/hit.wav" id="6_qgucp"]
 [ext_resource type="AudioStream" uid="uid://cy414otvdtroq" path="res://assets/audio/explode.wav" id="7_1dl8s"]
+[ext_resource type="AudioStream" uid="uid://dckf5s0vgdafs" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/mp3/6 - Orbital Echoes.mp3" id="7_e1j6l"]
+[ext_resource type="AudioStream" uid="uid://t1yv3jq3aps1" path="res://assets/audio/Resonance/Gravity-by-Resonance-Ensemble-Feb2026.wav" id="8_pl11u"]
 [ext_resource type="AudioStream" uid="uid://f8vu5erpodo1" path="res://assets/audio/space_flight.mp3" id="8_vtaks"]
 [ext_resource type="PackedScene" uid="uid://ba7asrce161ma" path="res://scenes/parallax_background.tscn" id="9_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://djluacckpu1c4" path="res://assets/audio/Resonance/Nebula-by-Resonance-Ensemble-Feb-2026.wav" id="9_bhx41"]
+[ext_resource type="AudioStream" uid="uid://b6x5lqq6vevv6" path="res://assets/audio/Resonance/Resonance-Ensemble-Pilot-July-2025.mp3" id="10_qnb83"]
 [ext_resource type="Shader" uid="uid://cqq5woimbi5cr" path="res://PlexusParticles.gdshader" id="10_vtaks"]
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/pca_theme.tres" id="13_1kice"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_u604d"]
 font = ExtResource("3_dp2ur")
@@ -57,20 +67,38 @@ shader = ExtResource("10_vtaks")
 
 [node name="Game" type="Node2D" unique_id=564023448]
 script = ExtResource("1_oynfb")
+songs = Array[AudioStream]([ExtResource("2_264po"), ExtResource("3_1kice"), ExtResource("4_5newe"), ExtResource("5_37s47"), ExtResource("6_bt5mj"), ExtResource("7_e1j6l"), ExtResource("8_pl11u"), ExtResource("9_bhx41"), ExtResource("10_qnb83")])
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1602360066]
-layer = -1
 
 [node name="HUD" parent="UI" unique_id=1130042439 instance=ExtResource("2_llffo")]
 
 [node name="paused" type="Label" parent="UI" unique_id=1869484781]
 visible = false
+show_behind_parent = true
 offset_left = 386.0
 offset_top = 280.0
 offset_right = 836.0
 offset_bottom = 430.0
 text = "PAUSED"
 label_settings = SubResource("LabelSettings_u604d")
+
+[node name="options" type="Button" parent="UI" unique_id=1070421637]
+process_mode = 3
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -621.5
+offset_top = -74.0
+offset_right = -529.5
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("13_1kice")
+text = "Options"
 
 [node name="Player" parent="." unique_id=1744447680 instance=ExtResource("2_nevbj")]
 position = Vector2(109, 360)
@@ -168,9 +196,9 @@ texture_pressed = SubResource("GradientTexture2D_trtic")
 
 [node name="backgroudMusic" type="AudioStreamPlayer" parent="." unique_id=268149629]
 stream = ExtResource("8_vtaks")
-autoplay = true
+volume_db = -10.0
+mix_target = 1
 bus = &"Music"
-parameters/looping = true
 
 [node name="ParallaxBackground" parent="." unique_id=1253074613 instance=ExtResource("9_0tnpc")]
 
@@ -209,6 +237,7 @@ color = Color(0.78431374, 0.39215687, 0.92941177, 0)
 
 [node name="Doubles" type="Node" parent="." unique_id=373966998]
 
+[connection signal="pressed" from="UI/options" to="." method="_on_options_pressed"]
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="area_entered" from="Deathzone" to="." method="_on_deathzone_area_entered"]
 [connection signal="pressed" from="mobile/Right" to="Player" method="move_right"]

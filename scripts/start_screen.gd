@@ -11,7 +11,7 @@ func _ready() -> void:
 		HighScores.text = "High Scores:\n   Easy: %.1f\n   Normal: %.1f\n   Hard: %.1f" % [scores["easy"], scores["norm"], scores["hard"]]
 		if waffles and Global.instructions:
 			waffles = false
-			var instructions = load("res://scenes/instructions.scn")
+			var instructions = preload("res://scenes/instructions.scn")
 			var instructionsInstance = instructions.instantiate()
 			$Panel.add_child(instructionsInstance)
 
@@ -27,17 +27,12 @@ func _hard_pressed() -> void:
 	Global.difficil = "hard"
 	Global.transition("res://scenes/game.tscn", $ParallaxBackground.scroll_offset)
 
-func _on_achievements_pressed() -> void:
-	Global.transition("res://scenes/achievements.tscn", $ParallaxBackground.scroll_offset)
+func _on_achievements_pressed() -> void: Global.transition("res://scenes/achievements.tscn", $ParallaxBackground.scroll_offset)
 
-func _on_session_scores_pressed() -> void:
-	Global.transition("res://scenes/session_scores.tscn", $ParallaxBackground.scroll_offset)
+func _on_session_scores_pressed() -> void: Global.transition("res://scenes/session_scores.tscn", $ParallaxBackground.scroll_offset)
 
-func _on_volume_pressed() -> void:
-	Global.transition("res://scenes/volumeMeter.tscn", $ParallaxBackground.scroll_offset)
+func _on_volume_pressed() -> void: Global.transition("res://scenes/volumeMeter.tscn", $ParallaxBackground.scroll_offset)
 
-func _on_options_pressed() -> void:
-	add_child(load("res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn").instantiate())
+func _on_options_pressed() -> void: add_child(preload("res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn").instantiate())
 
-func _on_upgrades_pressed() -> void:
-	Global.transition("res://scenes/upgrades.tscn", $ParallaxBackground.scroll_offset)
+func _on_upgrades_pressed() -> void: Global.transition("res://scenes/upgrades.tscn", $ParallaxBackground.scroll_offset)

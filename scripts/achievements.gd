@@ -53,8 +53,7 @@ func hide_tooltip(i):
 	await twin.finished
 	achievement.visible = false
 
-func _on_back_pressed() -> void:
-	Global.transition("res://scenes/start_screen.tscn")
+func _on_back_pressed() -> void: Global.transition("res://scenes/start_screen.tscn")
 
 func _on_button_pressed() -> void:
 	Global.achievements[Constants.PATHKILLS] = true

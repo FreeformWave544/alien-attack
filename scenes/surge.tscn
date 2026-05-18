@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://whnaavat8ojt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
+radius = 23.769728
+
+[sub_resource type="Gradient" id="Gradient_fjrip"]
+offsets = PackedFloat32Array(0.07272727, 0.15757576, 0.26666668, 0.35757574, 0.6909091)
+colors = PackedColorArray(1, 0.105882354, 0.827451, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0.7019608, 0.43529412, 0.57254905, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_smehm"]
+gradient = SubResource("Gradient_fjrip")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Surge" type="Area2D" unique_id=1637123666]
+top_level = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1546240255]
+shape = SubResource("CircleShape2D_fjrip")
+
+[node name="Surge" type="Sprite2D" parent="." unique_id=1667579876]
+texture = SubResource("GradientTexture2D_smehm")

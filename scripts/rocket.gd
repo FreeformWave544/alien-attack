@@ -11,7 +11,6 @@ func _ready():
 	$EnemyHitSound.volume_db = Global.volume - 30
 
 func _physics_process(delta): global_position.x += speed*delta
-
 func _on_screen_exited(): queue_free()
 
 func _on_area_entered(area):

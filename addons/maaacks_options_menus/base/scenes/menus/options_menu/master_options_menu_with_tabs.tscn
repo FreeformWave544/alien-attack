@@ -10,6 +10,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mn2hd"]
 
 [node name="MasterOptionsMenu" unique_id=1806815431 instance=ExtResource("1_uaidt")]
+process_mode = 3
 
 [node name="Parallax2D" type="Parallax2D" parent="." index="0" unique_id=2099474536]
 repeat_size = Vector2(5760, 360)
