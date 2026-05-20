@@ -13,7 +13,7 @@ const RARITY_COLORS := {
 const RARITY_WEIGHTS := {
 	"Common": 70,
 	"Uncommon": 50,
-	"Rare": 20,
+	"Rare": 200,
 	"Epic": 8,
 	"Legendary": 2
 }
@@ -69,10 +69,9 @@ func assign_available_cards() -> void:
 		if upgrade_data.Rarity in RARITY_COLORS: rarity_label.add_theme_color_override("font_color", RARITY_COLORS[upgrade_data.Rarity])
 		new_upgrade.get_node("Type").text = upgrade_data.Type if not upgrade_data.Infused else "Infused"
 		new_upgrade.get_node("Name").text = upgrade_name
-		if new_upgrade.has_node("Background"):
-			new_upgrade.get_node("Background").modulate = RARITY_COLORS.get(upgrade_data.Rarity, Color.WHITE)
-		var button = new_upgrade.get_node("Button")
-		button.pressed.connect(Callable(self, "_on_upgrade_pressed").bind(upgrade_data))
+		if new_upgrade.has_node("Background"): new_upgrade.get_node("Background").modulate = RARITY_COLORS.get(upgrade_data.Rarity, Color.WHITE)
+		if upgrade_data.Infused and new_upgrade.has_node("Background"): new_upgrade.get_node("Background").modulate = Color.DARK_RED
+		new_upgrade.get_node("Button").pressed.connect(Callable(self, "_on_upgrade_pressed").bind(upgrade_data))
 		container.add_child(new_upgrade)
 	template.visible = false
 
