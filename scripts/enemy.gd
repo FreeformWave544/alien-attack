@@ -38,7 +38,7 @@ func die():
 	if not is_in_group("path") and $Sprite2D.flip_v == false and game and game.name == "Game" and game.walking_dead_active:
 		get_parent().get_parent().get_parent().walking_dead_pool.append(global_position)
 		var deadMark := preload("res://scenes/dead_marker.tscn").instantiate()
-		get_parent().get_parent().add_child(deadMark, true)
+		game.find_child("EnemySpawner").add_child(deadMark, true)
 		deadMark.global_position = global_position
 	Global.addScore += 100
 	aniSprite.visible = true

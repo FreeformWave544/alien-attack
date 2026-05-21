@@ -4,16 +4,17 @@ signal upgradeClicked
 
 @export var upgrades: Array[UpgradeData]
 
-const RARITY_COLORS := {
+const RARITY_COLOURS := {
 	"Common": Color(1, 1, 1), 
 	"Uncommon": Color(0.2, 1, 0.2), 
 	"Rare": Color(0.2, 0.6, 1), 
 	"Epic": Color(0.7, 0.3, 0.9), 
-	"Legendary": Color(1, 0.6, 0.1) }
+	"Legendary": Color(1, 0.6, 0.1),
+	"Infused": Color(0.549, 0.004, 0.141, 1.0) }
 const RARITY_WEIGHTS := {
 	"Common": 70,
 	"Uncommon": 50,
-	"Rare": 200,
+	"Rare": 20,
 	"Epic": 8,
 	"Legendary": 2
 }
@@ -37,6 +38,7 @@ func pick_weighted_upgrade() -> UpgradeData:
 	if pool.is_empty(): return null
 	return pool.pick_random()
 
+@export var infusedPercent := 10.0
 func get_cards(amount := 3):
 	UpgradeManager.avaliableUpgrades.clear()
 	var choices: Array[UpgradeData] = []
@@ -52,7 +54,9 @@ func get_cards(amount := 3):
 			"ID": x.ID,
 			"Rarity": x.rarity,
 			"Icon": x.icon,
-			"Infused": true if x.infusible and (randi() % 100 + 1) > 70 else false}
+			"Infused": true if x.infusible and randf() < (infusedPercent / 100.0) else false
+		}
+		if UpgradeManager.avaliableUpgrades[x.upgrade_name].Infused: UpgradeManager.avaliableUpgrades[x.upgrade_name].rarity = "Infused"
 	assign_available_cards()
 
 func assign_available_cards() -> void:
@@ -66,11 +70,14 @@ func assign_available_cards() -> void:
 		new_upgrade.get_node("Sprite2D").texture = upgrade_data.Icon
 		var rarity_label = new_upgrade.get_node("Rarity")
 		rarity_label.text = upgrade_data.Rarity
-		if upgrade_data.Rarity in RARITY_COLORS: rarity_label.add_theme_color_override("font_color", RARITY_COLORS[upgrade_data.Rarity])
+		if upgrade_data.Rarity in RARITY_COLOURS:
+			if upgrade_data.Infused: rarity_label.add_theme_color_override("font_color", RARITY_COLOURS[upgrade_data.Rarity])
+			else: rarity_label.add_theme_color_override("font_color", Color(0.643, 0.039, 0.169, 0.224))
 		new_upgrade.get_node("Type").text = upgrade_data.Type if not upgrade_data.Infused else "Infused"
 		new_upgrade.get_node("Name").text = upgrade_name
-		if new_upgrade.has_node("Background"): new_upgrade.get_node("Background").modulate = RARITY_COLORS.get(upgrade_data.Rarity, Color.WHITE)
-		if upgrade_data.Infused and new_upgrade.has_node("Background"): new_upgrade.get_node("Background").modulate = Color.DARK_RED
+		if new_upgrade.has_node("Background"):
+			new_upgrade.get_node("Background").color = RARITY_COLOURS.get(upgrade_data.Rarity, Color.WHITE)
+			new_upgrade.get_node("Background").color.a = 0.1
 		new_upgrade.get_node("Button").pressed.connect(Callable(self, "_on_upgrade_pressed").bind(upgrade_data))
 		container.add_child(new_upgrade)
 	template.visible = false

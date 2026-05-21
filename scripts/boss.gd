@@ -51,12 +51,12 @@ func change_frame_loop():
 func attackLoop():
 	var attack
 	while true:
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1.0).timeout
 		if get_tree().paused: continue
 		while not attacking:
 			await get_tree().create_timer(3).timeout
 			attack = randi_range(1, 4)
-			if attack == 1: firstAttack()
+			if attack == 1 and randf() < 0.5: firstAttack()
 			elif attack == 2: secondAttack()
 			elif attack == 3: activate_tractor_beam()
 			elif attack == 4: thirdAttack()
@@ -163,7 +163,7 @@ func died():
 	Global.addScore += randi_range(7, 20) * 100
 	Global.isBoss = false
 	Global.canFire = true
-	if Global.bossLives <= -10: Global.achievements["overkill"] = true
+	if Global.bossLives <= -50: Global.achievements["overkill"] = true
 	player.AbSpeedMulti = 1.5
 	get_parent().fastRocketDuration += 0.2
 	get_parent().upgradeLoop()

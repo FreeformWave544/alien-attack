@@ -7,7 +7,7 @@ var rocket_scene = preload("res://scenes/rocket.tscn")
 @export var AbSpeedMulti := 1.0
 @export var speed = 300.0
 @onready var laser = $Laser
-@onready var rocket_container = $RocketContainer
+@onready var rocket_container = $"../../Player/RocketContainer" if get_parent().name == "Doubles" else $RocketContainer
 @onready var timer = $TextureProgressBar/Timer
 @onready var easyview = $easyview
 var fade_speed = 1.5
@@ -121,10 +121,9 @@ func _surge() -> bool:
 	for i in range(10):
 		surgeInst.modulate.a -= 0.1
 		surgeInst.global_position.x += 1.0
-		await get_tree().process_frame
+		if is_inside_tree() and get_tree(): await get_tree().process_frame
 	surgeInst.hide()
-	surgeInst.modulate.a = 1.0
-	surgeInst.global_position = Vector2(-150.0, 150.0)
+	surgeInst.queue_free()
 	return true
 
 func _homing_head():
