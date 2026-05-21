@@ -75,6 +75,7 @@ upgrade_name = "Neurowave"
 type = "Volatile"
 ID = "neurowave"
 rarity = "Uncommon"
+infusible = true
 icon = ExtResource("9_5wf0v")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 
@@ -84,6 +85,7 @@ upgrade_name = "Doppleganger"
 type = "Offensive"
 ID = "doubles"
 rarity = "Uncommon"
+infusible = true
 icon = ExtResource("10_yoata")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 

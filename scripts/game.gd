@@ -217,8 +217,8 @@ func use_ability(slot: int = 0) -> void:
 		"Slow": _activate_slow_enemies(timer, slot)
 		"Eye": _activate_eye_of_chaos(timer, slot)
 		"WalkingDead": _activate_walking_dead(timer, slot)
-		"neurowave": _neurowave(timer, slot)
-		"doubles": _doppleganger(timer, slot)
+		"neurowave": _neurowave(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
+		"doubles": _doppleganger(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"surge": _surge(timer, slot)
 		"homing": _homing_head(timer, slot)
 		"hHorde": _homing_horde(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
@@ -238,15 +238,27 @@ func _activate_invincibility(timer: Timer, slot: int) -> void:
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 var doubles_active := false
-func _doppleganger(timer: Timer, slot: int) -> void:
+func _doppleganger(timer: Timer, slot: int, infused := false) -> void:
 	if doubles_active: return
 	doubles_active = true
 	var double1 = $Player.duplicate()
 	$Doubles.add_child(double1, true)
-	double1.global_position.y += 100
+	double1.global_position.y += 80
 	var double2 = $Player.duplicate()
 	$Doubles.add_child(double2, true)
-	double2.global_position.y -= 100
+	double2.global_position.y -= 80
+	var double3
+	var double4
+	print(infused)
+	if infused:
+		double3 = $Player.duplicate()
+		$Doubles.add_child(double3, true)
+		double3.global_position.y += 160
+		double3.global_position.x -= 20
+		double4 = $Player.duplicate()
+		$Doubles.add_child(double4, true)
+		double4.global_position.y -= 160
+		double4.global_position.x -= 20
 	timer.start()
 	await get_tree().create_timer(3.0).timeout
 	for child in $Doubles.get_children(): child.queue_free()
@@ -257,7 +269,7 @@ func _homing_head(timer: Timer, slot: int) -> void:
 	timer.start()
 	await $Player._homing_head()
 
-func _homing_horde(timer: Timer, slot: int, infused = false) -> void:
+func _homing_horde(timer: Timer, slot: int, infused := false) -> void:
 	if len($EnemySpawner/SpawnPositions.get_children()) <= 0: return
 	timer.start()
 	for u in range(17 if infused else 7):
@@ -271,17 +283,17 @@ func _surge(timer: Timer, slot: int) -> void:
 	await $Player._surge()
 
 var neurowave_active := false
-func _neurowave(timer: Timer, slot: int) -> void:
+func _neurowave(timer: Timer, slot: int, infused := false) -> void:
 	if neurowave_active: return
 	neurowave_active = true
-	$Player.timer.wait_time /= 2.0
+	$Player.timer.wait_time /= 2.0 if not infused else 3.0
 	var tween = create_tween()
 	tween.set_loops(6)
 	tween.tween_property($Neurowave, "color:a", 0.005, 0.25)
 	tween.tween_property($Neurowave, "color:a", 0.025, 0.25)
 	timer.start()
 	await get_tree().create_timer(3.0).timeout
-	$Player.timer.wait_time *= 2.0
+	$Player.timer.wait_time *= 2.0 if not infused else 3.0
 	neurowave_active = false
 	$Neurowave.color.a = 0.0
 	await get_tree().process_frame
