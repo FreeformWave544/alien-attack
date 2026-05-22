@@ -82,3 +82,9 @@ What did I use?
 
  - [Godot](https://www.godotengine.org/)
  - [Awesome README Template](https://github.com/Louis3797/awesome-readme-template/blob/main/README.md?plain=1)
+
+Where was AI used?
+
+ - Since I started tracking with Hackatime, I used, occasioanally, AI to help me navigate a small few problems,
+ - but prior to this moment, I can not know if/where I used the help AI and how much - but all was in moderation,
+ - and I'd well under 5% of the final game is likely AI - other than the API stuff I messed around with prior to Hackatime.
