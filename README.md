@@ -20,21 +20,21 @@ A fun, sci-fi, incremental, hardcore-style, horde game. (Hmm I wonder if I can f
 
 <br />
 
-# :notebook_with_decorative_cover: Table of Contents
+# Table of Contents
 
-- [:notebook\_with\_decorative\_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
-  - [:star2: About the Project](#star2-about-the-project)
-    - [:dart: Features](#dart-features)
-  - [:toolbox: Getting Started](#toolbox-getting-started)
-    - [:gear: Installation](#gear-installation)
-  - [:warning: License](#warning-license)
-  - [:handshake: Links](#handshake-links)
-  - [:gem: Acknowledgements](#gem-acknowledgements)
+- [Table of Contents](#table-of-contents)
+  - [About the Project](#about-the-project)
+    - [Features](#features)
+  - [Getting Started](#getting-started)
+    - [Installation](#installation)
+  - [License](#license)
+  - [Links](#links)
+  - [Acknowledgements](#acknowledgements)
 
 
 
 <!-- About the Project -->
-## :star2: About the Project
+## About the Project
 <p><i>Mothership Nexus</i> is a thrilling, sci-fi, 2D space shooter game made with the great Godot game engine. <br />
   It is my very first game - <i>Nexus Nightmare</i><br />
   (also known as <i>Nightmare Mothership</i>)<br />
@@ -43,38 +43,40 @@ A fun, sci-fi, incremental, hardcore-style, horde game. (Hmm I wonder if I can f
   <b><i>REIMAGINED</i></b></p>
 
 <!-- Features -->
-### :dart: Features
+### Features
 
 - >10+ Exciting Upgrades!
 - >3+ Unique Enemies!
 - >1+ Boss! (Included as an enemy.)
 
+- >Now with INFUSED abilities - rare variants that each make the gameplay *1000% more interesting.
+  <h5><i>This is a rough estimate, and 1000% may not be 1000% or even 100% accurate.</i></h5>
 
 <!-- Getting Started -->
-## :toolbox: Getting Started
+## Getting Started
 
 
 <!-- Installation -->
-### :gear: Installation
+### Installation
 
 There is no need to install anything - it is completely web based!
-You can access the game here: [>>](#handshake-links)
+You can access the game here: [>>](#links)
 
 
 <!-- License -->
-## :warning: License
+## License
 
 Distributed under the MIT License. See LICENSE.txt (if I ever end up adding it 😭) for more information.
 
 
 <!-- Links -->
-## :handshake: Links
+## Links
 
 |> [itch.io](https://freeformwave.itch.io/nexusnightmare/)
 
 
 <!-- Acknowledgments -->
-## :gem: Acknowledgements
+## Acknowledgements
 
 What did I use?
 
