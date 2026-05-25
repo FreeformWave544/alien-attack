@@ -3,7 +3,6 @@ extends Control
 signal upgradeClicked
 
 @export var upgrades: Array[UpgradeData]
-
 const RARITY_COLOURS := {
 	"Common": Color(1, 1, 1), 
 	"Uncommon": Color(0.2, 1, 0.2), 

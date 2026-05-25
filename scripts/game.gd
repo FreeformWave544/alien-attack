@@ -211,10 +211,10 @@ func use_ability(slot: int = 0) -> void:
 		if slot + 4 <= len(UpgradeManager.equippedUpgrades) - 1: use_ability(slot + 4)
 		return
 	match ability:
-		"invincibility": _activate_invincibility(timer, slot)
+		"invincibility": _activate_invincibility(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"lifeExchange": _activate_life_exchange(timer, slot)
 		"ghostPhoenix": _activate_ghostly_phoenix(timer, slot)
-		"Slow": _activate_slow_enemies(timer, slot)
+		"Slow": _activate_slow_enemies(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"Eye": _activate_eye_of_chaos(timer, slot)
 		"WalkingDead": _activate_walking_dead(timer, slot)
 		"neurowave": _neurowave(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
@@ -224,17 +224,28 @@ func use_ability(slot: int = 0) -> void:
 		"hHorde": _homing_horde(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		_: print("Unknown ability: ", ability)
 
-func _activate_invincibility(timer: Timer, slot: int) -> void:
+func _activate_invincibility(timer: Timer, slot: int, infused := false) -> void:
 	if invincibility_active: return
 	invincibility_active = true
 	$Player/Sprite2D.modulate = Color(4.0, 4.0, 4.0)
+	var outburst = preload("res://scenes/surge.tscn").instantiate()
+	if infused:
+		$Player.add_child(outburst)
+		outburst.find_child("Outburst").show()
+		outburst.scale = Vector2(2.0, 2.0)
+		#outburst.global_position = $Player.global_position
+		outburst.top_level = false
 	var tween = create_tween()
 	tween.set_loops(6)
 	tween.tween_property($Player/Sprite2D, "modulate:a", 0.5, 0.25)
+	if infused:
+		tween.tween_property(outburst.find_child("Outburst"), "rotation", 360, 0.25)
+		tween.tween_property(outburst.find_child("Outburst"), "rotation", 0, 0.25)
 	tween.tween_property($Player/Sprite2D, "modulate:a", 1.0, 0.25)
 	timer.start()
 	await get_tree().create_timer(3.0).timeout
 	invincibility_active = false
+	if infused: outburst.hide()
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 var doubles_active := false
@@ -365,11 +376,11 @@ func _trigger_ghostly_phoenix() -> void:
 	await get_tree().create_timer(2.0).timeout
 	invincibility_active = false
 
-func _activate_slow_enemies(timer: Timer, slot: int) -> void:
+func _activate_slow_enemies(timer: Timer, slot: int, infused := false) -> void:
 	if slow_enemies_active: return
 	slow_enemies_active = true
 	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if enemy.has_method("set_speed_multiplier"): enemy.set_speed_multiplier(0.5)
+		if enemy.has_method("set_speed_multiplier"): enemy.set_speed_multiplier(0.5 if not infused else 0.01)
 	timer.start()
 	await get_tree().create_timer(5.0).timeout
 	for enemy in get_tree().get_nodes_in_group("enemies"):

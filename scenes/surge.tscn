@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://whnaavat8ojt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
-radius = 23.769728
+radius = 52.34501
 
 [sub_resource type="Gradient" id="Gradient_fjrip"]
 offsets = PackedFloat32Array(0.07272727, 0.15757576, 0.26666668, 0.35757574, 0.6909091)
@@ -14,6 +14,28 @@ height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="Gradient" id="Gradient_e5a4a"]
+offsets = PackedFloat32Array(0.15757576, 0.2060606, 0.26666668, 0.35757574, 0.6909091)
+colors = PackedColorArray(1, 1, 1, 0, 1, 0.105882354, 0.827451, 1, 1, 1, 1, 0, 0.7019608, 0.43529412, 0.57254905, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h01k2"]
+gradient = SubResource("Gradient_e5a4a")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_muka4"]
+offsets = PackedFloat32Array(0, 0.4909091, 0.8909091, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0.49803922, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gl8rn"]
+gradient = SubResource("Gradient_muka4")
+width = 128
+height = 128
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Surge" type="Area2D" unique_id=1637123666]
 top_level = true
 collision_layer = 4
@@ -24,3 +46,10 @@ shape = SubResource("CircleShape2D_fjrip")
 
 [node name="Surge" type="Sprite2D" parent="." unique_id=1667579876]
 texture = SubResource("GradientTexture2D_smehm")
+
+[node name="Outburst" type="Sprite2D" parent="." unique_id=1505793905]
+visible = false
+texture = SubResource("GradientTexture2D_h01k2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Outburst" unique_id=210901792]
+texture = SubResource("GradientTexture2D_gl8rn")

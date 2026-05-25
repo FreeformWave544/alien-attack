@@ -32,4 +32,6 @@ func set_upgrades():
 	if !equipped: return
 	var children = $Upgrades.get_children()
 	for idx in children.size():
-		if idx < equipped.size(): children[idx].texture_progress = equipped[idx]["Icon"]
+		if idx < equipped.size():
+			children[idx].texture_progress = equipped[idx]["Icon"]
+			children[idx].modulate = Color(1.0, 0.7, 0.7, 1.0) if equipped[idx].has("Infused") and equipped[idx]["Infused"] else Color(1.0, 1.0, 1.0, 1.0)

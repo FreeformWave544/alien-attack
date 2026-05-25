@@ -266,6 +266,21 @@ layout_mode = 2
 [node name="Ability4" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer" unique_id=1973116937]
 layout_mode = 2
 
+[node name="Infused1" type="VBoxContainer" parent="Debug/Panel/CenterContainer/Container" unique_id=1596502869]
+layout_mode = 2
+
+[node name="Infused1" type="CheckBox" parent="Debug/Panel/CenterContainer/Container/Infused1" unique_id=1395510304]
+layout_mode = 2
+
+[node name="Infused2" type="CheckBox" parent="Debug/Panel/CenterContainer/Container/Infused1" unique_id=104768691]
+layout_mode = 2
+
+[node name="Infused3" type="CheckBox" parent="Debug/Panel/CenterContainer/Container/Infused1" unique_id=1604387771]
+layout_mode = 2
+
+[node name="Infused4" type="CheckBox" parent="Debug/Panel/CenterContainer/Container/Infused1" unique_id=2113963566]
+layout_mode = 2
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="Debug/Panel/CenterContainer/Container" unique_id=1917241176]
 layout_mode = 2
 
@@ -279,6 +294,21 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Ability8" type="OptionButton" parent="Debug/Panel/CenterContainer/Container/VBoxContainer2" unique_id=1115930987]
+layout_mode = 2
+
+[node name="Infused2" type="VBoxContainer" parent="Debug/Panel/CenterContainer/Container" unique_id=1721526353]
+layout_mode = 2
+
+[node name="Infused5" type="CheckBox" parent="Debug/Panel/CenterContainer/Container/Infused2" unique_id=445026242]
+layout_mode = 2
+
+[node name="Infused6" type="CheckBox" parent="Debug/Panel/CenterContainer/Container/Infused2" unique_id=1320315268]
+layout_mode = 2
+
+[node name="Infused7" type="CheckBox" parent="Debug/Panel/CenterContainer/Container/Infused2" unique_id=1643878579]
+layout_mode = 2
+
+[node name="Infused8" type="CheckBox" parent="Debug/Panel/CenterContainer/Container/Infused2" unique_id=1824412636]
 layout_mode = 2
 
 [node name="Update" type="Button" parent="Debug/Panel/CenterContainer/Container" unique_id=1726725875]

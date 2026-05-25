@@ -141,7 +141,7 @@ func _homing_head():
 		if not targetEnemy and not (len($"../EnemySpawner/SpawnPositions".get_children()) <= 0): targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
 		homingInst.global_position.x = move_toward(homingInst.global_position.x, targetEnemy.global_position.x, projSpeed) if targetEnemy else homingInst.global_position.x + 0.1
 		homingInst.global_position.y = move_toward(homingInst.global_position.y, targetEnemy.global_position.y, projSpeed) if targetEnemy else homingInst.global_position.y
-		await get_tree().process_frame
+		if is_inside_tree() and get_tree(): await get_tree().process_frame
 	for i in range(20):
 		if not homingInst: return true
 		homingInst.modulate.a -= 0.05
@@ -236,7 +236,7 @@ func _update_equipped() -> void:
 		if ab.selected == -1: continue
 		for upgrade in upgrader.upgrades:
 			if upgrade.ID == ab.get_item_text(ab.selected):
-				var data = {"Type": upgrade.type, "ID": upgrade.ID, "Rarity": upgrade.rarity, "Icon": upgrade.icon}
+				var data = {"Type": upgrade.type, "ID": upgrade.ID, "Rarity": upgrade.rarity, "Icon": upgrade.icon, "Infused": $Debug/Panel/CenterContainer/Container.find_child("Infused" + ("1" if i + 1 <= 4 else "2")).find_child("Infused" + str(i + 1)).button_pressed}
 				if i < UpgradeManager.equippedUpgrades.size(): UpgradeManager.equippedUpgrades[i] = data
 				else: UpgradeManager.equippedUpgrades.append(data)
 				break

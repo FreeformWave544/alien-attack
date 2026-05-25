@@ -21,6 +21,7 @@ upgrade_name = "Life Exchange"
 type = "Offence"
 ID = "lifeExchange"
 rarity = "Rare"
+infusible = true
 icon = ExtResource("3_yoata")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 
@@ -48,6 +49,7 @@ upgrade_name = "Slow Enemies"
 type = "Defence"
 ID = "Slow"
 rarity = "Uncommon"
+infusible = true
 icon = ExtResource("6_hxux0")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 
