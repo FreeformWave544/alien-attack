@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://whnaavat8ojt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fjrip"]
-radius = 52.34501
+radius = 52.0
 
 [sub_resource type="Gradient" id="Gradient_fjrip"]
 offsets = PackedFloat32Array(0.07272727, 0.15757576, 0.26666668, 0.35757574, 0.6909091)

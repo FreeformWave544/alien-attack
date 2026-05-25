@@ -233,7 +233,8 @@ func _activate_invincibility(timer: Timer, slot: int, infused := false) -> void:
 		$Player.add_child(outburst)
 		outburst.find_child("Outburst").show()
 		outburst.scale = Vector2(2.0, 2.0)
-		#outburst.global_position = $Player.global_position
+		outburst.find_child("CollisionShape2D").shape.radius *= 1.5
+		outburst.connect("area_entered", $Player._on_surge_area_entered)
 		outburst.top_level = false
 	var tween = create_tween()
 	tween.set_loops(6)
