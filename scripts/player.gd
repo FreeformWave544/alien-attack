@@ -126,7 +126,7 @@ func _surge() -> bool:
 	surgeInst.queue_free()
 	return true
 
-func _homing_head():
+func _homing_head(speedMulti := 1.0):
 	var homingInst = preload("res://scenes/homing.tscn").instantiate()
 	add_child(homingInst, true)
 	homingInst.global_position = global_position
@@ -136,11 +136,10 @@ func _homing_head():
 	if targetEnemy is Path2D or targetEnemy is PathFollow2D: targetEnemy = targetEnemy.get_child(0).get_child(0)
 	while Time.get_unix_time_from_system() - startTime <= 5.0:
 		if get_tree() and is_inside_tree() and (get_tree().paused or not homingInst): await get_tree().process_frame ; continue
-		if not homingInst and homingInst.global_position.x >= 1300.0: homingInst.global_position.x -= 0.1 ; await get_tree().process_frame
-		if len($"../EnemySpawner/SpawnPositions".get_children()) <= 0: homingInst.global_position.x += 0.1 ; await get_tree().process_frame
+		if not homingInst and homingInst.global_position.x >= 1280.0: homingInst.global_position.x -= 0.1 ; await get_tree().process_frame
 		if not targetEnemy and not (len($"../EnemySpawner/SpawnPositions".get_children()) <= 0): targetEnemy = $"../EnemySpawner/SpawnPositions".get_children().pick_random()
-		homingInst.global_position.x = move_toward(homingInst.global_position.x, targetEnemy.global_position.x, projSpeed) if targetEnemy else homingInst.global_position.x + 0.1
-		homingInst.global_position.y = move_toward(homingInst.global_position.y, targetEnemy.global_position.y, projSpeed) if targetEnemy else homingInst.global_position.y
+		homingInst.global_position.x = move_toward(homingInst.global_position.x, targetEnemy.global_position.x, projSpeed * speedMulti) if targetEnemy else homingInst.global_position.x + 0.1
+		homingInst.global_position.y = move_toward(homingInst.global_position.y, targetEnemy.global_position.y, projSpeed * speedMulti) if targetEnemy else homingInst.global_position.y
 		if is_inside_tree() and get_tree(): await get_tree().process_frame
 	for i in range(20):
 		if not homingInst: return true

@@ -212,15 +212,15 @@ func use_ability(slot: int = 0) -> void:
 		return
 	match ability:
 		"invincibility": _activate_invincibility(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
-		"lifeExchange": _activate_life_exchange(timer, slot)
-		"ghostPhoenix": _activate_ghostly_phoenix(timer, slot)
+		"lifeExchange": _activate_life_exchange(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
+		"ghostPhoenix": _activate_ghostly_phoenix(timer, slot) # Infuse? :Idea-Heavy:
 		"Slow": _activate_slow_enemies(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
-		"Eye": _activate_eye_of_chaos(timer, slot)
-		"WalkingDead": _activate_walking_dead(timer, slot)
+		"Eye": _activate_eye_of_chaos(timer, slot) # Infuse? :Too-OP?:
+		"WalkingDead": _activate_walking_dead(timer, slot) # Infuse? :Idea-Heavy:
 		"neurowave": _neurowave(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"doubles": _doppleganger(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
-		"surge": _surge(timer, slot)
-		"homing": _homing_head(timer, slot)
+		"surge": _surge(timer, slot) # Infuse? :Work-Heavy:
+		"homing": _homing_head(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"hHorde": _homing_horde(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		_: print("Unknown ability: ", ability)
 
@@ -276,10 +276,10 @@ func _doppleganger(timer: Timer, slot: int, infused := false) -> void:
 	for child in $Doubles.get_children(): child.queue_free()
 	doubles_active = false
 
-func _homing_head(timer: Timer, slot: int) -> void:
+func _homing_head(timer: Timer, slot: int, infused := false) -> void:
 	if len($EnemySpawner/SpawnPositions.get_children()) <= 0: return
 	timer.start()
-	await $Player._homing_head()
+	await $Player._homing_head(1.0 if not infused else 2.0)
 
 func _homing_horde(timer: Timer, slot: int, infused := false) -> void:
 	if len($EnemySpawner/SpawnPositions.get_children()) <= 0: return
@@ -340,12 +340,11 @@ func _activate_walking_dead(timer: Timer, slot: int) -> void:
 		if "DeadMarker" in kiddo.name: kiddo.queue_free()
 	walking_dead_pool.clear()
 
-func _activate_life_exchange(timer: Timer, slot: int) -> void:
+func _activate_life_exchange(timer: Timer, slot: int, infused := false) -> void:
 	if Global.score < 200: return
-	var score_to_convert = int(Global.score * 0.5)
-	var lives_gained = max(1.0, score_to_convert / 1000.0)
-	lives += lives_gained
-	Global.score -= score_to_convert
+	var conversionScore = int(Global.score * 0.5)
+	lives += max(1.0, conversionScore / (1000.0 if not infused else 750.0))
+	Global.score -= conversionScore
 	hud.set_lives(lives)
 	hud.set_score_label()
 	var tween = create_tween()
