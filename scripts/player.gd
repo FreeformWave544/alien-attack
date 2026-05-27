@@ -186,14 +186,14 @@ func _on_homing_area_entered(area: Area2D) -> void:
 @onready var upgrader = preload("res://scenes/upgrades.tscn").instantiate()
 func _on_debug_visibility_changed() -> void:
 	if not $Debug.visible: return
-	var ab1 = $Debug/Panel/CenterContainer/Container/VBoxContainer/Ability1
-	var ab2 = $Debug/Panel/CenterContainer/Container/VBoxContainer/Ability2
-	var ab3 = $Debug/Panel/CenterContainer/Container/VBoxContainer/Ability3
-	var ab4 = $Debug/Panel/CenterContainer/Container/VBoxContainer/Ability4
-	var ab5 = $Debug/Panel/CenterContainer/Container/VBoxContainer2/Ability5
-	var ab6 = $Debug/Panel/CenterContainer/Container/VBoxContainer2/Ability6
-	var ab7 = $Debug/Panel/CenterContainer/Container/VBoxContainer2/Ability7
-	var ab8 = $Debug/Panel/CenterContainer/Container/VBoxContainer2/Ability8
+	var ab1 = $"Debug/Panel/CenterContainer/Container/Abilities/1/Ability1"
+	var ab2 = $"Debug/Panel/CenterContainer/Container/Abilities/2/Ability2"
+	var ab3 = $"Debug/Panel/CenterContainer/Container/Abilities/3/Ability3"
+	var ab4 = $"Debug/Panel/CenterContainer/Container/Abilities/4/Ability4"
+	var ab5 = $"Debug/Panel/CenterContainer/Container/Abilities/5/Ability5"
+	var ab6 = $"Debug/Panel/CenterContainer/Container/Abilities/6/Ability6"
+	var ab7 = $"Debug/Panel/CenterContainer/Container/Abilities/7/Ability7"
+	var ab8 = $"Debug/Panel/CenterContainer/Container/Abilities/8/Ability8"
 	ab1.clear()
 	ab2.clear()
 	ab3.clear()
@@ -220,8 +220,7 @@ func _on_debug_visibility_changed() -> void:
 	ab7.select(-1)
 	ab8.select(-1)
 	for i in range(len(UpgradeManager.equippedUpgrades)):
-		var cont = "2" if i + 1 >= 5 else ""
-		var ab = $Debug/Panel/CenterContainer/Container.find_child("VBoxContainer" + cont).find_child("Ability" + str(i + 1))
+		var ab = $Debug/Panel/CenterContainer/Container/Abilities.find_child(str(i + 1)).find_child("Ability" + str(i + 1))
 		if not ab: return
 		for item_index in range(ab.item_count):
 			if ab.get_item_text(item_index) == UpgradeManager.equippedUpgrades[i]["ID"]: ab.select(item_index) ; break
@@ -231,11 +230,11 @@ func _on_back_pressed() -> void: $Debug.hide() ; get_tree().paused = false
 func _update_equipped() -> void:
 	$"../backgroudMusic".process_mode = Node.PROCESS_MODE_ALWAYS if Global.playWhilePaused else Node.PROCESS_MODE_INHERIT
 	for i in range(8):
-		var ab = $Debug/Panel/CenterContainer/Container.find_child("Ability" + str(i + 1))
+		var ab = $Debug/Panel/CenterContainer/Container/Abilities.find_child(str(i + 1)).get_child(0)
 		if ab.selected == -1: continue
 		for upgrade in upgrader.upgrades:
 			if upgrade.ID == ab.get_item_text(ab.selected):
-				var data = {"Type": upgrade.type, "ID": upgrade.ID, "Rarity": upgrade.rarity, "Icon": upgrade.icon, "Infused": $Debug/Panel/CenterContainer/Container.find_child("Infused" + ("1" if i + 1 <= 4 else "2")).find_child("Infused" + str(i + 1)).button_pressed}
+				var data = {"Type": upgrade.type, "ID": upgrade.ID, "Rarity": upgrade.rarity, "Icon": upgrade.icon, "Infused": $Debug/Panel/CenterContainer/Container/Abilities.find_child(str(i + 1)).get_child(1).button_pressed}
 				if i < UpgradeManager.equippedUpgrades.size(): UpgradeManager.equippedUpgrades[i] = data
 				else: UpgradeManager.equippedUpgrades.append(data)
 				break

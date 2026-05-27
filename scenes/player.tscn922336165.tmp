@@ -222,7 +222,6 @@ texture = SubResource("CanvasTexture_lyayy")
 
 [node name="Debug" type="CanvasLayer" parent="." unique_id=346265220]
 process_mode = 3
-visible = false
 
 [node name="Panel" type="Panel" parent="Debug" unique_id=495892230]
 custom_minimum_size = Vector2(500, 500)

@@ -83,7 +83,7 @@ func secondAttack():
 	var fireball = fb.instantiate()
 	add_child(fireball)
 	fireball.add_to_group("fireball")
-	fireball.animator.play("default")
+	fireball.animator.play("moving")
 	fireball.global_position = global_position
 	var viewport_height = get_viewport_rect().size.y
 	var top_bound = -20
@@ -94,7 +94,7 @@ func thirdAttack():
 	var fireball = fb.instantiate()
 	add_child(fireball)
 	fireball.add_to_group("fireball")
-	fireball.animator.play("default")
+	fireball.animator.play("moving")
 	fireball.global_position = global_position
 	fireball.global_position.y = player.global_position.y
 

@@ -35,7 +35,7 @@ func fetch_best_score():
 		Global.achievements["path10"] = true
 	if Global.score > Global.high_scores[Global.difficil]:
 		Global.high_scores[Global.difficil] = Global.score
-		await ApiManager.send_request("POST", "/scores", Global.high_scores)
+		#await ApiManager.send_request("POST", "/scores", Global.high_scores)
 	$CanvasLayer/Panel/VBoxContainer/HBoxContainer/Score.text = "SCORE: " + str(Global.score) + "\nBEST SCORE: " + str(Global.high_scores[Global.difficil])
 	$CanvasLayer/Panel/VBoxContainer/FinalTime.text = "Final Time: %.2f" % Global.finalTime
 	display_medal(Global.score)

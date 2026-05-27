@@ -215,7 +215,7 @@ func use_ability(slot: int = 0) -> void:
 		"lifeExchange": _activate_life_exchange(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"ghostPhoenix": _activate_ghostly_phoenix(timer, slot) # Infuse? :Idea-Heavy:
 		"Slow": _activate_slow_enemies(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
-		"Eye": _activate_eye_of_chaos(timer, slot) # Infuse? :Too-OP?:
+		"Eye": _activate_eye_of_chaos(timer, slot) # Infuse? :Too-OP?: :Too-Rare:
 		"WalkingDead": _activate_walking_dead(timer, slot) # Infuse? :Idea-Heavy:
 		"neurowave": _neurowave(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"doubles": _doppleganger(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
@@ -246,7 +246,7 @@ func _activate_invincibility(timer: Timer, slot: int, infused := false) -> void:
 	timer.start()
 	await get_tree().create_timer(3.0).timeout
 	invincibility_active = false
-	if infused: outburst.hide()
+	if infused: outburst.hide() ; outburst.queue_free()
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 var doubles_active := false
@@ -298,14 +298,14 @@ var neurowave_active := false
 func _neurowave(timer: Timer, slot: int, infused := false) -> void:
 	if neurowave_active: return
 	neurowave_active = true
-	$Player.timer.wait_time /= 2.0 if not infused else 3.0
+	$Player.timer.wait_time /= 2.0 if not infused else 4.0
 	var tween = create_tween()
-	tween.set_loops(6)
+	tween.set_loops(8)
 	tween.tween_property($Neurowave, "color:a", 0.005, 0.25)
 	tween.tween_property($Neurowave, "color:a", 0.025, 0.25)
 	timer.start()
-	await get_tree().create_timer(3.0).timeout
-	$Player.timer.wait_time *= 2.0 if not infused else 3.0
+	await get_tree().create_timer(4.0).timeout
+	$Player.timer.wait_time *= 2.0 if not infused else 4.0
 	neurowave_active = false
 	$Neurowave.color.a = 0.0
 	await get_tree().process_frame

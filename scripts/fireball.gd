@@ -8,12 +8,9 @@ var fbLives: int = 1
 func _ready() -> void:
 	animator.play("moving")
 	match Global.difficil:
-		"hard":
-			fbLives = 1
-		"easy":
-			fbLives = 1
-		_:
-			fbLives = 2
+		"hard": fbLives = 1
+		"easy": fbLives = 1
+		_: fbLives = 2
 
 func _process(delta: float) -> void:
 	if not hit:

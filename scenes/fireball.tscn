@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://dm20jpctn6xo4"]
+[gd_scene format=3 uid="uid://dm20jpctn6xo4"]
 
 [ext_resource type="Texture2D" uid="uid://ehyatu1fk4qk" path="res://assets/textures/boss/fireBallStylOo/spritesSheets/fireballExplosion.png" id="1_275vv"]
-[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_rp7y2"]
+[ext_resource type="Script" uid="uid://7en6jdj5y7ss" path="res://scripts/fireball.gd" id="1_rp7y2"]
 [ext_resource type="Texture2D" uid="uid://cytp5r5ieknsx" path="res://assets/textures/boss/fireBallStylOo/spritesSheets/fireballMovinl.png" id="2_0rt1r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3y231"]
@@ -104,16 +104,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_8i1n3"]
 radius = 86.0
 
-[node name="fireball" type="Area2D" groups=["fireball"]]
+[node name="fireball" type="Area2D" unique_id=1230182559 groups=["fireball"]]
 collision_layer = 2
 script = ExtResource("1_rp7y2")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["fireball"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=101477117 groups=["fireball"]]
 sprite_frames = SubResource("SpriteFrames_80wbp")
-animation = &"explosion"
-frame_progress = 0.184718
+animation = &"moving"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["fireball"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1713786345 groups=["fireball"]]
 position = Vector2(5, -8)
 shape = SubResource("CircleShape2D_8i1n3")
 

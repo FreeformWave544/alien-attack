@@ -24,7 +24,7 @@ config/icon="uid://bv33a83ppemxc"
 [autoload]
 
 Global="*res://scripts/global.gd"
-ApiManager="*res://scenes/api_manager.tscn"
+ApiManager="res://scenes/api_manager.tscn"
 Constants="*res://scripts/constants.gd"
 UpgradeManager="*res://scripts/upgrade_manager.gd"
 AppConfig="*uid://cjke6crjg14a0"
