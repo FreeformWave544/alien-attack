@@ -11,6 +11,9 @@ var jwt_token: String = "" ; var sessionRuns: int = 0 ; var recentScores = [] ; 
 var run := false ; var fastRocketActive := false
 var scroll_offset := Vector2.ZERO
 var playWhilePaused := false
+var upgrades = {
+	"BaseSpeed": 300.0
+}
 
 func _ready() -> void:
 	load_achievements() ; load_scores()

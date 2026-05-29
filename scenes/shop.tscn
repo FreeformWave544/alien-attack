@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://dlgq3uh20hfht"]
+
+[ext_resource type="Theme" uid="uid://xjn6s723t6oi" path="res://addons/pca_theme.tres" id="1_lx5au"]
+[ext_resource type="Script" uid="uid://d0cngnjg4cgmb" path="res://scripts/shop.gd" id="1_xfvoa"]
+
+[node name="Shop" type="Control" unique_id=1600502529]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xfvoa")
+
+[node name="Panel" type="Panel" parent="." unique_id=536243507]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lx5au")
+
+[node name="GridContainer" type="GridContainer" parent="Panel" unique_id=17784380]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+columns = 8
+
+[node name="BaseSpeed" type="VBoxContainer" parent="Panel/GridContainer" unique_id=392331854]
+layout_mode = 2
+
+[node name="Value" type="Button" parent="Panel/GridContainer/BaseSpeed" unique_id=113930941]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1.0"
+
+[node name="Name" type="Label" parent="Panel/GridContainer/BaseSpeed" unique_id=2072780495]
+layout_mode = 2
+text = "Base Speed"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="Panel/GridContainer/BaseSpeed" unique_id=1517554253]
+layout_mode = 2
+text = "500.0"
+horizontal_alignment = 1
