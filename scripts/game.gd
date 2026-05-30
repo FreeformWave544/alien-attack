@@ -185,7 +185,7 @@ func _abilityChargeHandler(): $UI/HUD/AbilityChargeProgress.value = fastRocketCh
 
 @export_category("Abilities")
 @export var ABCDs: Array = [15.0, 20.0, 30.0, 45.0, 60.0, 80.0, 90.0, 100.0, 120.0]
-@export var tiers: Array = [["FWH", "Slow", "neurowave", "surge", "homing"], ["invincibility", "doubles"], ["lifeExchange"], ["WalkingDead", "hHorde"], ["ghostPhoenix", "Eye"]]
+@export var tiers: Array = [["FWH", "Slow", "neurowave", "surge", "homing"], ["laser", "invincibility", "doubles"], ["lifeExchange"], ["WalkingDead", "hHorde"], ["ghostPhoenix", "Eye"]]
 @export var ABCDTimers: Dictionary = {
 	"AB1CD": "ABCDs/Ability1",
 	"AB2CD": "ABCDs/Ability2",
@@ -202,8 +202,7 @@ func use_ability(slot: int = 0) -> void:
 	if len(UpgradeManager.equippedUpgrades) - 1 >= slot: ability = UpgradeManager.equippedUpgrades[slot].ID
 	else: return
 	_setup_ability_timers()
-	var timer_key = "AB%dCD" % (slot + 1)
-	var timer_path = ABCDTimers.get(timer_key)
+	var timer_path = ABCDTimers.get("AB%dCD" % (slot + 1))
 	if not timer_path: return
 	var timer = get_node_or_null(timer_path)
 	if not timer: return
@@ -223,6 +222,7 @@ func use_ability(slot: int = 0) -> void:
 		"homing": _homing_head(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"hHorde": _homing_horde(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		"FWH": _fast_way_home(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
+		"laser": _laser(timer, slot, UpgradeManager.equippedUpgrades[slot].Infused)
 		_: print("Unknown ability: ", ability)
 
 func _activate_invincibility(timer: Timer, slot: int, infused := false) -> void:
@@ -250,10 +250,7 @@ func _activate_invincibility(timer: Timer, slot: int, infused := false) -> void:
 	if infused: outburst.hide() ; outburst.queue_free()
 	$Player/Sprite2D.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
-var FWH_active := false
 func _fast_way_home(timer: Timer, slot: int, infused := false) -> void:
-	#if FWH_active: return
-	FWH_active = true
 	$Player.speed *= 2.0 if not infused else 4.0
 	$Neurowave.color = Color(0.149, 0.655, 0.783, 0.0)
 	var tween = create_tween()
@@ -263,10 +260,20 @@ func _fast_way_home(timer: Timer, slot: int, infused := false) -> void:
 	timer.start()
 	await get_tree().create_timer(4.0).timeout
 	$Player.speed /= 2.0 if not infused else 4.0
-	FWH_active = false
 	$Neurowave.color.a = 0.0
 	await get_tree().process_frame
 	$Neurowave.color.a = 0.0
+
+var laser_active := false
+func _laser(timer: Timer, slot: int, infused := false) -> void:
+	if laser_active: return
+	laser_active = true
+	timer.start()
+	@warning_ignore("incompatible_ternary")
+	$Player.laser_active = true if infused else "INFUSED"
+	await get_tree().create_timer(5.0 if not infused else 2.0).timeout
+	$Player.laser_active = false
+	laser_active = false
 
 var doubles_active := false
 func _doppleganger(timer: Timer, slot: int, infused := false) -> void:

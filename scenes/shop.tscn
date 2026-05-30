@@ -4,12 +4,16 @@
 [ext_resource type="Script" uid="uid://d0cngnjg4cgmb" path="res://scripts/shop.gd" id="1_xfvoa"]
 
 [node name="Shop" type="Control" unique_id=1600502529]
+process_mode = 3
+top_level = true
+z_index = 50
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_xfvoa")
 
 [node name="Panel" type="Panel" parent="." unique_id=536243507]
@@ -25,6 +29,7 @@ offset_right = 500.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("1_lx5au")
 
 [node name="GridContainer" type="GridContainer" parent="Panel" unique_id=17784380]
@@ -38,11 +43,13 @@ offset_right = -25.0
 offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/h_separation = 10
 columns = 8
 
 [node name="BaseSpeed" type="VBoxContainer" parent="Panel/GridContainer" unique_id=392331854]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Value" type="Button" parent="Panel/GridContainer/BaseSpeed" unique_id=113930941]
 custom_minimum_size = Vector2(50, 50)
@@ -58,3 +65,49 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "500.0"
 horizontal_alignment = 1
+
+[node name="laser" type="VBoxContainer" parent="Panel/GridContainer" unique_id=1873458027]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Value" type="Button" parent="Panel/GridContainer/laser" unique_id=687555431]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1.0"
+
+[node name="Name" type="Label" parent="Panel/GridContainer/laser" unique_id=359214655]
+layout_mode = 2
+text = "Laser Speed"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="Panel/GridContainer/laser" unique_id=436395790]
+layout_mode = 2
+text = "500.0"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="Panel" unique_id=659397461]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+text = "SCORE: "
+
+[node name="Back" type="Button" parent="Panel" unique_id=1416809315]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -53.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "BACK"
+
+[connection signal="pressed" from="Panel/Back" to="." method="_on_back_pressed"]

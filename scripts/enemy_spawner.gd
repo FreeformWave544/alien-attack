@@ -44,8 +44,8 @@ func _on_timer_timeout() -> void:
 	var enemy_speed = 100 + value * 10
 	enemy_instance.set("health", randf_range(60, 100) + value * 10)
 	enemy_instance.set("speed", enemy_speed)
-	if is_inside_tree() and game_script.has_method("_on_enemy_died"): enemy_instance.connect("died", Callable(game_script, "_on_enemy_died"))
-	enemy_container.add_child(enemy_instance)
+	if is_inside_tree() and game_script.has_method("_on_enemy_died") and enemy_instance.has_method("died"): enemy_instance.connect("died", Callable(game_script, "_on_enemy_died"))
+	enemy_container.add_child(enemy_instance, true)
 	emit_signal("enemy_spawned", enemy_instance)
 
 func _process(delta):

@@ -167,3 +167,4 @@ func died():
 	player.AbSpeedMulti = 1.5
 	get_parent().fastRocketDuration += 0.2
 	get_parent().upgradeLoop()
+	get_parent().find_child("UI").add_child(preload("res://scenes/shop.tscn").instantiate())

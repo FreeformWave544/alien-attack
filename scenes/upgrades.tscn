@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://656synyy7xpi" path="res://assets/Any/WarlockIcons/8.png" id="12_deu2k"]
 [ext_resource type="Texture2D" uid="uid://cds1r6i50rsq1" path="res://assets/Any/WarlockIcons/5.png" id="13_mp7ln"]
 [ext_resource type="Texture2D" uid="uid://7wvs5iqydk8n" path="res://assets/Any/WarlockIcons/9.png" id="14_keijs"]
+[ext_resource type="Texture2D" uid="uid://kf3wdru5huy0" path="res://assets/Any/WarlockIcons/23.png" id="15_hxux0"]
 
 [sub_resource type="Resource" id="Resource_yoata"]
 script = ExtResource("2_5wf0v")
@@ -127,6 +128,15 @@ ID = "FWH"
 icon = ExtResource("14_keijs")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"
 
+[sub_resource type="Resource" id="Resource_hku23"]
+script = ExtResource("2_5wf0v")
+upgrade_name = "Laser"
+type = "Offensive"
+ID = "laser"
+infusible = true
+icon = ExtResource("15_hxux0")
+metadata/_custom_type_script = "uid://fm06r82v8uh8"
+
 [sub_resource type="LabelSettings" id="LabelSettings_keijs"]
 font = ExtResource("7_mp7ln")
 font_size = 24
@@ -149,7 +159,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h5bgf")
-upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu"), SubResource("Resource_h5bgf"), SubResource("Resource_vi17a"), SubResource("Resource_3vdl0"), SubResource("Resource_deu2k"), SubResource("Resource_mp7ln"), SubResource("Resource_keijs"), SubResource("Resource_4mbkf"), SubResource("Resource_gpalg")])
+upgrades = Array[ExtResource("2_5wf0v")]([SubResource("Resource_yoata"), SubResource("Resource_hxux0"), SubResource("Resource_ldw3g"), SubResource("Resource_5pnuu"), SubResource("Resource_h5bgf"), SubResource("Resource_vi17a"), SubResource("Resource_3vdl0"), SubResource("Resource_deu2k"), SubResource("Resource_mp7ln"), SubResource("Resource_keijs"), SubResource("Resource_4mbkf"), SubResource("Resource_gpalg"), SubResource("Resource_hku23")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1257614020]
 

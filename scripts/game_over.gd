@@ -40,7 +40,7 @@ func fetch_best_score():
 	$CanvasLayer/Panel/VBoxContainer/FinalTime.text = "Final Time: %.2f" % Global.finalTime
 	display_medal(Global.score)
 
-func display_medal(score: int):
+func display_medal(score: float):
 	Global.sessionRuns += 1
 	Global.recentScores.append(score)
 	if Global.score >= 20000:

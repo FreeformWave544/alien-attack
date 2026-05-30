@@ -160,6 +160,9 @@ height = 92.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lyayy"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjrip"]
+size = Vector2(40, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=818148622 groups=["player"]]
 collision_mask = 18
 motion_mode = 1
@@ -344,6 +347,22 @@ offset_bottom = 41.0
 grow_horizontal = 0
 text = "BACK"
 
+[node name="Pew" type="Area2D" parent="." unique_id=1621378316]
+top_level = true
+position = Vector2(-1280, 0)
+collision_layer = 4
+collision_mask = 50
+
+[node name="Pew" type="ColorRect" parent="Pew" unique_id=843885791]
+offset_right = 40.0
+offset_bottom = 1.0
+color = Color(4.415934, 0, 4.415934, 0.49803922)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pew" unique_id=1163526910]
+position = Vector2(20, 0.5)
+shape = SubResource("RectangleShape2D_fjrip")
+
 [connection signal="visibility_changed" from="Debug" to="." method="_on_debug_visibility_changed"]
 [connection signal="pressed" from="Debug/Panel/CenterContainer/Container/Update" to="." method="_update_equipped"]
 [connection signal="pressed" from="Debug/Panel/Back" to="." method="_on_back_pressed"]
+[connection signal="area_entered" from="Pew" to="." method="_on_pew_area_entered"]

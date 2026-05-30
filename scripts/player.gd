@@ -48,7 +48,31 @@ func _physics_process(delta):
 	var screen_size = get_viewport_rect().size
 	global_position = global_position.clamp(Vector2(0,0), screen_size)
 
+var laser_active = false
+func _laser():
+	var pew = $Pew.duplicate()
+	add_child(pew)
+	pew.show()
+	pew.global_position = global_position
+	pew.get_child(0).color = Color(4.416, 0.0, 4.416, 0.498)
+	if laser_active is not bool:
+		laser.pitch_scale = randf_range(1.2, 1.6)
+		laser.play()
+		while pew.global_position.x < 1300.0:
+			await get_tree().process_frame
+			if get_tree().paused: continue
+			pew.global_position.x += 10.0 * float(Global.upgrades["laser"]) if "laser" in Global.upgrades else 10.0
+	else:
+		pew.get_child(0).color = Color(4.416, 4.416, 2.987, 0.667)
+		for i in range(8): pew.scale.x += 32.0/8.0 ; await get_tree().process_frame
+		await get_tree().create_timer(0.5).timeout
+		while pew.modulate.a >= 0.05:
+			pew.modulate.a -= 0.01
+			await get_tree().process_frame
+	pew.queue_free()
+
 func shoot():
+	if laser_active: _laser() ; return
 	if not ((timer.time_left == 0 or Global.fastRocketActive) and Global.canFire): return
 	var rocket_instance = rocket_scene.instantiate()
 	rocket_container.add_child(rocket_instance)
@@ -239,3 +263,14 @@ func _update_equipped() -> void:
 				else: UpgradeManager.equippedUpgrades.append(data)
 				break
 	_on_back_pressed()
+
+func _on_pew_area_entered(area: Area2D) -> void:
+	print(area.get_groups(), area.name)
+	for group in area.get_groups(): if group not in ["path", "enemies", "dodge", "boss", "asteroid"]: print("GROUP ERROR")
+	if area.has_method("die"): area.die()
+	elif area.has_method("death"): area.death()
+	elif area.has_method("dead"): area.dead()
+	elif area.has_method("died"):
+		if is_in_group("boss"): area.damaged()
+		else: area.died()
+	else: area.queue_free()
