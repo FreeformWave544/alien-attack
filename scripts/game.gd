@@ -287,7 +287,6 @@ func _doppleganger(timer: Timer, slot: int, infused := false) -> void:
 	double2.global_position.y -= 80
 	var double3
 	var double4
-	print(infused)
 	if infused:
 		double3 = $Player.duplicate()
 		$Doubles.add_child(double3, true)

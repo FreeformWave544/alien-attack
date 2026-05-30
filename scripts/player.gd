@@ -265,8 +265,7 @@ func _update_equipped() -> void:
 	_on_back_pressed()
 
 func _on_pew_area_entered(area: Area2D) -> void:
-	print(area.get_groups(), area.name)
-	for group in area.get_groups(): if group not in ["path", "enemies", "dodge", "boss", "asteroid"]: print("GROUP ERROR")
+	for group in area.get_groups(): if group not in ["path", "enemies", "dodge", "boss", "asteroid"]: return
 	if area.has_method("die"): area.die()
 	elif area.has_method("death"): area.death()
 	elif area.has_method("dead"): area.dead()
