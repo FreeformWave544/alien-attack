@@ -269,7 +269,5 @@ func _on_pew_area_entered(area: Area2D) -> void:
 	if area.has_method("die"): area.die()
 	elif area.has_method("death"): area.death()
 	elif area.has_method("dead"): area.dead()
-	elif area.has_method("died"):
-		if is_in_group("boss"): area.damaged()
-		else: area.died()
+	elif area.has_method("damaged"): area.damaged()
 	else: area.queue_free()
