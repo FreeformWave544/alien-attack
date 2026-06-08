@@ -66,6 +66,25 @@ layout_mode = 2
 text = "500.0"
 horizontal_alignment = 1
 
+[node name="AttackSpeed" type="VBoxContainer" parent="Panel/GridContainer" unique_id=1625224416]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Value" type="Button" parent="Panel/GridContainer/AttackSpeed" unique_id=562566900]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1.0"
+
+[node name="Name" type="Label" parent="Panel/GridContainer/AttackSpeed" unique_id=1082897297]
+layout_mode = 2
+text = "Attack Speed"
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="Panel/GridContainer/AttackSpeed" unique_id=1134920176]
+layout_mode = 2
+text = "1500.0"
+horizontal_alignment = 1
+
 [node name="laser" type="VBoxContainer" parent="Panel/GridContainer" unique_id=1873458027]
 visible = false
 layout_mode = 2

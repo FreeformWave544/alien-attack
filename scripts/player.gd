@@ -42,7 +42,7 @@ func start_fade_out(): fading_in = -1
 var projSpeed = 500.0
 func _physics_process(delta):
 	projSpeed = 500.0 * delta
-	velocity = lerp(velocity, speed * Input.get_vector("move_left", "move_right", "move_up", "move_down"), 1.0 - exp(-responsiveness * delta))
+	velocity = lerp(velocity, (speed * (Global.upgrades["BaseSpeed"] if "BaseSpeed" in Global.upgrades else 1.0)) * Input.get_vector("move_left", "move_right", "move_up", "move_down"), 1.0 - exp(-responsiveness * delta))
 	if Input.is_action_pressed("debug") and OS.is_debug_build(): $Debug.visible = !$Debug.visible ; get_tree().paused = $Debug.visible
 	move_and_slide()
 	var screen_size = get_viewport_rect().size
@@ -60,7 +60,7 @@ func _laser():
 		laser.play()
 		while pew.global_position.x < 1300.0:
 			await get_tree().process_frame
-			if get_tree().paused: continue
+			if is_inside_tree() and get_tree() and get_tree().paused: continue
 			pew.global_position.x += 10.0 * float(Global.upgrades["laser"]) if "laser" in Global.upgrades else 10.0
 	else:
 		pew.get_child(0).color = Color(4.416, 4.416, 2.987, 0.667)

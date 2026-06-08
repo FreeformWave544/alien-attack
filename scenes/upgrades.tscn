@@ -133,6 +133,7 @@ script = ExtResource("2_5wf0v")
 upgrade_name = "Laser"
 type = "Offensive"
 ID = "laser"
+rarity = "Rare"
 infusible = true
 icon = ExtResource("15_hxux0")
 metadata/_custom_type_script = "uid://fm06r82v8uh8"

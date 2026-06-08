@@ -54,6 +54,7 @@ func upgradeLoop() -> bool:
 				if is_inside_tree(): await get_tree().process_frame
 				else: break
 		get_upgrade()
+		if i == 2: $UI.add_child(preload("res://scenes/shop.tscn").instantiate())
 	return true
 
 func get_upgrade():
