@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Alien Attack"
 run/main_scene="uid://crp0e7iw2pqyb"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0.0350624, 0.139482, 0.269087, 1)
 boot_splash/image="res://assets/textures/player_ship.png"
 config/icon="uid://bv33a83ppemxc"
