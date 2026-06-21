@@ -119,6 +119,7 @@ offset_right = 190.0
 offset_bottom = -92.0
 grow_vertical = 0
 step = 0.1
+fill_mode = 4
 texture_progress = SubResource("GradientTexture2D_6fi6k")
 
 [node name="Ability1" type="TextureProgressBar" parent="Upgrades" unique_id=1060064707]

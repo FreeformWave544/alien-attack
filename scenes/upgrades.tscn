@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cds1r6i50rsq1" path="res://assets/Any/WarlockIcons/5.png" id="13_mp7ln"]
 [ext_resource type="Texture2D" uid="uid://7wvs5iqydk8n" path="res://assets/Any/WarlockIcons/9.png" id="14_keijs"]
 [ext_resource type="Texture2D" uid="uid://kf3wdru5huy0" path="res://assets/Any/WarlockIcons/23.png" id="15_hxux0"]
+[ext_resource type="Script" uid="uid://in2t8vxnjd26" path="res://scenes/upgrade.gd" id="16_ldw3g"]
 
 [sub_resource type="Resource" id="Resource_yoata"]
 script = ExtResource("2_5wf0v")
@@ -170,6 +171,8 @@ offset_left = 490.0
 offset_top = 210.0
 offset_right = 790.0
 offset_bottom = 510.0
+pivot_offset = Vector2(150, 150)
+script = ExtResource("16_ldw3g")
 
 [node name="Background" type="ColorRect" parent="CanvasLayer/Upgrade" unique_id=1573190496]
 layout_mode = 1
@@ -178,6 +181,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 color = Color(0.016059376, 0.20966567, 0.20966567, 0.22352941)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Upgrade" unique_id=404348777]
@@ -240,3 +244,6 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+
+[connection signal="mouse_entered" from="CanvasLayer/Upgrade/Button" to="CanvasLayer/Upgrade" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Upgrade/Button" to="CanvasLayer/Upgrade" method="_on_mouse_exited"]
