@@ -11,6 +11,9 @@ func _ready() -> void:
 		if child.name in Global.upgrades: child.find_child("Value").text = str(Global.upgrades[child.name])
 		else: Global.upgrades[child.name] = float(child.find_child("Value").text) ; _ready()
 		if not child.find_child("Value").is_connected("pressed", upgrade): child.find_child("Value").pressed.connect(upgrade.bind(child.name))
+	while visible:
+		if !get_tree().paused: get_tree().paused = true
+		await get_tree().create_timer(0.1).timeout
 
 func upgrade(id = ""):
 	if float($Panel/GridContainer.find_child("Price").text) <= Global.score:
